@@ -1,0 +1,11 @@
+.background-colour{
+    background-color: #353839;
+}
+
+.div-box{
+    border: 2px groove white;
+    margin: 1%;
+    padding: 1%;
+    color: white;
+    text-align: center;
+}
