@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- <meta charset="UTF-8"> -->
+        <title>{{title}}</title>
+        <link href="{{ url_for('static', path='main.css') }}" rel="stylesheet">
+    </head>
+    <body class="background-colour">
+        <div>
+            <a href="/">
+                <div class="div-box" style="background-color: darkslategray;">
+                    <h1>Home</h1>
+                </div>
+            </a>
+            {% for each in list %}
+            <a href="{{title}}/{{each}}">
+                <div class="div-box">
+                    {{each}}
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </body>
+</html>
