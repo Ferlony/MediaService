@@ -10,8 +10,26 @@ app = FastAPI()
 
 app.mount(
     "/static",
-    StaticFiles(directory=ConfigData.front_path + "styles"),
-    name="static",
+    StaticFiles(directory=ConfigData.front_path + "static"),
+    name="static"
+)
+
+app.mount(
+    "/pic",
+    StaticFiles(directory=ConfigData.pictures_path),
+    name="pic"
+)
+
+app.mount(
+    "/vid",
+    StaticFiles(directory=ConfigData.video_path),
+    name="vid"
+)
+
+app.mount(
+    "/mus",
+    StaticFiles(directory=ConfigData.music_path),
+    name="mus"
 )
 
 templates = Jinja2Templates(directory=ConfigData.front_path + "templates")
@@ -27,7 +45,24 @@ async def root(request: Request):
 @app.get("/pictures")
 async def pictures(request: Request):
     return templates.TemplateResponse(
-        "pictures/pictures.html", {"request": request}
+        "menus.html", {"request": request,
+                       "title": "pictures",
+                       "list": file_worker.get_dirs_in_path(ConfigData.pictures_path)}
+    )
+
+
+@app.get("/pictures/{directory}")
+async def music_playlist(request: Request, directory):
+    # files = file_worker.generate_songs_json(directory, ConfigData.music_path)
+    # print(files)
+    files = file_worker.get_all_files_in_directory(directory, ConfigData.pictures_path).keys()
+
+    return templates.TemplateResponse(
+        "pictures.html", {"request": request,
+                          "directory": directory,
+                          "title": "pictures",
+                          "list": files,
+                          }
     )
 
 
@@ -45,9 +80,9 @@ async def pictures(request: Request):
 async def video_dir(request: Request, directory):
     files = file_worker.get_all_files_in_directory(directory, ConfigData.video_path)
     return templates.TemplateResponse(
-        "music.html", {"request": request,
+        "videos.html", {"request": request,
                        "directory": directory,
-                       "title": "music",
+                       "title": "videos",
                        "list": files}
     )
 
@@ -63,10 +98,12 @@ async def pictures(request: Request):
 
 @app.get("/music/{directory}")
 async def music_playlist(request: Request, directory):
-    files = file_worker.get_all_files_in_directory(directory, ConfigData.music_path)
+    files = file_worker.generate_songs_json(directory, ConfigData.music_path)
+    print(files)
     return templates.TemplateResponse(
         "music.html", {"request": request,
                        "directory": directory,
                        "title": "music",
-                       "list": files}
+                       "list": files
+                       }
     )

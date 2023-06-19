@@ -2,17 +2,44 @@
 <html>
     <head>
         <title>Music</title>
-        <link href="{{ url_for('static', path='main.css') }}" rel="stylesheet">
-        <link href="{{ url_for('static', path='music.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', path='styles/main.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', path='styles/music.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', path='assets/favicon.ico')}}" rel="icon" type="image/x-icon">
     </head>
     <body class="background-colour">
         <div>
-            
+            <a href="/">
+                <div class="div-box" style="background-color: darkslategray;">
+                    <h3>Home</h3>
+                </div>
+            </a>
+            <a href="/music">
+                <div class="div-box" style="background-color: darkslategray;">
+                    <h3>Music</h3>
+                </div>
+            </a>
         </div>
         <div>
-            {% for each in list %}
-            
-            {% endfor %}
+          <embed type="audio/webm"
+       src="file:{{list}}"
+       width="250"
+       height="200">
+            <!-- {% for each in list %}
+            <ul>
+                <li>{{each["name"]}}</li>
+            </ul>
+            {% endfor %} -->
+
+
         </div>
+        {% block javascript %}
+          <script type="text/javascript">
+              {% include "js/music_player.js" %}
+          </script>
+        <!-- The contents of myscript.js will be loaded inside the script tag -->
+        {% endblock %}
+        
+
+
     </body>
 </html>
