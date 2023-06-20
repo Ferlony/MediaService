@@ -52,10 +52,10 @@ async def pictures(request: Request):
 
 
 @app.get("/pictures/{directory}")
-async def music_playlist(request: Request, directory):
-    # files = file_worker.generate_songs_json(directory, ConfigData.music_path)
-    # print(files)
-    files = file_worker.get_all_files_in_directory(directory, ConfigData.pictures_path).keys()
+async def pictures_directory(request: Request, directory):
+    files = file_worker.generate_json(directory, ConfigData.pictures_path)
+    print(files)
+    # files = file_worker.get_all_files_in_directory(directory, ConfigData.pictures_path).keys()
 
     return templates.TemplateResponse(
         "pictures.html", {"request": request,
@@ -67,7 +67,7 @@ async def music_playlist(request: Request, directory):
 
 
 @app.get("/videos")
-async def pictures(request: Request):
+async def videos(request: Request):
     return templates.TemplateResponse(
         "menus.html", {"request": request,
                        "title": "videos",
@@ -77,18 +77,18 @@ async def pictures(request: Request):
 
 
 @app.get("/videos/{directory}")
-async def video_dir(request: Request, directory):
+async def video_directory(request: Request, directory):
     files = file_worker.get_all_files_in_directory(directory, ConfigData.video_path)
     return templates.TemplateResponse(
         "videos.html", {"request": request,
-                       "directory": directory,
-                       "title": "videos",
-                       "list": files}
+                        "directory": directory,
+                        "title": "videos",
+                        "list": files}
     )
 
 
 @app.get("/music")
-async def pictures(request: Request):
+async def music(request: Request):
     return templates.TemplateResponse(
         "menus.html", {"request": request,
                        "title": "music",
@@ -97,8 +97,8 @@ async def pictures(request: Request):
 
 
 @app.get("/music/{directory}")
-async def music_playlist(request: Request, directory):
-    files = file_worker.generate_songs_json(directory, ConfigData.music_path)
+async def music_directory(request: Request, directory):
+    files = file_worker.generate_json(directory, ConfigData.music_path)
     print(files)
     return templates.TemplateResponse(
         "music.html", {"request": request,

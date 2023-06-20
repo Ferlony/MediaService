@@ -66,36 +66,37 @@ def sort_dict_alph(dictionary: dict):
     return out
 
 
-def walk_in_path(path):
+def walk_in_path(directory, path):
     # file_paths = []  # List which will store all of the full filepaths.
     # file_names = []
     files_dict = {}
     # Walk the tree.
-    for root, directories, files in os.walk(path):
+    for root, directories, files in os.walk(path + directory):
         for filename in files:
             # Join the two strings in order to form the full filepath.
             filepath = os.path.join(root, filename)
             # file_paths.append(filepath)  # Add it to the list.
             # file_names.append(filename)
-            files_dict.update({filename: filepath})
+            rel_filepath = filepath.replace(path, "")
+            files_dict.update({filename: rel_filepath})
     return sort_dict_alph(files_dict)
 
 
-def generate_songs_json(directory, path):
+def generate_json(directory, path):
     files_dict = get_all_files_in_directory(directory, path)
     files_list = []
     for keys, values in files_dict.items():
         # audio = audio_duration(values)
         # files_list.append({"name": keys, "file": values, "duration": audio})
         # print(f"{audio}")
-        files_list.append({"name": keys, "src": values})
+        files_list.append({"name": keys, "path": values})
     # return json.dumps(files_list)
     return files_list
 
 
 def get_all_files_in_directory(directory, path):
     if directory in get_dirs_in_path(path):
-        return walk_in_path(path + directory)
+        return walk_in_path(directory, path)
     else:
         return None
 

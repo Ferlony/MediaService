@@ -4,10 +4,11 @@
         <title>Pictures</title>
         <link href="{{ url_for('static', path='assets/favicon.ico')}}" rel="icon" type="image/x-icon">
         <link href="{{ url_for('static', path='styles/main.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', path='styles/pictures.css') }}" rel="stylesheet">
     </head>
 
     <body class="background-colour">
-        <div>
+        <div id="header">
             <a href="/">
                 <div class="div-box" style="background-color: darkslategray;">
                     <h3>Home</h3>
@@ -19,14 +20,47 @@
                 </div>
             </a>
         </div>
-        <div>
-            {% for each in list %}
-            <ul>
-                <li>
-                    <img src="{{ url_for('pic', path=directory + '/' + each) }}" />
-                </li>
-            </ul>
-            {% endfor %}
+
+        <div class="nav-bar">
+            <div>
+                <a href="#header">
+                    <img class="img-res" src="{{ url_for('static', path='assets/buttons/button_up_up.png') }}"/>
+                </a>
+            </div>
+            <div>
+                <img id="btn-scroll-up" class="img-res" src="{{ url_for('static', path='assets/buttons/button_up.png') }}"/>
+            </div>
+
+            <div>
+                <img id="btn-scroll-down" class="img-res" src="{{ url_for('static', path='assets/buttons/button_down.png') }}"/>
+            </div>
+            <div>
+                <a href="#footer">
+                    <img class="img-res" src="{{ url_for('static', path='assets/buttons/button_down_down.png') }}"/>
+                </a>
+            </div>
+            {% block javascript %}
+            <script type="text/javascript">
+                {% include "js/scrolling.js" %}
+            </script>
+            <!-- The contents of myscript.js will be loaded inside the script tag -->
+            {% endblock %}
         </div>
+
+        <div class="on-center">
+            <ol>
+                {% for each in list %}
+                <li>
+                    <a href="{{ url_for('pic', path=each["path"]) }}" target="_blank">
+                    <img class="img-fit" src="{{ url_for('pic', path=each["path"]) }}"
+                        alt="Cant load: {{each["file"]}}" />
+                    </a>
+                </li>
+                {% endfor %}
+            </ol>
+        </div>
+        <footer id="footer">
+            <p>End</p>
+        </footer>
     </body>
 </html>

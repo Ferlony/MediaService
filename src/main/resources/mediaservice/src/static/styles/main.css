@@ -10,6 +10,10 @@
     text-align: center;
 }
 
+.div-box:hover{
+    color: #913831!important;
+}
+
 /* .items-container{
     padding-top: 150px;
     position: relative;
