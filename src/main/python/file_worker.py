@@ -1,6 +1,7 @@
 import os
 import subprocess
 import json
+from pathlib import Path
 
 
 def get_dirs_in_path(path):
@@ -82,14 +83,30 @@ def walk_in_path(directory, path):
     return sort_dict_alph(files_dict)
 
 
+def get_dir_name(path: str):
+    name = ""
+    counter = len(path) - 1
+    while counter > 0:
+        if path[counter] == os.sep:
+            counter -= 1
+            while True:
+                if (counter == -1) or (path[counter] == os.sep):
+                    return name[::-1]
+                name += path[counter]
+                counter -= 1
+        counter -= 1
+
+
 def generate_json(directory, path):
     files_dict = get_all_files_in_directory(directory, path)
     files_list = []
+
     for keys, values in files_dict.items():
         # audio = audio_duration(values)
         # files_list.append({"name": keys, "file": values, "duration": audio})
         # print(f"{audio}")
-        files_list.append({"name": keys, "path": values})
+        dir_name = get_dir_name(values)
+        files_list.append({"name": keys, "path": values, "dir_name": dir_name})
     # return json.dumps(files_list)
     return files_list
 

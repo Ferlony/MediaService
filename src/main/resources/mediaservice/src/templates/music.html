@@ -19,19 +19,25 @@
                 </div>
             </a>
         </div>
-        <div>
-          <embed type="audio/webm"
-       src="file:{{list}}"
-       width="250"
-       height="200">
-            <!-- {% for each in list %}
-            <ul>
-                <li>{{each["name"]}}</li>
-            </ul>
-            {% endfor %} -->
+        
+        <div class="simple-audio-player" id="simp" data-config='{"shide_top":false,"shide_btm":false,"auto_load":false}'>
+            <div class="simp-playlist">
+              <ol>
+                {% for each in list %}
+                <li>
+                    <span class="simp-source" data-src="{{ url_for('mus', path=each["path"]) }}">
+                        {{each["name"]}}
+                    </span>
+                    <span class="simp-desc">
+                        {{each["dir_name"]}}
+                    </span>
+                </li>
+                {% endfor %}
+              </ol>
+            </div>
+            <div class="simp-footer"></div>
+          </div>
 
-
-        </div>
         {% block javascript %}
           <script type="text/javascript">
               {% include "js/music_player.js" %}
