@@ -14,12 +14,17 @@
     color: #913831!important;
 }
 
-/* .items-container{
-    padding-top: 150px;
-    position: relative;
-} */
-
 a{
     text-decoration: none;
     color: white;
+}
+@media screen and (max-width:1000px) and (orientation:portrait){
+    .div-box{
+        padding: 5%;
+        margin: 5%;
+        
+    }
+    body{
+        font-size: xx-large;
+    }
 }

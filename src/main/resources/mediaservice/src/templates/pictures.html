@@ -21,7 +21,7 @@
             </a>
         </div>
 
-        <div class="nav-bar">
+        <!-- <div class="nav-bar">
             <div>
                 <a href="#header">
                     <img class="img-res" src="{{ url_for('static', path='assets/buttons/button_up_up.png') }}"/>
@@ -43,11 +43,13 @@
             <script type="text/javascript">
                 {% include "js/scrolling.js" %}
             </script>
-            <!-- The contents of myscript.js will be loaded inside the script tag -->
             {% endblock %}
+        </div> -->
+        <div class="nav-bar">
+            <a href="#header"><div class="div-box div-res">OnTop</div></a>
+            <a href="#footer"><div class="div-box div-res">OnBot</div></a>
         </div>
-
-        <div class="on-center">
+        <div>
             <ol>
                 {% for each in list %}
                 <li>

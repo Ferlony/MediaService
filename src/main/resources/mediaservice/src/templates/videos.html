@@ -3,11 +3,43 @@
     <head>
         <title>Videos</title>
         <link href="{{ url_for('static', path='styles/main.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', path='styles/videos.css') }}" rel="stylesheet">
         <link href="{{ url_for('static', path='assets/favicon.ico')}}" rel="icon" type="image/x-icon">
     </head>
         
 
-    <body>
-        
+    <body class="background-colour">
+        <div>
+            <a href="/">
+                <div class="div-box" style="background-color: darkslategray;">
+                    <h3>Home</h3>
+                </div>
+            </a>
+            <a href="/videos">
+                <div class="div-box" style="background-color: darkslategray;">
+                    <h3>Videos</h3>
+                </div>
+            </a>
+        </div>
+
+        <header>
+            <h1>{{directory}}</h1>
+        </header>
+ 
+        <div>
+            <ol>
+            {% for each in list %}
+                <li>
+                    <a href="{{ url_for('vid', path=each["path"]) }}" target="_blank">
+                        <div class="div-box inline">
+                            {{each["name"]}}
+                        </div>
+                    </a>
+                </li>
+            {% endfor %}
+            </ol>
+
+        </div>
+
     </body>
 </html>

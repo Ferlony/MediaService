@@ -61,6 +61,7 @@
 }
  #simp{
     max-width:1000px;
+    /* height: 80%; */
     font-size:16px;
     text-align:initial;
     line-height:initial;
@@ -292,7 +293,7 @@
         background-position:25px 0;
     }
 }
-/* mobile */
+/* mobile
  @media screen and (max-width:480px) {
      #simp .simp-controls .simp-volume,#simp .simp-controls .simp-others{
         display:none;
@@ -305,4 +306,13 @@
      #simp .simp-time .simp-slash,#simp .simp-time .end-time{
         display:none;
     }
+} */
+
+
+
+@media screen and (max-width:1000px) and (orientation:portrait){
+    #simp{
+        font-size: xx-large;
+    }
 }
+

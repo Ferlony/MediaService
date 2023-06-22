@@ -1,5 +1,4 @@
 import os
-import subprocess
 from natsort import natsorted
 
 
@@ -40,16 +39,10 @@ def sort_files(files):
 
 
 def walk_in_path(directory, path, sort):
-    # file_paths = []  # List which will store all of the full filepaths.
-    # file_names = []
     files_list = []
-    # Walk the tree.
     for root, directories, files in os.walk(path + directory):
         for filename in files:
-            # Join the two strings in order to form the full filepath.
             filepath = os.path.join(root, filename)
-            # file_paths.append(filepath)  # Add it to the list.
-            # file_names.append(filename)
             rel_filepath = filepath.replace(path, "")
             dir_name = get_dir_name(rel_filepath)
             files_list.append({"name": filename, "path": rel_filepath, "dir_name": dir_name})
@@ -79,15 +72,3 @@ def get_files_in_directory(directory, path, sort=False):
         return walk_in_path(directory, path, sort)
     else:
         return None
-
-
-def audio_duration(path):
-    result = subprocess.run(["ffprobe", "-v", "error", "-show_entries",
-                             "format=duration", "-of",
-                             "default=noprint_wrappers=1:nokey=1", path],
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT)
-    time = float(result.stdout)
-    mon, sec = divmod(time, 60)
-    hr, mon = divmod(mon, 60)
-    return ("%d:%02d:%02d" % (hr, mon, sec))
