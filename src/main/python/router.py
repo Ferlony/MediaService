@@ -53,7 +53,8 @@ async def pictures(request: Request):
 
 @app.get("/pictures/{directory}")
 async def pictures_directory(request: Request, directory):
-    files = file_worker.generate_json(directory, ConfigData.pictures_path)
+    files = file_worker.get_files_in_directory(directory, ConfigData.pictures_path)
+    print(files)
     return templates.TemplateResponse(
         "pictures.html", {"request": request,
                           "directory": directory,
@@ -75,7 +76,8 @@ async def videos(request: Request):
 
 @app.get("/videos/{directory}")
 async def video_directory(request: Request, directory):
-    files = file_worker.get_all_files_in_directory(directory, ConfigData.video_path)
+    files = file_worker.get_files_in_directory(directory, ConfigData.video_path, True)
+    print(files)
     return templates.TemplateResponse(
         "videos.html", {"request": request,
                         "directory": directory,
@@ -95,7 +97,8 @@ async def music(request: Request):
 
 @app.get("/music/{directory}")
 async def music_directory(request: Request, directory):
-    files = file_worker.generate_json(directory, ConfigData.music_path)
+    files = file_worker.get_files_in_directory(directory, ConfigData.music_path, True)
+    print(files)
     return templates.TemplateResponse(
         "music.html", {"request": request,
                        "directory": directory,

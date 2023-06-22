@@ -1,76 +1,48 @@
 import os
 import subprocess
-import json
-from pathlib import Path
+from natsort import natsorted
 
 
 def get_dirs_in_path(path):
     return os.listdir(path)
 
 
-def ethkey(eth):
-    """Split an ethernet device name between text and digit groups as int,
-    allowing consistent sorting of interfaces.
+def sort_files(files):
+    sorted_names = []
+    sorted_paths = []
+    sorted_dir_names = []
+    out = []
 
-    Usage: `sorted(if_list, key=ethkey)`
+    for each in files:
+        sorted_names.append(each.get("name"))
+        sorted_paths.append(each.get("path"))
+        sorted_dir_names.append(each.get("dir_name"))
 
-    :param eth: Value to sort
-    :type eth: str
-    :return: List of str's (even indexes) and int's (odd indexes) to compare
-    :rtype: list
-    """
+    sorted_names = natsorted(sorted_names)
+    sorted_dir_names = natsorted(list(set(sorted_dir_names)))
 
-    keys = []
-    if not eth:
-        # If eth is a string it's empty, just return blank list
-        return keys
+    group_name = []
+    group_path = []
+    for i in range(0, len(sorted_names)):
+        for j in range(0, len(sorted_names)):
+            if sorted_names[i] in sorted_paths[j]:
+                group_name.append(sorted_names[i])
+                group_path.append(sorted_paths[j])
 
-    # Start with the first character already in last
-    last, eth = eth[0], eth[1:]
-    # If last is int we start at offset 1
-    if last.isdigit():
-        keys.append('')
+    for k in range(0, len(sorted_dir_names)):
+        for i in range(0, len(group_path)):
+            if sorted_dir_names[k] in group_path[i]:
+                out.append({"name": group_name[i],
+                            "path": group_path[i],
+                            "dir_name": sorted_dir_names[k]})
 
-    for i in eth:
-        if i.isdigit() is last.isdigit():
-            # Keep accumulating same type chars
-            last += i
-        else:
-            # Save and restart next round
-            try:
-                int(last)
-                keys.append(int(last) if last.isdigit() else last)
-                last = i
-            except:
-                keys.append(str(last) if last.isdigit() else last)
-                last = i
-
-    # Save final round and return
-    keys.append(int(last) if last.isdigit() else last)
-    return keys
-
-
-def sort_dict_alph(dictionary: dict):
-    keys_sorted = []
-    values_list = []
-    out = {}
-    for keys, values in dictionary.items():
-        keys_sorted.append(keys)
-        values_list.append(values)
-    keys_sorted = sorted(keys_sorted, key=ethkey)
-    for i in range(0, len(keys_sorted)):
-        for j in range(0, len(keys_sorted)):
-            if keys_sorted[i] in values_list[j]:
-                out.update({keys_sorted[i]: values_list[j]})
-    # for keys, values in out.items():
-    #     print(keys, ": ", values)
     return out
 
 
-def walk_in_path(directory, path):
+def walk_in_path(directory, path, sort):
     # file_paths = []  # List which will store all of the full filepaths.
     # file_names = []
-    files_dict = {}
+    files_list = []
     # Walk the tree.
     for root, directories, files in os.walk(path + directory):
         for filename in files:
@@ -79,8 +51,13 @@ def walk_in_path(directory, path):
             # file_paths.append(filepath)  # Add it to the list.
             # file_names.append(filename)
             rel_filepath = filepath.replace(path, "")
-            files_dict.update({filename: rel_filepath})
-    return sort_dict_alph(files_dict)
+            dir_name = get_dir_name(rel_filepath)
+            files_list.append({"name": filename, "path": rel_filepath, "dir_name": dir_name})
+
+    if sort:
+        return sort_files(files_list)
+    else:
+        return files_list
 
 
 def get_dir_name(path: str):
@@ -97,23 +74,9 @@ def get_dir_name(path: str):
         counter -= 1
 
 
-def generate_json(directory, path):
-    files_dict = get_all_files_in_directory(directory, path)
-    files_list = []
-
-    for keys, values in files_dict.items():
-        # audio = audio_duration(values)
-        # files_list.append({"name": keys, "file": values, "duration": audio})
-        # print(f"{audio}")
-        dir_name = get_dir_name(values)
-        files_list.append({"name": keys, "path": values, "dir_name": dir_name})
-    # return json.dumps(files_list)
-    return files_list
-
-
-def get_all_files_in_directory(directory, path):
+def get_files_in_directory(directory, path, sort=False):
     if directory in get_dirs_in_path(path):
-        return walk_in_path(directory, path)
+        return walk_in_path(directory, path, sort)
     else:
         return None
 
