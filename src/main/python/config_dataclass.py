@@ -13,3 +13,6 @@ class ConfigData:
     pictures_path = str(config["FILES"]["pictures"])
     video_path = str(config["FILES"]["video"])
     music_path = str(config["FILES"]["music"])
+
+    user = str(config["SECRETS"]["user"])
+    password = str(config["SECRETS"]["password"])
