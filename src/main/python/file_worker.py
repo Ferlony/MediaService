@@ -48,16 +48,12 @@ def sort_files_natural(files):
         sorted_paths.append(each.get("path"))
 
     sorted_names = natsorted(sorted_names)
-    # natsort_key = natsort_keygen()
-    # sorted_names.sort(key=natsort_key)
-    print(sorted_names)
 
     for i in range(0, len(sorted_names)):
         for j in range(0, len(sorted_paths)):
             if sorted_names[i] == get_file_name(sorted_paths[j]):
                 out.append({"name": sorted_names[i], "path": sorted_paths[j]})
 
-    print(out)
     return out
 
 
