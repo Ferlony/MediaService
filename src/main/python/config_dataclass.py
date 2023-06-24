@@ -11,7 +11,7 @@ class ConfigData:
     config.read("config.ini")
     config_host = str(config["DEFAULT"]["host"])
     config_port = int(config["DEFAULT"]["port"])
-    timer = int(config["DEFAULT"]["timer"])
+    timer = float(config["DEFAULT"]["timer"])
 
     pictures_path = str(config["FILES"]["pictures"])
     video_path = str(config["FILES"]["video"])
