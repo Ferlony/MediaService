@@ -24,7 +24,7 @@ def sort_files(files):
     group_path = []
     for i in range(0, len(sorted_names)):
         for j in range(0, len(sorted_names)):
-            if sorted_names[i] in sorted_paths[j]:
+            if sorted_names[i] == get_file_name(sorted_paths[j]):
                 group_name.append(sorted_names[i])
                 group_path.append(sorted_paths[j])
 
@@ -38,7 +38,30 @@ def sort_files(files):
     return out
 
 
-def walk_in_path(directory, path, sort):
+def sort_files_natural(files):
+    sorted_names = []
+    sorted_paths = []
+    out = []
+
+    for each in files:
+        sorted_names.append(each.get("name"))
+        sorted_paths.append(each.get("path"))
+
+    sorted_names = natsorted(sorted_names)
+    # natsort_key = natsort_keygen()
+    # sorted_names.sort(key=natsort_key)
+    print(sorted_names)
+
+    for i in range(0, len(sorted_names)):
+        for j in range(0, len(sorted_paths)):
+            if sorted_names[i] == get_file_name(sorted_paths[j]):
+                out.append({"name": sorted_names[i], "path": sorted_paths[j]})
+
+    print(out)
+    return out
+
+
+def walk_in_path(directory, path, sort, sort_type):
     files_list = []
     for root, directories, files in os.walk(path + directory):
         for filename in files:
@@ -48,9 +71,20 @@ def walk_in_path(directory, path, sort):
             files_list.append({"name": filename, "path": rel_filepath, "dir_name": dir_name})
 
     if sort:
-        return sort_files(files_list)
+        if sort_type == 0:
+            return sort_files(files_list)
+        else:
+            return sort_files_natural(files_list)
     else:
         return files_list
+
+
+def get_file_name(path: str):
+    name = ""
+    for i in range(len(path) - 1, 0, -1):
+        if path[i] == os.sep:
+            return name[::-1]
+        name += path[i]
 
 
 def get_dir_name(path: str):
@@ -67,8 +101,8 @@ def get_dir_name(path: str):
         counter -= 1
 
 
-def get_files_in_directory(directory, path, sort=False):
+def get_files_in_directory(directory, path, sort=False, sort_type=0):
     if directory in get_dirs_in_path(path):
-        return walk_in_path(directory, path, sort)
+        return walk_in_path(directory, path, sort, sort_type)
     else:
         return None

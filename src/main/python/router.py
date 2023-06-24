@@ -59,7 +59,7 @@ async def pictures(request: Request, username: Annotated[str, Depends(get_curren
 @app.get("/pictures/{directory}")
 async def pictures_directory(request: Request, directory, username: Annotated[str, Depends(get_current_username)]):
     auth_logger.log_attempt_new_connection_host(request.client.host)
-    files = file_worker.get_files_in_directory(directory, ConfigData.pictures_path)
+    files = file_worker.get_files_in_directory(directory, ConfigData.pictures_path, True, 1)
     return templates.TemplateResponse(
         "pictures.html", {"request": request,
                           "directory": directory,
