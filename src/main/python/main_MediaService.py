@@ -17,7 +17,7 @@ async def main():
     if not os.path.exists(ConfigData.log_auth):
         open(ConfigData.log_auth, "w")
 
-    config = uvicorn.Config("main:app", host=ConfigData.config_host, port=ConfigData.config_port, log_level="info")
+    config = uvicorn.Config("main_MediaService:app", host=ConfigData.config_host, port=ConfigData.config_port, log_level="info")
     server = uvicorn.Server(config)
     await server.serve()
 
