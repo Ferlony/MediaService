@@ -55,7 +55,7 @@
                 <li>
                     <a href="{{ url_for('pic', path=each["path"]) }}" target="_blank">
                     <img class="img-fit" src="{{ url_for('pic', path=each["path"]) }}"
-                        alt="Cant load: {{each["file"]}}" />
+                        alt="Cant load: {{each["name"]}}" />
                     </a>
                 </li>
                 {% endfor %}

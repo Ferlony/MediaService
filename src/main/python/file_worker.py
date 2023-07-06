@@ -2,8 +2,50 @@ import os
 from natsort import natsorted
 
 
+images_formats = [".jpg", ".jpeg", ".png"]
+
+
+def __get_dirs_in_path(path):
+    files_in_dir = os.listdir(path)
+    out = []
+    for each in files_in_dir:
+        if os.path.isdir(path + each):
+            out.append(each)
+    return out
+
+
 def get_dirs_in_path(path):
-    return os.listdir(path)
+    dirs = __get_dirs_in_path(path)
+    files_list = []
+    for each in dirs:
+        files_list.append({"name": each, "path": "image.png"})
+    return files_list
+
+
+def get_dirs_in_path_with_image(path):
+    dirs = __get_dirs_in_path(path)
+    files_list = []
+    for each in dirs:
+        try:
+            flag = False
+            for root, directories, files in os.walk(path + each + os.sep):
+                if flag:
+                    break
+                for filename in files:
+                    if flag:
+                        break
+                    filepath = os.path.join(root, filename)
+                    rel_filepath = filepath.replace(path, "")
+                    for sign in images_formats:
+                        if filename.endswith(sign):
+                            files_list.append({"name": each, "path": rel_filepath})
+                            flag = True
+                            break
+            if not flag:
+                files_list.append({"name": each, "path": "image.png"})
+        except Exception as e:
+            print(e)
+    return files_list
 
 
 def sort_files(files):
@@ -98,7 +140,7 @@ def get_dir_name(path: str):
 
 
 def get_files_in_directory(directory, path, sort=False, sort_type=0):
-    if directory in get_dirs_in_path(path):
+    if directory in __get_dirs_in_path(path):
         return walk_in_path(directory, path, sort, sort_type)
     else:
         return None

@@ -52,7 +52,8 @@ async def pictures(request: Request, username: Annotated[str, Depends(get_curren
     return templates.TemplateResponse(
         "menus.html", {"request": request,
                        "title": "pictures",
-                       "list": file_worker.get_dirs_in_path(ConfigData.pictures_path), "username": username}
+                       "img_prev": "pic",
+                       "list": file_worker.get_dirs_in_path_with_image(ConfigData.pictures_path), "username": username}
     )
 
 
@@ -75,7 +76,8 @@ async def videos(request: Request, username: Annotated[str, Depends(get_current_
     return templates.TemplateResponse(
         "menus.html", {"request": request,
                        "title": "videos",
-                       "list": file_worker.get_dirs_in_path(ConfigData.video_path), "username": username
+                       "img_prev": "vid",
+                       "list": file_worker.get_dirs_in_path_with_image(ConfigData.video_path), "username": username
                        }
     )
 
@@ -98,7 +100,8 @@ async def music(request: Request, username: Annotated[str, Depends(get_current_u
     return templates.TemplateResponse(
         "menus.html", {"request": request,
                        "title": "music",
-                       "list": file_worker.get_dirs_in_path(ConfigData.music_path), "username": username}
+                       "img_prev": "mus",
+                       "list": file_worker.get_dirs_in_path_with_image(ConfigData.music_path), "username": username}
     )
 
 

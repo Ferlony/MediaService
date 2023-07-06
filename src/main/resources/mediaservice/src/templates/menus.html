@@ -14,9 +14,11 @@
                 </div>
             </a>
             {% for each in list %}
-            <a href="{{title}}/{{each}}">
+            <a href="{{title}}/{{each["name"]}}">
                 <div class="div-box">
-                    {{each}}
+                    <img class="image-preview" src="{{ url_for(img_prev, path=each["path"]) }}"
+                            alt=" " />
+                    <p>{{each["name"]}}</p>
                 </div>
             </a>
             {% endfor %}
