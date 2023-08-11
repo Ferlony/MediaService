@@ -4,9 +4,14 @@
         <title>Videos</title>
         <link href="{{ url_for('static', path='styles/main.css') }}" rel="stylesheet">
         <link href="{{ url_for('static', path='styles/videos.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', path='styles/buttons.css') }}" rel="stylesheet">
         <link href="{{ url_for('static', path='assets/favicon.ico')}}" rel="icon" type="image/x-icon">
     </head>
-        
+    {% block javascript %}
+    <script type="text/javascript">
+        {% include "js/video_player.js" %}
+    </script>
+  {% endblock %}
 
     <body class="background-colour">
         <div>
@@ -26,7 +31,7 @@
             <h1>{{directory}}</h1>
         </header>
  
-        <div>
+        <!-- <div>
             <ol>
             {% for each in list %}
                 <li>
@@ -36,10 +41,45 @@
                         </div>
                     </a>
                 </li>
+            <script type="text/javascript">
+                videos.push("{{ url_for('vid', path=each["path"]) }}");
+            </script>
             {% endfor %}
             </ol>
 
-        </div>
+        </div> -->
 
+        <div class="center-align">
+            <!-- (A) VIDEO TAG -->
+            <video id="vVid" onclick=""></video>
+            <!-- (F) PLAYLIST -->
+            <div id="vList"></div>
+
+            <div id="vWrap">
+                <!-- (B) PLAY/PAUSE BUTTON -->
+                <button id="vPlay" disabled><span id="vPlayIco">
+                play
+                </span></button>
+        
+                <!-- (C) TIME -->
+                <div id="vCron">
+                <span id="vNow"></span> / <span id="vTime"></span>
+                </div>
+        
+                <!-- (D) SEEK BAR -->
+                <input id="vSeek" type="range" min="0" value="0" step="1" disabled>
+        
+                <!-- (E) VOLUME SLIDE -->
+                <span id="vVolIco">volume_up</span>
+                <input id="vVolume" type="range" min="0" max="1" value="1" step="0.1" disabled>
+            </div>
+
+        </div>
+        {% for each in list %}
+        <script type="text/javascript">
+            playlist.push({"name": "{{ url_for('vid', path=each["name"]) }}", "src": "{{ url_for('vid', path=each["path"]) }}"});
+        </script>
+        {% endfor %}
+      
     </body>
 </html>
