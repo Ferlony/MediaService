@@ -8,30 +8,24 @@
   */
 /* (A) MATERIAL ICONS */
 
+*,*:before,*:after{
+    outline:0;
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+}
 
+.color-mod{
+  background-color: #17212b;
+}
 
-/* 
-.material-icons {
-    font-size: 28px;
-    color: #fff;
-  } */
-  
   /* (B) WRAPPER */
-  .center-align{
-    align-items: center;
+  .left-align{
+    align-items: left;
     position: absolute;
-    align-items: center;
-    text-align: center;
+    align-items: left;
+    text-align: left;
     padding-bottom: 50px;
 
-  }
-  #vWrap {
-    font-family: arial, sans-serif;
-    display: flex;
-    flex-wrap: wrap;
-    padding-left: 100px;
-    padding-bottom: 50px;
-    background: #484848;
   }
     /* (I) PLAYLIST */
   #vList {
@@ -41,11 +35,12 @@
     border-radius: 5px;
     color: #7e7e7e;
     background: #323232;
+    max-width: 25vw;
     max-height: 70vh;
     min-height: 70vh;
-    /* scrollbar-color:#73797f #2f3841;
+    scrollbar-color:#73797f #2f3841;
     overflow-y:auto;
-    overflow-x: auto; */
+    overflow-x: auto; 
   }
   .vRow {
     cursor: pointer;
@@ -55,7 +50,7 @@
     color: #913831;
   }
 
-  /* #vList ol::-webkit-scrollbar-track{
+  #vList ol::-webkit-scrollbar-track{
       background-color:#2f3841;
   }
   #vList ol::-webkit-scrollbar{
@@ -64,7 +59,7 @@
   }
   #vList ol::-webkit-scrollbar-thumb{
       background-color:#73797f;
-  } */
+  }
   
   /* (C) VIDEO */
   #vVid {
@@ -77,74 +72,3 @@
     cursor: pointer;
   }
   
-  /* (D) PLAY/PAUSE BUTTON */
-  #vPlay {
-    /* padding: 10px;
-    margin: 0;
-    background: 0;
-    border: 0; */
-    cursor: pointer;
-  }
-  
-  /* (E) TIME */
-  #vCron {
-    font-size: 14px;
-    color: #cbcbcb;
-    margin: 0 10px;
-  }
-  
-  /* (F1) RANGE SLIDERS */
-  /* (F1) HIDE DEFAULT */
-  #vWrap input[type="range"] {
-    box-sizing: border-box;
-    appearance: none;
-    border: none;
-    outline: none;
-    box-shadow: none;
-    padding: 0;
-    margin: 0;
-    background: 0;
-  }
-  #vWrap input[type="range"]::-webkit-slider-thumb {
-    appearance: none;
-  }
-  
-  /* (F2) CUSTOM SLIDER TRACK */
-  #vWrap input[type=range]::-webkit-slider-runnable-track {
-    background: #626262;
-    border-radius: 10px;
-  }
-  #vWrap input[type=range]::-moz-range-track {
-    background: #626262;
-    border-radius: 10px;
-  }
-  
-  /* (F3) CUSTOM SLIDER BUTTON */
-  #vWrap input[type=range]::-webkit-slider-thumb {
-    width: 16px; height: 16px;
-    border-radius: 50%;
-    border: 0;
-    background: #fff;
-  }
-  #vWrap input[type=range]::-moz-range-thumb {
-    width: 16px; height: 16px;
-    border-radius: 50%;
-    border: 0;
-    background: #fff;
-  }
-  
-  /* (G) SEEK BAR */
-  #vSeek {
-    width: 180px;
-  }
-  
-  /* (H) VOLUME */
-  #vVolume {
-    width: 100px;
-  }
-  #vVolIco {
-    margin: 0 10px;
-    cursor: pointer;
-  }
-  
-
