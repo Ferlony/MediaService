@@ -18,7 +18,7 @@ window.addEventListener("DOMContentLoaded", () => {
       else{
         row.className = "vRow color-mod";
       }
-      row.innerHTML = i + ". " + playlist[i]["name"];
+      row.innerHTML = String((Number(i) + 1)) + ". " + playlist[i]["name"];
       row.addEventListener("click", () => vidPlay(i));
       playlist[i]["row"] = row;
       vList.appendChild(row);
