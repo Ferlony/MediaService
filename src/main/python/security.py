@@ -1,9 +1,11 @@
-from config_dataclass import ConfigData
 from typing import Annotated
+from datetime import datetime
+import secrets
+
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
-import secrets
-from datetime import datetime
+
+from config_dataclass import ConfigData
 
 
 class AuthLog:

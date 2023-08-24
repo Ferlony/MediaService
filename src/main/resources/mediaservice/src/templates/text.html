@@ -13,24 +13,30 @@
                     <h3>Home</h3>
                 </div>
             </a>
-            <a href="/text_files">
+            <a href="/textfiles">
                 <div class="div-box" style="background-color: darkslategray;">
                     <h3>Text</h3>
                 </div>
             </a>
         </div>
 
+        <header>
+            <h1>{{directory}}</h1>
+        </header>
+
         <div>
             <ol>
                 {% for each in list %}
                 <li>
-                    <a href="{{ url_for('text', path=each["path"]) }}" target="_blank">
+                    <a href="{{ url_for('text', path=each["path"]) }}" target="_blank" type="text"
+                      <span>
+                        {{each["name"]}}
+                      </span>
+                    </a>
                 </li>
                 {% endfor %}
             </ol>
         </div>
-        <footer id="footer">
-            <p>End</p>
-        </footer>
     </body>
 </html>
+

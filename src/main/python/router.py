@@ -1,13 +1,16 @@
+from typing import Annotated
+
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi import FastAPI, Request
+from fastapi import Depends
+from starlette.responses import RedirectResponse
+
+from security import get_current_username
+from security import auth_logger
 import file_worker
 from config_dataclass import ConfigData
 
-from typing import Annotated
-from fastapi import Depends
-from security import get_current_username
-from security import auth_logger
 
 app = FastAPI()
 
@@ -33,6 +36,12 @@ app.mount(
     "/mus",
     StaticFiles(directory=ConfigData.music_path),
     name="mus"
+)
+
+app.mount(
+    "/text",
+    StaticFiles(directory=ConfigData.text_path),
+    name="text"
 )
 
 templates = Jinja2Templates(directory=ConfigData.front_path + "templates")
@@ -116,3 +125,32 @@ async def music_directory(request: Request, directory, username: Annotated[str, 
                        "list": files, "username": username
                        }
     )
+
+@app.get("/textfiles")
+async def textfiles(request: Request, username: Annotated[str, Depends(get_current_username)]):
+    auth_logger.log_attempt_new_connection_host(request.client.host)
+    return templates.TemplateResponse(
+        "menus.html", {"request": request,
+                       "title": "textfiles",
+                       "img_prev": "text",
+                       "list": file_worker.get_dirs_in_path_with_image(ConfigData.text_path), "username": username}
+    )
+
+
+@app.get("/textfiles/{directory}")
+async def textfiles_directory(request: Request, directory, username: Annotated[str, Depends(get_current_username)]):
+    auth_logger.log_attempt_new_connection_host(request.client.host)
+    files = file_worker.get_files_in_directory(directory, ConfigData.text_path, True, 1)
+    return templates.TemplateResponse(
+        "text.html", {"request": request,
+                          "directory": directory,
+                          "title": "textfiles",
+                          "list": files, "username": username
+                          }
+    )
+
+@app.get("/torrents", response_class=RedirectResponse)
+async def torrents(request: Request, username: Annotated[str, Depends(get_current_username)]):
+    auth_logger.log_attempt_new_connection_host(request.client.host)
+    return RedirectResponse("http://" + ConfigData.config_host_torrents + ":" + ConfigData.config_port_torrents + "/transmission/web/")
+

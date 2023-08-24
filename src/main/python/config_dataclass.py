@@ -16,6 +16,11 @@ class ConfigData:
     pictures_path = str(config["FILES"]["pictures"])
     video_path = str(config["FILES"]["video"])
     music_path = str(config["FILES"]["music"])
+    text_path = str(config["FILES"]["text"])
+    
+    config_host_torrents = str(config["TORRENTS"]["host"])
+    config_port_torrents = str(config["TORRENTS"]["port"])
 
     user = str(config["SECRETS"]["user"])
     password = str(config["SECRETS"]["password"])
+

@@ -1,10 +1,12 @@
+import os.path
+from threading import Thread, Timer
+
 import asyncio
 import uvicorn
+
 from router import app
 from config_dataclass import ConfigData
-import os.path
 from security import auth_logger
-from threading import Thread, Timer
 
 
 class RepeatTimer(Timer):
