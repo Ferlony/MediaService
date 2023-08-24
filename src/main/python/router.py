@@ -47,6 +47,7 @@ app.mount(
 templates = Jinja2Templates(directory=ConfigData.front_path + "templates")
 
 
+# Index
 @app.get("/")
 async def root(request: Request, username: Annotated[str, Depends(get_current_username)]):
     auth_logger.log_attempt_new_connection_host(request.client.host)
@@ -55,6 +56,7 @@ async def root(request: Request, username: Annotated[str, Depends(get_current_us
     )
 
 
+# Pictures
 @app.get("/pictures")
 async def pictures(request: Request, username: Annotated[str, Depends(get_current_username)]):
     auth_logger.log_attempt_new_connection_host(request.client.host)
@@ -79,6 +81,7 @@ async def pictures_directory(request: Request, directory, username: Annotated[st
     )
 
 
+# Videos
 @app.get("/videos")
 async def videos(request: Request, username: Annotated[str, Depends(get_current_username)]):
     auth_logger.log_attempt_new_connection_host(request.client.host)
@@ -103,6 +106,7 @@ async def video_directory(request: Request, directory, username: Annotated[str, 
     )
 
 
+# Music
 @app.get("/music")
 async def music(request: Request, username: Annotated[str, Depends(get_current_username)]):
     auth_logger.log_attempt_new_connection_host(request.client.host)
@@ -126,6 +130,8 @@ async def music_directory(request: Request, directory, username: Annotated[str, 
                        }
     )
 
+
+# Text Files
 @app.get("/textfiles")
 async def textfiles(request: Request, username: Annotated[str, Depends(get_current_username)]):
     auth_logger.log_attempt_new_connection_host(request.client.host)
@@ -149,8 +155,21 @@ async def textfiles_directory(request: Request, directory, username: Annotated[s
                           }
     )
 
+
+# Torrents
 @app.get("/torrents", response_class=RedirectResponse)
 async def torrents(request: Request, username: Annotated[str, Depends(get_current_username)]):
     auth_logger.log_attempt_new_connection_host(request.client.host)
     return RedirectResponse("http://" + ConfigData.config_host_torrents + ":" + ConfigData.config_port_torrents + "/transmission/web/")
+
+
+# Parsers
+@app.get("/parsers")
+async def parsers(request: Request, username: Annotated[str, Depends(get_current_username)]):
+    auth_logger.log_attempt_new_connection_host(request.client.host)
+    return templates.TemplateResponse(
+        "parsers.html", {"request": request,
+                         "title": "parsers",
+                         "username": username}
+    )
 
