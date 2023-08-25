@@ -2,6 +2,15 @@ import configparser
 from dataclasses import dataclass
 
 
+def _configure_parsers_usage(int_flag):
+    if int_flag == 0:
+        return
+
+    import ParsersScripts.src.python.test as test
+    test.hi()
+    return
+
+
 @dataclass
 class ConfigData:
     front_path = "../resources/mediaservice/src/"
@@ -24,3 +33,5 @@ class ConfigData:
     user = str(config["SECRETS"]["user"])
     password = str(config["SECRETS"]["password"])
 
+    config_parsers_usage_flag = int(config["PARSERS"]["use_flag"])
+    _configure_parsers_usage(config_parsers_usage_flag)

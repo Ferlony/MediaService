@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  MediaService:
+    image: mediaservice
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command:
+      - echo hi
