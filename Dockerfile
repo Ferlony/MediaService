@@ -1,4 +1,5 @@
 FROM python:3.11
+#FROM debian --transmission for torrents
 
 
 RUN cd src/main/python/ &&\
@@ -10,7 +11,6 @@ RUN cd src/main/python/ &&\
     pip install -r requirements.txt &&\
     pip install -r ParsersScripts/src/python/requirements.txt
 
-
-WORKDIR /src/main/python/
+#EXPOSE 8000:8000
 
 CMD["python", "main_MediaService.py"]
