@@ -6,5 +6,4 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command:
-      - echo hi
+#    command:
