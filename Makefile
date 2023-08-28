@@ -1,12 +1,14 @@
 build:
 	docker-compose -f docker-compose.yml build
 up:
-	mount_files_path=$(awk -F "=" '/files/ {print $2}' ./src/main/python/config.ini)
+	#mount_files_path=$(awk -F "=" '/files/ {print $2}' ./src/main/python/config.ini)
 	docker-compose -f docker-compose.yml up -d
-	docker run -v $mount_files_path:/
+	#docker run -v $mount_files_path:/
 
-#start:
-#	mount_files_path=$(awk -F "=" '/files/ {print $2}' ./src/main/python/config.ini)
+start:
+	mount_files_path=$(awk -F "=" '/files/ {print $2}' ./src/main/python/config.ini)
+	echo $mount_files_path
+	docker-compose -f docker-compose.yml start
 
 
 
