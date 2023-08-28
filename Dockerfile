@@ -1,5 +1,5 @@
-FROM python:3.11
-#FROM debian --transmission for torrents
+FROM debian
+RUN apt update && apt-get
 
 
 RUN cd src/main/python/ &&\

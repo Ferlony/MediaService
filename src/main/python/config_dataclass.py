@@ -6,8 +6,8 @@ def _configure_parsers_usage(int_flag):
     if int_flag == 0:
         return
 
-    import ParsersScripts.src.python.test as test
-    test.hi()
+    # import ParsersScripts.src.python.test as test
+    # test.hi()
     return
 
 

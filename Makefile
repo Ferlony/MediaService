@@ -1,9 +1,10 @@
-#build:
-#	docker-compose -f docker-compose.yml build
-#up:
-#	mount_files_path=$(awk -F "=" '/files/ {print $2}' ./src/main/python/config.ini)
-#	docker-compose -f docker-compose.yml up -d
-#	docker run -v $mount_files_path:/
+build:
+	docker-compose -f docker-compose.yml build
+up:
+	mount_files_path=$(awk -F "=" '/files/ {print $2}' ./src/main/python/config.ini)
+	docker-compose -f docker-compose.yml up -d
+	docker run -v $mount_files_path:/
+
 #start:
 #	mount_files_path=$(awk -F "=" '/files/ {print $2}' ./src/main/python/config.ini)
 
@@ -27,13 +28,20 @@ no-docker-build:
     cp configs/media_service_config.ini src/main/python/config.ini &&\
     cp configs/parsers_config.ini src/main/python/ParsersScripts/src/python/config.ini &&\
     cd src/main/python/ &&\
-    python -m venv venv &&\
-    source venv/bin/activate &&\
+    python3 -m venv venv &&\
+    . venv/bin/activate &&\
     pip install -r requirements.txt &&\
     pip install -r ParsersScripts/src/python/requirements.txt &&\
-    nohup python main_MediaService.py &
+    echo "finished"
 
 no-docker-start:
 	cd src/main/python/ &&\
-	source venv/bin/activate &&\
-	nohup python main_MediaService.py &
+	. venv/bin/activate &&\
+	nohup python3 main_MediaService.py &
+
+no-docker-remove:
+	cd src/main/python/ &&\
+	rm -rf venv/ &&\
+	rm -rf ParsersScripts/ &&\
+	rm config.ini &&\
+	echo "Done"
