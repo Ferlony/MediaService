@@ -1,9 +1,6 @@
-import "cookies";
-
-
 let playlist = [];
-let cookiename;
-var cookietype = "video";
+const cookiename = document.getElementById("dirname");
+const cookietype = "video";
 console.log(playlist);
 
 
@@ -35,7 +32,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     cookie = getOrCreateCookie(cookiename);
 
-    var vidNow = cookie['playnow'], // current video
+    var vidNow = 0;//cookie['playnow'], // current video
         vidStart = false, // auto start next video
   
     // (B2) PLAY SELECTED VIDEO
@@ -64,10 +61,10 @@ window.addEventListener("DOMContentLoaded", () => {
     // (B4) AUTOPLAY NEXT VIDEO IN THE PLAYLIST
     video.addEventListener("ended", () => {
       vidNow++;
-      setCookieToLocalStorage({'type': 'video', 'playnow': vidNow}, cookiename);
+      setCookieToLocalStorage(genVideoCookie(cookietype, vidNow), cookiename);
       if (vidNow >= playlist.length) { 
         vidNow = 0; 
-        setCookieToLocalStorage({'type': 'video', 'playnow': vidNow}, cookiename);
+        setCookieToLocalStorage(genVideoCookie(cookietype, vidNow), cookiename);
       }
       vidPlay(vidNow);
     });
