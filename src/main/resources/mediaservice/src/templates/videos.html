@@ -38,8 +38,9 @@
         <script type="text/javascript">
           var name = "{{ url_for('vid', path=each["name"]) }}";
           var src = "{{ url_for('vid', path=each["path"]) }}";
-            playlist.push({"name": name.substr(name.lastIndexOf("/") + 1),
-              "src": src});
+          cookiename = {{directory}}; 
+          playlist.push({"name": name.substr(name.lastIndexOf("/") + 1),
+            "src": src});
         </script>
         {% endfor %}
       

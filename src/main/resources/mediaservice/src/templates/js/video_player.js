@@ -1,5 +1,11 @@
+import "cookies";
+
+
 let playlist = [];
+let cookiename;
+var cookietype = "video";
 console.log(playlist);
+
 
 window.addEventListener("DOMContentLoaded", () => {
     // (A) PLAYER INIT
@@ -26,7 +32,10 @@ window.addEventListener("DOMContentLoaded", () => {
   
     // (B) PLAY MECHANISM
     // (B1) FLAGS
-    var vidNow = 0, // current video
+
+    cookie = getOrCreateCookie(cookiename);
+
+    var vidNow = cookie['playnow'], // current video
         vidStart = false, // auto start next video
   
     // (B2) PLAY SELECTED VIDEO
@@ -55,8 +64,10 @@ window.addEventListener("DOMContentLoaded", () => {
     // (B4) AUTOPLAY NEXT VIDEO IN THE PLAYLIST
     video.addEventListener("ended", () => {
       vidNow++;
+      setCookieToLocalStorage({'type': 'video', 'playnow': vidNow}, cookiename);
       if (vidNow >= playlist.length) { 
         vidNow = 0; 
+        setCookieToLocalStorage({'type': 'video', 'playnow': vidNow}, cookiename);
       }
       vidPlay(vidNow);
     });
