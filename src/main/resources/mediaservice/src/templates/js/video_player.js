@@ -29,7 +29,7 @@ window.addEventListener("DOMContentLoaded", () => {
     // (B) PLAY MECHANISM
     // (B1) FLAGS
 
-    let cookie = getOrCreateCookie(cookiename);
+    let cookie = getOrCreateCookie(cookiename, cookietype);
 
     var vidNow = cookie['playnow'], // current video
         vidStart = false, // auto start next video

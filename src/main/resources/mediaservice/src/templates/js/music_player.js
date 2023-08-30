@@ -306,7 +306,7 @@ if (document.querySelector('#simp')) {
   var simp_playlist = ap_simp.querySelector('.simp-playlist');
   var simp_source = simp_playlist.querySelectorAll('li');
   var simp_a_url = simp_playlist.querySelectorAll('[data-src]');
-  let cookie = getOrCreateCookie(cookiename);
+  let cookie = getOrCreateCookie(cookiename, cookietype);
   var simp_a_index = cookie['playnow']; //0;
   var simp_isPlaying = false;
   var simp_isNext = true; //auto play

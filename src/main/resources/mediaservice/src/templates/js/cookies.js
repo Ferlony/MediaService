@@ -14,9 +14,14 @@ function genCookie(type, playnow){
   return {'type': type, 'playnow': playnow};
 }
 
-function getOrCreateCookie(cookiename){
+function getOrCreateCookie(cookiename, cookietype){
     if (getCookieFromLocalStorage(cookiename) == null){
-      setCookieToLocalStorage(videoCookieDefault, cookiename);
+      if (cookietype == "video"){
+        setCookieToLocalStorage(videoCookieDefault, cookiename);
+      }
+      else if (cookietype == "music"){
+        setCookieToLocalStorage(musicCookieDefault, cookiename)
+      }
     }
     return getCookieFromLocalStorage(cookiename);
 }
