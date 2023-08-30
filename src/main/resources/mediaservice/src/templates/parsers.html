@@ -3,7 +3,7 @@
     <title>Parsers</title>
     <link href="{{ url_for('static', path='assets/favicon.ico')}}" rel="icon" type="image/x-icon">
     <link href="{{ url_for('static', path='styles/main.css') }}" rel="stylesheet">
- 
+    <link href="{{ url_for('static', path='styles/parsers.css') }}" rel="stylesheet">
   </head>
   {% block javascript %}
     <script type="text/javascript">
@@ -21,11 +21,70 @@
            </div>
        </a>
     </div>
-    
-    <div>
-      <span>
-        Download from youtube
-      </span>
+
+    <!--Download form youtube-->
+    <div class="padding-left">
+      <div>
+        <h2 id="responseStatus"></h2>
+      </div>
+
+      <div>
+        <h1>Download from youtube</h1>
+        <p>Choose option</p>
+        <div>
+          <input type="radio" id="youtube1" name="youtube"/>
+          <label for="youtube1">1. Download one mp4 video</label>
+        </div>
+        <div>
+          <input type="radio" id="youtube2" name="youtube"/>
+          <label for="youtube2">2. Download one opus audio</label>
+        </div>
+        <div>
+          <input type="radio" id="youtube3" name="youtube" checked/>
+          <label for="youtube3">3. Download playlist mp4 video</label>
+        </div>
+        <div>
+          <input type="radio" id="youtube4" name="youtube"/>
+          <label for="youtube4">4. Download playlist opus audio</label>
+        </div>
+        <br>
+        <span> 
+          URL: <input id="downloadUrlYoutube"/> <button onclick="parserButton('youtube')">Submit</button>
+        </span>
+      </div>
+
+      <div>
+        <h1>Download from songlyrics</h1>
+        <p>Choose option</p>
+        <div>
+          <input type="radio" id="songlyrics1" name="songlyrics"/>
+          <label for="songlyrics1">1. Download one group lyric</label>
+        </div>
+        <div>
+          <input type="radio" id="songlyrics2" name="songlyrics"/>
+          <label for="songlyrics2">2. Download one all group lyrics</label>
+        </div>
+
+        <br>
+        <span> 
+          URL: <input id="downloadUrlSonglyrics"/> <button onclick="parserButton('songlyrics')">Submit</button>
+        </span>
+      </div>
+
+      <div>
+        <h1>Download from site with js and enum</h1>
+        <span> 
+          URL: <input id="downloadUrlEnumJs"/> <button onclick="parserButton('EnumJs')">Submit</button>
+        </span>
+      </div>
+
+      <div>
+        <h1>Download from site with headers</h1>
+        <span> 
+          URL: <input id="downloadUrlHeaders"/> <button onclick="parserButton('withHeaders')">Submit</button>
+        </span>
+      </div>
+
     </div>
 
   </body>
