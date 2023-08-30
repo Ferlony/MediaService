@@ -1,3 +1,6 @@
+const cookietype = "music";
+
+
 // Multiple events to a listener
 function addEventListener_multi(element, eventNames, handler) {
   var events = eventNames.split(' ');
@@ -62,11 +65,14 @@ function simp_initTime() {
       if (simp_a_index == simp_a_url.length) { //repeat all audio
         simp_a_index = 0;
         elem = simp_a_url[0];
+        setCookieToLocalStorage(genCookie(cookietype, simp_a_index), cookiename);
       } else {
-        elem = simp_a_url[simp_a_index];  
+        elem = simp_a_url[simp_a_index];
+        setCookieToLocalStorage(genCookie(cookietype, simp_a_index), cookiename);
       }
       simp_changeAudio(elem);
       simp_setAlbum(simp_a_index);
+      setCookieToLocalStorage(genCookie(cookietype, simp_a_index), cookiename);
     } else {
       simp_isPlaying = false;
     }
@@ -149,6 +155,7 @@ function simp_changeAudio(elem) {
     simp_a_url[i].parentNode.classList.remove('simp-active');
     if (simp_a_url[i] == elem) {
       simp_a_index = i;
+      setCookieToLocalStorage(genCookie(cookietype, simp_a_index), cookiename);
       simp_a_url[i].parentNode.classList.add('simp-active');
     }
   }
@@ -199,6 +206,7 @@ function simp_startScript() {
     item.addEventListener('click', function() {
       simp_audio.removeEventListener('timeupdate', simp_initTime);
       simp_a_index = index;
+      setCookieToLocalStorage(genCookie(cookietype, simp_a_index), cookiename);
       simp_changeAudio(this.querySelector('.simp-source'));
       simp_setAlbum(simp_a_index);
     });
@@ -207,6 +215,7 @@ function simp_startScript() {
   // FIRST AUDIO LOAD =======
   simp_changeAudio(simp_a_url[simp_a_index]);
   simp_setAlbum(simp_a_index);
+  setCookieToLocalStorage(genCookie(cookietype, simp_a_index), cookiename);
   // FIRST AUDIO LOAD =======
   
   // Controls listeners
@@ -228,9 +237,11 @@ function simp_startScript() {
     } else {
       if (eles.contains('simp-prev') && simp_a_index != 0) {
         simp_a_index = simp_a_index-1;
+        setCookieToLocalStorage(genCookie(cookietype, simp_a_index), cookiename);
         e.target.disabled = simp_a_index == 0 ? true : false;
       } else if (eles.contains('simp-next') && simp_a_index != simp_a_url.length-1) {
         simp_a_index = simp_a_index+1;
+        setCookieToLocalStorage(genCookie(cookietype, simp_a_index), cookiename);
         e.target.disabled = simp_a_index == simp_a_url.length-1 ? true : false;
       }
       simp_audio.removeEventListener('timeupdate', simp_initTime);
@@ -295,7 +306,8 @@ if (document.querySelector('#simp')) {
   var simp_playlist = ap_simp.querySelector('.simp-playlist');
   var simp_source = simp_playlist.querySelectorAll('li');
   var simp_a_url = simp_playlist.querySelectorAll('[data-src]');
-  var simp_a_index = 0;
+  let cookie = getOrCreateCookie(cookiename);
+  var simp_a_index = cookie['playnow']; //0;
   var simp_isPlaying = false;
   var simp_isNext = true; //auto play
   var simp_isRandom = false; //play random

@@ -8,9 +8,11 @@
     </head>
     {% block javascript %}
     <script type="text/javascript">
+        const cookiename = "{{directory}}"
         {% include "js/cookies.js" %}
-        {% include "js/video_player.js" %}    
+        {% include "js/video_player.js" %}
     </script>
+
   {% endblock %}
 
     <body class="background-colour">
@@ -28,7 +30,7 @@
         </div>
 
         <header>
-            <h1 id="dirname">{{directory}}</h1>
+            <h1>{{directory}}</h1>
         </header>
  
         <div class="left-align">

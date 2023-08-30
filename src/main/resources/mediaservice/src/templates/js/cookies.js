@@ -1,4 +1,5 @@
 const videoCookieDefault = {'type': 'video', 'playnow': 0};
+const musicCookieDefault = {'type': 'music', 'playnow': 0};
 
 
 function setCookieToLocalStorage(data, cookiename) {
@@ -9,16 +10,13 @@ function getCookieFromLocalStorage(cookiename) {
   return JSON.parse(localStorage.getItem(cookiename));
 }
 
-function genVideoCookie(type, playnow){
+function genCookie(type, playnow){
   return {'type': type, 'playnow': playnow};
 }
 
 function getOrCreateCookie(cookiename){
-  try {
+    if (getCookieFromLocalStorage(cookiename) == null){
+      setCookieToLocalStorage(videoCookieDefault, cookiename);
+    }
     return getCookieFromLocalStorage(cookiename);
-  }
-  catch (error){
-    setCookieToLocalStorage(videoCookieDefault, cookiename);
-    return getCookieFromLocalStorage(cookiename);
-  }
 }

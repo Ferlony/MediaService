@@ -41,9 +41,11 @@
           </div>
 
         {% block javascript %}
-          <script type="text/javascript">
-              {% include "js/music_player.js" %}
-          </script>
+        <script type="text/javascript">
+            const cookiename = "{{directory}}";
+            {% include "js/cookies.js" %}
+            {% include "js/music_player.js" %}
+        </script>
         {% endblock %}
         
 
