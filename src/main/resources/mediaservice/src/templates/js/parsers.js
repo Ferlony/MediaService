@@ -85,7 +85,7 @@ function songlyricsMenu(){
 function enumJsMenu(){
     var downloadUrl = document.getElementById("downloadUrlEnumJs").value;
     var parser_type = 3;
-    var action = 0;
+    var action = 1;
 
     return {
         'url': downloadUrl,
@@ -98,7 +98,7 @@ function enumJsMenu(){
 function withHeadersMenu(){
     var downloadUrl = document.getElementById("downloadUrlHeaders").value;
     var parser_type = 4;
-    var action = 0;
+    var action = 1;
 
     return {
         'url': downloadUrl,
