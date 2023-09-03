@@ -1,6 +1,9 @@
 import os
+from subprocess import Popen
 
 from natsort import natsorted
+
+import enums
 
 
 images_formats = [".jpg", ".jpeg", ".png"]
@@ -145,3 +148,14 @@ def get_files_in_directory(directory, path, sort=False, sort_type=0):
         return walk_in_path(directory, path, sort, sort_type)
     else:
         return None
+
+
+def define_parser(item: dict):
+    url, parser_type, action = list(item.values())
+    if ((parser_type == enums.ParserTypeEnum.youtube.value) or
+            (parser_type == enums.ParserTypeEnum.with_headers.value)):
+        Popen(f"cd multi_parser && python3 -m src.main -p {parser_type} -a {action} -u '{url}'", shell=True)
+    else:
+        return "Something Wrong: " + str(item)
+
+    return item

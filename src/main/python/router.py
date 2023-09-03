@@ -178,5 +178,4 @@ async def parsers(request: Request, username: Annotated[str, Depends(get_current
 @app.post("/parsers")
 async def parsers_post(request: Request, item: ParserModel, username: Annotated[str, Depends(get_current_username)]):
     auth_logger.log_attempt_new_connection_host(request.client.host)
-    print(item)
-    return item
+    return file_worker.define_parser(dict(item))

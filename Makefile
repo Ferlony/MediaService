@@ -25,15 +25,15 @@ start:
 
 no-docker-build:
 	cd src/main/python/ &&\
-    git clone https://github.com/Ferlony/ParsersScripts.git &&\
+    git clone https://github.com/Ferlony/multi_parser.git &&\
     cd ../../.. &&\
     cp configs/media_service_config.ini src/main/python/config.ini &&\
-    cp configs/parsers_config.ini src/main/python/ParsersScripts/src/python/config.ini &&\
+    cp configs/parsers_config.ini src/main/python/multi_parser/src/config.ini &&\
     cd src/main/python/ &&\
     python3 -m venv venv &&\
     . venv/bin/activate &&\
     pip install -r requirements.txt &&\
-    pip install -r ParsersScripts/src/python/requirements.txt &&\
+    pip install -r multi_parser/requirements.txt &&\
     echo "finished"
 
 no-docker-start:
@@ -44,6 +44,6 @@ no-docker-start:
 no-docker-remove:
 	cd src/main/python/ &&\
 	rm -rf venv/ &&\
-	rm -rf ParsersScripts/ &&\
+	rm -rf multi_parser/ &&\
 	rm config.ini &&\
 	echo "Done"
