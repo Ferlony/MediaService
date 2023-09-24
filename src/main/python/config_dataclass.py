@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 @dataclass
 class ConfigData:
-    front_path = "../resources/mediaservice/src/"
+    front_path = "../resources/mediaservice/"
     log_auth = "auth.log"
 
     config = configparser.ConfigParser()

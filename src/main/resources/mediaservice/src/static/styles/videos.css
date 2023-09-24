@@ -63,13 +63,13 @@
   }
   
   /* (C) VIDEO */
-  #vVid {
-    border: solid black 2px;
-    border-radius: 1px;
-    min-width: 70vw;
-    min-height: 70vh;
-    max-width: 70vw;
-    max-height: 70vh;
-    cursor: pointer;
+  #my-video {
+    border: solid black 2px !important;
+    border-radius: 1px !important;
+    min-width: 70vw !important;
+    min-height: 70vh !important;
+    max-width: 70vw !important;
+    max-height: 70vh !important;
+    cursor: pointer !important;
   }
   

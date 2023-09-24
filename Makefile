@@ -1,3 +1,5 @@
+#TODO
+#-------------
 build:
 	docker-compose -f docker-compose.yml build
 up:
@@ -9,7 +11,7 @@ start:
 	mount_files_path=$(awk -F "=" '/files/ {print $2}' ./src/main/python/config.ini)
 	echo $mount_files_path
 	docker-compose -f docker-compose.yml start
-
+#==============
 
 
 # Run a container using the `alpine` image, mount the `/tmp`
@@ -23,27 +25,52 @@ start:
 #
 # docker run -v /host/directory:/container/directory -other -options image_name command_to_run
 
-no-docker-build:
+#	cp configs/hypercorn_config.toml src/main/python/multi_parser/src/hypercorn_config.toml &&\ 
+build-back:
 	cd src/main/python/ &&\
-    git clone https://github.com/Ferlony/multi_parser.git &&\
-    cd ../../.. &&\
-    cp configs/media_service_config.ini src/main/python/config.ini &&\
-    cp configs/parsers_config.ini src/main/python/multi_parser/src/config.ini &&\
-    cd src/main/python/ &&\
-    python3 -m venv venv &&\
-    . venv/bin/activate &&\
-    pip install -r requirements.txt &&\
-    pip install -r multi_parser/requirements.txt &&\
-    echo "finished"
+  git clone https://github.com/Ferlony/multi_parser.git &&\
+	cd ../../.. &&\
+	cp configs/media_service_config.ini src/main/python/config.ini &&\
+	cp configs/parsers_config.ini src/main/python/multi_parser/src/config.ini &&\
+	cp configs/hypercorn_config.toml src/main/python/multi_parser/src/hypercorn_config.toml &&\
+	cd src/main/python/ &&\
+	python3 -m venv venv &&\
+	. venv/bin/activate &&\
+	pip install -r requirements.txt &&\
+	pip install -r multi_parser/requirements.txt &&\
+	echo "back finished building"
+
+
+build-front:
+	echo "$PWD" &&\
+	cd src/main/resources/mediaservice/src/templates/js/node_modules/ &&\
+	npm i shaka-player &&\
+	echo "front finished building"
+
+
+remove-back:
+	cd src/main/python/ &&\
+	rm -rf venv/ &&\
+	rm -rf multi_parser/ &&\
+	echo "back removed"
+
+	# rm config.ini &&\
+
+
+remove-front:
+	rm -rf src/main/resources/mediaservice/src/templates/js/node_modules/* &&\
+	rm src/main/resources/mediaservice/src/templates/js/node_modules/*.json &&\
+	rm src/main/resources/mediaservice/src/templates/js/*.json &&\
+	echo "front removed"
+
+
+no-docker-build: build-back build-front
+
+
+no-docker-remove: remove-back remove-front
+
 
 no-docker-start:
 	cd src/main/python/ &&\
 	. venv/bin/activate &&\
 	nohup python3 main_MediaService.py &
-
-no-docker-remove:
-	cd src/main/python/ &&\
-	rm -rf venv/ &&\
-	rm -rf multi_parser/ &&\
-	rm config.ini &&\
-	echo "Done"

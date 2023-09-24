@@ -17,7 +17,7 @@ app = FastAPI()
 
 app.mount(
     "/static",
-    StaticFiles(directory=ConfigData.front_path + "static"),
+    StaticFiles(directory=ConfigData.front_path + "src/" + "static"),
     name="static"
 )
 
@@ -45,7 +45,13 @@ app.mount(
     name="text"
 )
 
-templates = Jinja2Templates(directory=ConfigData.front_path + "templates")
+app.mount(
+    "/node_modules",
+    StaticFiles(directory=ConfigData.front_path + "src/" + "templates/" + "js/" + "node_modules"),
+    name="node_modules"
+)
+
+templates = Jinja2Templates(directory=ConfigData.front_path + "src/" + "templates")
 
 
 # Index

@@ -3,14 +3,18 @@ const cookietype = "video";
 console.log(playlist);
 
 
+
 window.addEventListener("DOMContentLoaded", () => {
     // (A) PLAYER INIT
 
   
     // (A2) VIDEO PLAYER & GET HTML CONTROLS
-    const video = document.getElementById("vVid"),
+    //vVid
+    const video = document.getElementById("my-video"),
           vList = document.getElementById("vList");
-  
+
+
+
     // (A3) BUILD PLAYLIST
     for (let i in playlist) {
       let row = document.createElement("div");
@@ -83,5 +87,6 @@ window.addEventListener("DOMContentLoaded", () => {
         video.pause(); 
       }
     };
-    
+
+
 });

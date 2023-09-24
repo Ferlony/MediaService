@@ -2,7 +2,8 @@ import os.path
 from threading import Thread, Timer
 
 import asyncio
-import uvicorn
+from hypercorn.config import Config
+from hypercorn.asyncio import serve
 
 from router import app
 from config_dataclass import ConfigData
@@ -19,9 +20,14 @@ async def main():
     if not os.path.exists(ConfigData.log_auth):
         open(ConfigData.log_auth, "w")
 
-    config = uvicorn.Config("main_MediaService:app", host=ConfigData.config_host, port=ConfigData.config_port, log_level="info")
-    server = uvicorn.Server(config)
-    await server.serve()
+    #config = uvicorn.Config("main_MediaService:app", host=ConfigData.config_host, port=ConfigData.config_port, log_level="info")
+    #server = uvicorn.Server(config)
+    #await server.serve()
+
+    config = Config()
+    config.from_toml("hypercorn_config.toml")
+
+    await serve(app, config)
 
 
 if __name__ == "__main__":
@@ -31,3 +37,4 @@ if __name__ == "__main__":
 
     server_th = Thread(target=asyncio.run(main()))
     server_th.start()
+
