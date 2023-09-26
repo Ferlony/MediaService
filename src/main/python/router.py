@@ -4,7 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi import FastAPI, Request
 from fastapi import Depends
-from starlette.responses import RedirectResponse
+from starlette.responses import RedirectResponse, FileResponse
 
 from security import get_current_username
 from security import auth_logger
@@ -52,6 +52,13 @@ app.mount(
 )
 
 templates = Jinja2Templates(directory=ConfigData.front_path + "src/" + "templates")
+
+
+@app.get("/vid/{file_path:path}")
+async def get_static_vid(file_path: str):
+    response = FileResponse(f"vid/{file_path}")
+    response.headers["X-Custom-Header"] = "Hi from static vid"
+    return response
 
 
 # Index
