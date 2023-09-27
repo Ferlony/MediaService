@@ -32,7 +32,6 @@ build-back:
 	cd ../../.. &&\
 	cp configs/media_service_config.ini src/main/python/config.ini &&\
 	cp configs/parsers_config.ini src/main/python/multi_parser/src/config.ini &&\
-	cp configs/hypercorn_config.toml src/main/python/multi_parser/src/hypercorn_config.toml &&\
 	cd src/main/python/ &&\
 	python3 -m venv venv &&\
 	. venv/bin/activate &&\
@@ -74,3 +73,6 @@ no-docker-start:
 	cd src/main/python/ &&\
 	. venv/bin/activate &&\
 	nohup python3 main_MediaService.py &
+
+no-docker-logs:
+	tail -f src/main/python/nohup.out

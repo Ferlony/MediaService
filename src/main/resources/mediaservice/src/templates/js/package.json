@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "shaka-player": "^4.4.2"
+  }
+}

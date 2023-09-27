@@ -1,16 +1,17 @@
-from typing import Annotated
+from os import stat
 
+from typing import Annotated, Optional
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from fastapi import FastAPI, Request
-from fastapi import Depends
-from starlette.responses import RedirectResponse, FileResponse
+from fastapi import (FastAPI, Request, Depends, Header)
+from starlette.responses import (RedirectResponse)
 
 from security import get_current_username
 from security import auth_logger
 import file_worker
 from config_dataclass import ConfigData
 from models import ParserModel
+from media_response import MediaResponse
 
 
 app = FastAPI()
@@ -52,13 +53,6 @@ app.mount(
 )
 
 templates = Jinja2Templates(directory=ConfigData.front_path + "src/" + "templates")
-
-
-@app.get("/vid/{file_path:path}")
-async def get_static_vid(file_path: str):
-    response = FileResponse(f"vid/{file_path}")
-    response.headers["X-Custom-Header"] = "Hi from static vid"
-    return response
 
 
 # Index
@@ -112,12 +106,32 @@ async def videos(request: Request, username: Annotated[str, Depends(get_current_
 async def video_directory(request: Request, directory, username: Annotated[str, Depends(get_current_username)]):
     auth_logger.log_attempt_new_connection_host(request.client.host)
     files = file_worker.get_files_in_directory(directory, ConfigData.video_path, True)
-    return templates.TemplateResponse(
+    response = templates.TemplateResponse(
         "videos.html", {"request": request,
                         "directory": directory,
                         "title": "videos",
-                        "list": files, "username": username}
-    )
+                        "list": files, "username": username})
+    # response.headers["Accept-Ranges"] = "bytes"
+    return response
+
+
+@app.get("/media_vid/{file_dir}/{file_path}")
+async def media(file_dir: str, file_path: str, range_header: Optional[str] = Header('bytes=0-', alias="Range")):
+    print(file_path)
+
+    if '..' in file_path:
+        raise Exception(file_path + ' is not allowed')
+
+    full_path = ConfigData.video_path + file_dir + "/" + file_path
+    start, end = range_header.strip('bytes=').split('-')
+    start = int(start)
+    size = stat(full_path)[6]
+    end = min(size-1, start+10)
+    return MediaResponse(path=full_path, status_code=206, offset=start, headers={
+        'Accept-Ranges': 'bytes',
+        'Content-Range': 'bytes %s-%s/%s' % (start, end, size),
+        'Content-Length': str(size-start)
+    })
 
 
 # Music
