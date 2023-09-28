@@ -72,4 +72,14 @@
     max-height: 70vh !important;
     cursor: pointer !important;
   }
+
+  .my-video-wraper {
+    border: solid black 2px !important;
+    border-radius: 1px !important;
+    min-width: 70vw !important;
+    min-height: 70vh !important;
+    max-width: 70vw !important;
+    max-height: 70vh !important;
+    cursor: pointer !important;
+  }
   
