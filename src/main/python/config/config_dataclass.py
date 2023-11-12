@@ -1,3 +1,5 @@
+from os import sep
+
 import configparser
 from dataclasses import dataclass
 
@@ -5,7 +7,7 @@ from dataclasses import dataclass
 @dataclass
 class ConfigData:
     front_path = "../resources/mediaservice/"
-    log_auth = "auth.log"
+    log_auth = f"log{sep}auth.log"
 
     config = configparser.ConfigParser()
     config.read("config.ini")
@@ -23,3 +25,6 @@ class ConfigData:
 
     user = str(config["SECRETS"]["user"])
     password = str(config["SECRETS"]["password"])
+
+    secret: str = config["SECRETS"]["secret"]
+    algorithm: str = config["SECRETS"]["algorithm"]

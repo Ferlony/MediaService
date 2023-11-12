@@ -5,7 +5,7 @@ import secrets
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
-from config_dataclass import ConfigData
+from src.main.python.config.config_dataclass import ConfigData
 
 
 class AuthLog:

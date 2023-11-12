@@ -6,10 +6,10 @@ from fastapi.templating import Jinja2Templates
 from fastapi import (FastAPI, Request, Depends, Header)
 from starlette.responses import (RedirectResponse)
 
-from security import get_current_username
-from security import auth_logger
+from security.security import get_current_username
+from security.security import auth_logger
 import file_worker
-from config_dataclass import ConfigData
+from config.config_dataclass import ConfigData
 from models import ParserModel
 from media_response import MediaResponse
 
@@ -62,6 +62,22 @@ async def root(request: Request, username: Annotated[str, Depends(get_current_us
     return templates.TemplateResponse(
         "index.html", {"request": request, "username": username}
     )
+
+
+@app.get("/register")
+async def register(request: Request, username: Annotated[str, Depends(get_current_username)]):
+    auth_logger.log_attempt_new_connection_host(request.client.host)
+    return templates.TemplateResponse(
+        "register.html", {"request": request, "username": username}
+    )    
+
+
+@app.get("/login")
+async def login(request: Request, username: Annotated[str, Depends(get_current_username)]):
+    auth_logger.log_attempt_new_connection_host(request.client.host)
+    return templates.TemplateResponse(
+        "login.html", {"request": request, "username": username}
+    )    
 
 
 # Pictures

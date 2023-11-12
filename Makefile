@@ -30,7 +30,7 @@ build-back:
 	cd src/main/python/ &&\
   git clone https://github.com/Ferlony/multi_parser.git &&\
 	cd ../../.. &&\
-	cp configs/media_service_config.ini src/main/python/config.ini &&\
+	cp configs/media_service_config.ini src/main/python/config/config.ini &&\
 	cp configs/parsers_config.ini src/main/python/multi_parser/src/config.ini &&\
 	cd src/main/python/ &&\
 	python3 -m venv venv &&\
@@ -72,7 +72,7 @@ no-docker-remove: remove-back remove-front
 no-docker-start:
 	cd src/main/python/ &&\
 	. venv/bin/activate &&\
-	nohup python3 main_MediaService.py &
+	nohup python3 -m main_MediaService.py &
 
 no-docker-logs:
 	tail -f src/main/python/nohup.out

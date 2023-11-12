@@ -5,15 +5,15 @@
     <link href="{{ url_for('static', path='styles/main.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', path='styles/parsers.css') }}" rel="stylesheet">
   </head>
-  {% block javascript %}
-    <script type="text/javascript">
-        {% include "js/parsers.js" %}
-    </script>
-  {% endblock %}
-
  
 
   <body class="background-colour">
+    {% block javascript %}
+    <script type="text/javascript">
+        {% include "js/parsers.js" %}
+    </script>
+    {% endblock %}
+    
     <div>
        <a href="/">
            <div class="div-box" style="background-color: darkslategray;">

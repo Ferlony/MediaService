@@ -6,9 +6,9 @@ import asyncio
 # from hypercorn.asyncio import serve
 import uvicorn
 
-from router import app
-from config_dataclass import ConfigData
-from security import auth_logger
+from src.main.python.router import app
+from config.config_dataclass import ConfigData
+from security.security import auth_logger
 
 
 class RepeatTimer(Timer):

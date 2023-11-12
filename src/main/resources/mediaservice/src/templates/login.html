@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+        <link href="{{ url_for('static', path='assets/favicon.ico')}}" rel="icon" type="image/x-icon">
+        <link href="{{ url_for('static', path='styles/main.css') }}" rel="stylesheet">
+    </head>
+
+
+    <body class="background-colour">
+        {% block javascript %}
+        <script type="text/javascript">
+            {% include "js/login.js"}
+        </script>
+        {% endblock %}
+
+        <div>
+            <p>Login:</p>
+            <input id="login">
+            
+            <p>Password</p>
+            <input id="password">
+
+            <button onclick="">Submit</button>
+
+            <h1 id="responseStatus"></h1>
+        </div>
+    </body>
+</html>
