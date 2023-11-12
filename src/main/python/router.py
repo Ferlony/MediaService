@@ -6,12 +6,12 @@ from fastapi.templating import Jinja2Templates
 from fastapi import (FastAPI, Request, Depends, Header)
 from starlette.responses import (RedirectResponse)
 
-from security.security import get_current_username
-from security.security import auth_logger
-import file_worker
-from config.config_dataclass import ConfigData
-from models import ParserModel
-from media_response import MediaResponse
+from src.main.python.security.security import get_current_username
+from src.main.python.security.security import auth_logger
+import src.main.python.file_worker as file_worker
+from src.main.python.config.config_dataclass import ConfigData
+from src.main.python.models import ParserModel
+from src.main.python.media_response import MediaResponse
 
 
 app = FastAPI()

@@ -3,7 +3,7 @@ from subprocess import Popen
 
 from natsort import natsorted
 
-import enums
+import src.main.python.enums as enums
 
 
 images_formats = [".jpg", ".jpeg", ".png"]

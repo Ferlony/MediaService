@@ -28,7 +28,7 @@ start:
 #	cp configs/hypercorn_config.toml src/main/python/multi_parser/src/hypercorn_config.toml &&\ 
 build-back:
 	cd src/main/python/ &&\
-  git clone https://github.com/Ferlony/multi_parser.git &&\
+	git clone https://github.com/Ferlony/multi_parser.git &&\
 	cd ../../.. &&\
 	cp configs/media_service_config.ini src/main/python/config/config.ini &&\
 	cp configs/parsers_config.ini src/main/python/multi_parser/src/config.ini &&\
@@ -58,9 +58,9 @@ remove-back:
 
 remove-front:
 	rm -rf src/main/resources/mediaservice/src/templates/js/node_modules/* &&\
-	rm src/main/resources/mediaservice/src/templates/js/node_modules/*.json &&\
-	rm src/main/resources/mediaservice/src/templates/js/*.json &&\
 	echo "front removed"
+#	rm src/main/resources/mediaservice/src/templates/js/node_modules/*.json &&\
+#	rm src/main/resources/mediaservice/src/templates/js/*.json &&\
 
 
 no-docker-build: build-back build-front
@@ -72,7 +72,7 @@ no-docker-remove: remove-back remove-front
 no-docker-start:
 	cd src/main/python/ &&\
 	. venv/bin/activate &&\
-	nohup python3 -m main_MediaService.py &
+	nohup python3 -m python -m src.main.python.main_MediaService &
 
 no-docker-logs:
 	tail -f src/main/python/nohup.out

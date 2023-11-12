@@ -7,8 +7,8 @@ import asyncio
 import uvicorn
 
 from src.main.python.router import app
-from config.config_dataclass import ConfigData
-from security.security import auth_logger
+from src.main.python.config.config_dataclass import ConfigData
+from src.main.python.security.security import auth_logger
 
 
 class RepeatTimer(Timer):
@@ -21,7 +21,11 @@ async def main():
     if not os.path.exists(ConfigData.log_auth):
         open(ConfigData.log_auth, "w")
 
-    config = uvicorn.Config("main_MediaService:app", host=ConfigData.config_host, port=ConfigData.config_port, log_level="info")
+    config = uvicorn.Config("src.main.python.main_MediaService:app",
+                            host=ConfigData.config_host,
+                            port=ConfigData.config_port,
+                            log_level="info")
+
     server = uvicorn.Server(config)
     await server.serve()
 

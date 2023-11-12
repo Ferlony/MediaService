@@ -1,16 +1,14 @@
-from os import sep
-
 import configparser
 from dataclasses import dataclass
 
 
 @dataclass
 class ConfigData:
-    front_path = "../resources/mediaservice/"
-    log_auth = f"log{sep}auth.log"
+    front_path = "./src/main/resources/mediaservice/"
+    log_auth = f"src/main/python/log/auth.log"
 
     config = configparser.ConfigParser()
-    config.read("config.ini")
+    config.read("src/main/python/config/config.ini")
     config_host = str(config["DEFAULT"]["host"])
     config_port = int(config["DEFAULT"]["port"])
     timer = float(config["DEFAULT"]["timer"])
