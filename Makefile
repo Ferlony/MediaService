@@ -72,7 +72,8 @@ no-docker-remove: remove-back remove-front
 no-docker-start:
 	cd src/main/python/ &&\
 	. venv/bin/activate &&\
-	nohup python3 -m python -m src.main.python.main_MediaService &
+	cd ../../.. &&\
+	nohup python -m src.main.python.main_MediaService &
 
 no-docker-logs:
 	tail -f src/main/python/nohup.out

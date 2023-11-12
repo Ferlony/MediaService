@@ -5,6 +5,8 @@ from dataclasses import dataclass
 @dataclass
 class ConfigData:
     front_path = "./src/main/resources/mediaservice/"
+    db_path = "./src/main/python/local/db.sqlite3"
+
     log_auth = f"src/main/python/log/auth.log"
 
     config = configparser.ConfigParser()
