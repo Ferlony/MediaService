@@ -29,17 +29,17 @@ start:
 build-back:
 	cd src/main/python/ &&\
 	git clone https://github.com/Ferlony/multi_parser.git &&\
-	mkdir local &&\
 	cd ../../.. &&\
 	cp configs/media_service_config.ini src/main/python/config/config.ini &&\
 	cp configs/parsers_config.ini src/main/python/multi_parser/src/config.ini &&\
 	cd src/main/python/ &&\
-	python3 -m venv venv &&\
+	python3.11 -m venv venv &&\
 	. venv/bin/activate &&\
 	pip install -r requirements.txt &&\
 	pip install -r multi_parser/requirements.txt &&\
 	echo "back finished building"
 
+	#mkdir local &&\
 
 build-front:
 	echo "$PWD" &&\
