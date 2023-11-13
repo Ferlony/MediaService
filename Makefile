@@ -78,3 +78,10 @@ no-docker-start:
 
 no-docker-logs:
 	tail -f src/main/python/nohup.out
+
+work-with-db:
+	cd src/main/python/ &&\
+	. venv/bin/activate &&\
+	cd ../../.. &&\
+	python -m src.main.python.db.user_worker_db
+
