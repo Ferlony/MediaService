@@ -4,3 +4,6 @@ auth.log
 nohup.out
 hypercorn_config.toml
 local
+multi_parser
+venv
+

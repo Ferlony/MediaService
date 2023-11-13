@@ -29,6 +29,7 @@ start:
 build-back:
 	cd src/main/python/ &&\
 	git clone https://github.com/Ferlony/multi_parser.git &&\
+	mkdir local &&\
 	cd ../../.. &&\
 	cp configs/media_service_config.ini src/main/python/config/config.ini &&\
 	cp configs/parsers_config.ini src/main/python/multi_parser/src/config.ini &&\
