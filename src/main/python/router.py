@@ -127,7 +127,9 @@ async def login(request: Request):
 @app.post("/login")
 async def post_login(request: Request, item: UserSchema):
     if check_user_password(item.username, item.password):
-        return signJWT(item.username)
+        jwt = signJWT(item.username)
+        print(jwt)
+        return jwt
     return {"error": "Incorrect user or password"}
 
 

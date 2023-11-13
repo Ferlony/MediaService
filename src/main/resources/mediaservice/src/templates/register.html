@@ -8,9 +8,39 @@
 
 
     <body class="background-colour">
-        <div>
+        {% block javascript %}
+        <script type="text/javascript">
+            {% include "js/login.js" %}
+        </script>
+        {% endblock %}
 
+        <div>
+            <a href="/">
+                <div class="div-box" style="background-color: darkslategray;">
+                    <h3>Home</h3>
+                </div>
+            </a>
+            <a href="/base">
+                <div class="div-box" style="background-color: darkslategray;">
+                    <h3>Base</h3>
+                </div>
+            </a>
         </div>
 
+        <div class="center-screen">
+            <h1>Register</h1>
+            <p>Username:</p>
+            <input id="login">
+            
+            <p>Password</p>
+            <input type="password" id="password">
+            
+            <div>
+                <br>
+                <button onclick="loginButton()">Submit</button>
+            </div>
+
+            <h1 id="responseStatus"></h1>
+        </div>
     </body>
 </html>

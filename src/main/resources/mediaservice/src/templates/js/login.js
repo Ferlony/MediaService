@@ -25,7 +25,14 @@ async function loginButton(){
     };
 
     var responseStatus = await postForUser(bodyjson);
+    var status = setTokenToLocalStorage(responseStatus);
+    //console.log(responseStatus);
+    document.getElementById("responseStatus").innerHTML = status;
+}
 
-    console.log(responseStatus);
-    document.getElementById("responseStatus").innerHTML = responseStatus;
+function setTokenToLocalStorage(data){
+    jwt = JSON.parse(data);
+    //sessionStorage.setItem("access_token", jwt["access_token"]);
+    document.cookie = 'access_token=' + jwt["access_token"]; 
+    return "Token set";
 }
