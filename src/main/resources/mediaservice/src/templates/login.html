@@ -10,7 +10,7 @@
     <body class="background-colour">
         {% block javascript %}
         <script type="text/javascript">
-            {% include "js/login.js"}
+            {% include "js/login.js" %}
         </script>
         {% endblock %}
 
@@ -21,7 +21,7 @@
             <p>Password</p>
             <input id="password">
 
-            <button onclick="">Submit</button>
+            <button onclick="loginButton()">Submit</button>
 
             <h1 id="responseStatus"></h1>
         </div>

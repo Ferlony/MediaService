@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>404</title>
+        <link href="{{ url_for('static', path='assets/favicon.ico')}}" rel="icon" type="image/x-icon">
+        <link href="{{ url_for('static', path='styles/main.css') }}" rel="stylesheet">
+    </head>
+
+
+    <body class="background-colour">
+        <div>
+            <h1>404 not found</h1>
+            <img
+                src="{{url_for('static', path='assests/not_found.png')}}"
+                alt="Not found image" 
+            />
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,211 @@
+INFO:     Started server process [5970]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:53490 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33232 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33232 - "GET /openapi.json HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 426, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/fastapi/applications.py", line 276, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 184, in __call__
+    raise exc
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    raise exc
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/fastapi/middleware/asyncexitstack.py", line 21, in __call__
+    raise e
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/fastapi/applications.py", line 231, in openapi
+    return JSONResponse(self.openapi())
+                        ^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/fastapi/applications.py", line 206, in openapi
+    self.openapi_schema = get_openapi(
+                          ^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/fastapi/openapi/utils.py", line 428, in get_openapi
+    result = get_openapi_path(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/fastapi/openapi/utils.py", line 220, in get_openapi_path
+    operation_parameters = get_openapi_operation_parameters(
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/fastapi/openapi/utils.py", line 103, in get_openapi_operation_parameters
+    "schema": field_schema(
+              ^^^^^^^^^^^^^
+  File "pydantic/schema.py", line 249, in pydantic.schema.field_schema
+  File "pydantic/schema.py", line 217, in pydantic.schema.get_field_info_schema
+  File "pydantic/schema.py", line 992, in pydantic.schema.encode_default
+  File "pydantic/schema.py", line 991, in genexpr
+  File "pydantic/schema.py", line 996, in pydantic.schema.encode_default
+  File "pydantic/json.py", line 90, in pydantic.json.pydantic_encoder
+TypeError: Object of type 'Depends' is not JSON serializable
+INFO:     Started server process [7081]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:53716 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53716 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59882 - "GET / HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:33728 - "GET /login HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 426, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/fastapi/applications.py", line 276, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 184, in __call__
+    raise exc
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    raise exc
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/fastapi/middleware/asyncexitstack.py", line 21, in __call__
+    raise e
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/fastapi/routing.py", line 237, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/fastapi/routing.py", line 163, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/router.py", line 94, in login
+    return templates.TemplateResponse(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/templating.py", line 112, in TemplateResponse
+    template = self.get_template(name)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/templating.py", line 94, in get_template
+    return self.env.get_template(name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/jinja2/loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "src/main/resources/mediaservice/src/templates/login.html", line 13, in template
+    {% include "js/login.js"}
+jinja2.exceptions.TemplateSyntaxError: unexpected '}'
+INFO:     127.0.0.1:33742 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50670 - "GET /login HTTP/1.1" 200 OK
+INFO:     Started server process [11482]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:42634 - "GET / HTTP/1.1" 307 Temporary Redirect
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [11482]
+INFO:     Started server process [11688]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:33614 - "GET / HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/fastapi/middleware/asyncexitstack.py", line 21, in __call__
+    raise e
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/fastapi/routing.py", line 227, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/fastapi/dependencies/utils.py", line 622, in solve_dependencies
+    solved = await call(**sub_values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/security/auth_bearer.py", line 12, in __call__
+    credentials: HTTPAuthorizationCredentials = await super(JWTBearer, self).__call__(request)
+                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/fastapi/security/http.py", line 120, in __call__
+    raise HTTPException(
+fastapi.exceptions.HTTPException
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 426, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/fastapi/applications.py", line 276, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 184, in __call__
+    raise exc
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 88, in __call__
+    response = await handler(request, exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/theuser/Programs/Python/MediaService/src/main/python/router.py", line 65, in not_allowed_exception_handler
+    return RedirectResponse("http://" + ConfigData.config_host + ":" + ConfigData.config_port + "/base")
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~
+TypeError: can only concatenate str (not "int") to str
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [11688]
+INFO:     Started server process [12323]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:33878 - "GET / HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:33878 - "GET /base HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33878 - "GET /login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33878 - "GET /register HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33878 - "GET /login HTTP/1.1" 200 OK

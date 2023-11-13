@@ -4,4 +4,5 @@ wenv
 .mypy_cache
 Test
 notes.txt
+nohup.out
 
