@@ -11,10 +11,10 @@ from src.main.python.config.config_dataclass import ConfigData
 from src.main.python.security.security import auth_logger
 
 
-# class RepeatTimer(Timer):
-#     def run(self):
-#         while not self.finished.wait(self.interval):
-#             self.function(*self.args, **self.kwargs)
+class RepeatTimer(Timer):
+    def run(self):
+        while not self.finished.wait(self.interval):
+            self.function(*self.args, **self.kwargs)
 
 
 async def main():
@@ -37,8 +37,8 @@ async def main():
 
 if __name__ == "__main__":
 
-    # timer = RepeatTimer(ConfigData.timer, auth_logger.set_default_current_client_host)
-    # timer.start()
+    timer = RepeatTimer(ConfigData.timer, auth_logger.set_default_current_client_host)
+    timer.start()
 
     server_th = Thread(target=asyncio.run(main()))
     server_th.start()

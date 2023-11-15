@@ -128,8 +128,24 @@ async def login(request: Request):
 async def post_login(request: Request, item: UserSchema):
     if check_user_password(item.username, item.password):
         jwt = signJWT(item.username)
+        # TODO last auth
         return jwt
     return {"error": "Incorrect user or password"}
+
+
+# Profile
+@app.get("/profile", dependencies=[Depends(JWTBearer())])
+async def get_profile(request: Request):
+    auth_logger.log_attempt_new_connection_host(request.client.host)
+    return templates.TemplateResponse(
+        "profile.html", {"request": request,
+                        "last_auth": }
+    )
+
+
+@app.patch("profile/sync", dependencies=[Depends(JWTBearer())])
+async def sync_profile(request: Request):
+    auth_logger.log_attempt_new_connection_host(request.client.host)
 
 
 # Pictures

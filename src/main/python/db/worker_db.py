@@ -30,13 +30,18 @@ def init_database():
     #     print(e)
     # finally:
     _create_database()
-    add_user(ConfigData.user, hash_data(ConfigData.password), "admin", True)
+    reg_date = datetime.now()
+    add_user(ConfigData.user, hash_data(ConfigData.password), "admin", reg_date, None, None, None, True)
 
 
-def add_user(username, password, role, is_active):
+def add_user(username, password, role, register_date, previous_auth, current_auth, sync_data, is_active):
     user = Users(username=username,
                  password=password,
                  role=role,
+                 register_date=register_date,
+                 previous_auth=previous_auth,
+                 current_auth=current_auth,
+                 sync_data=sync_data,
                  is_active=is_active)
     add_data(user)
 
