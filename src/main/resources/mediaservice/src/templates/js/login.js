@@ -33,6 +33,11 @@ async function loginButton(){
 function setTokenToLocalStorage(data){
     jwt = JSON.parse(data);
     //sessionStorage.setItem("access_token", jwt["access_token"]);
-    document.cookie = 'access_token=' + jwt["access_token"]; 
+    const cookieName = "access_token";
+    const cookieValue = jwt["access_token"];
+    const daysToExpire = new Date(2147483647 * 1000).toUTCString();
+
+    document.cookie = cookieName + '=' + cookieValue + '; expires=' + daysToExpire;
+
     return "Token set";
 }
