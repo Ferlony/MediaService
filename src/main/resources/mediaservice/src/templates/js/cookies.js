@@ -28,6 +28,6 @@ function getOrCreateCookie(cookiename, cookietype){
 
 function getCurrentDate() {
   let d = new Date(new Date().toLocaleString("en-US", {timeZone: "Europe/Dublin"})); // timezone: UTC-0
-  var datestring =  d.getDate().toString() + "-" + (d.getMonth() + 1).toString() + "-" + d.getFullYear().toString() + " " + d.getHours().toString() + ":" + d.getMinutes().toString() + ":" + d.getSeconds().toString();
+  var datestring =  d.getFullYear().toString() + "-" + (d.getMonth() + 1).toString() + "-" + d.getDate().toString() + " " + d.getHours().toString() + ":" + d.getMinutes().toString() + ":" + d.getSeconds().toString();
   return datestring
 }

@@ -28,10 +28,12 @@
 
 .dang-button {
     background-color: #913831; 
+    cursor: pointer;
 }
 
 .dang-button:hover{
     background-color: green !important;
+    color: white !important;
 }
 
 a{

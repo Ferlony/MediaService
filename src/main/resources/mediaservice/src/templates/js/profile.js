@@ -42,6 +42,5 @@ async function syncDevices() {
     var bodyjson = {'sync_data': getAllStorage()}
     var syncData = await patchToSync(bodyjson, "/sync")
     console.log(syncData)
-
-    return 0;
+    document.getElementById("syncStatus").innerHTML = syncData;
 }

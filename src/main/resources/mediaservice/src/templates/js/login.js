@@ -25,9 +25,18 @@ async function loginButton(){
     };
 
     var responseStatus = await postForUser(bodyjson);
-    var status = setTokenToLocalStorage(responseStatus);
+    var status;
+    if (responseStatus == 401) {
+        status = "401 Unauthorized";
+    }
+    else {
+        setTokenToLocalStorage(responseStatus);
+        status = "Token set"
+    }
+
     document.getElementById("responseStatus").innerHTML = status;
 }
+
 
 function setTokenToLocalStorage(data){
     jwt = JSON.parse(data);
@@ -37,6 +46,4 @@ function setTokenToLocalStorage(data){
     const daysToExpire = new Date(2147483647 * 1000).toUTCString();
 
     document.cookie = cookieName + '=' + cookieValue + '; expires=' + daysToExpire;
-
-    return "Token set";
 }

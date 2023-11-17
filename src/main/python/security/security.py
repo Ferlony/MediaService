@@ -5,9 +5,23 @@ from src.main.python.security.hash_data import hash_data
 auth_logger = AuthLog()
 
 
-def check_user_password(username: str, password: str) -> bool:
-    users = get_user(username)
-    for user in users:
-        if user.password == hash_data(password):
-            return True
+def check_user(username: str, password: str):
+    user = get_user(username)
+    print(user)
+    if not user:
         return False
+    if __check_user_password(user, password) and __check_is_activated(user):
+        return True
+    return False
+
+
+def __check_user_password(user, password: str) -> bool:
+    if user.password == hash_data(password):
+        return True
+    return False
+
+
+def __check_is_activated(user) -> bool:
+    if user.is_active:
+        return True
+    return False

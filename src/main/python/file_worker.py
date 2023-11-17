@@ -5,7 +5,7 @@ from datetime import datetime
 from pytz import utc
 from natsort import natsorted
 
-from src.main.python.config.config_dataclass import ConfigData
+# from src.main.python.config.config_dataclass import ConfigData
 import src.main.python.enums as enums
 
 
@@ -157,7 +157,11 @@ def define_parser(item: dict):
     url, parser_type, action = list(item.values())
     if ((parser_type == enums.ParserTypeEnum.youtube.value) or
             (parser_type == enums.ParserTypeEnum.with_headers.value)):
-        Popen(f"cd multi_parser && python3 -m src.main -p {parser_type} -a {action} -u '{url}'", shell=True)
+        try:
+            Popen(f"cd multi_parser && python3 -m src.main -p {parser_type} -a {action} -u '{url}'", shell=True)
+        except Exception as e:
+            print(e)
+            return e
     else:
         return "Something Wrong: " + str(item)
 
@@ -171,4 +175,5 @@ def define_parser(item: dict):
 #     return datetime.strptime(formated_time, ConfigData.date_format)
 
 def get_now_time() -> datetime:
-    return datetime.now(utc)
+    # return datetime.now(utc)
+    return datetime.now()
