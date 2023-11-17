@@ -26,11 +26,20 @@
     text-align: center;
 }
 
+.dang-button {
+    background-color: #913831; 
+}
+
+.dang-button:hover{
+    background-color: green !important;
+}
 
 a{
     text-decoration: none;
     color: white;
 }
+
+
 @media screen and (max-width:1000px) and (orientation:portrait){
     .div-box{
         padding: 5%;

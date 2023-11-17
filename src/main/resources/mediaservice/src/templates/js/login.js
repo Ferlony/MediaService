@@ -26,7 +26,6 @@ async function loginButton(){
 
     var responseStatus = await postForUser(bodyjson);
     var status = setTokenToLocalStorage(responseStatus);
-    //console.log(responseStatus);
     document.getElementById("responseStatus").innerHTML = status;
 }
 

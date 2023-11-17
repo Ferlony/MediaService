@@ -66,7 +66,7 @@ def get_user_last_auth(username: str) -> datetime:
         Users.username == username
     ).one()
 
-    return q
+    return q.previous_auth
 
 
 def update_user_last_auth(username: str, current_auth: datetime) -> None:

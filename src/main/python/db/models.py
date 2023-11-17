@@ -18,17 +18,7 @@ class Users(Base):
     role = Column(String)
 
     register_date = Column(DateTime)
-
     previous_auth = Column(DateTime)
-
-    # {
-    #   sync data: 
-    #   [
-    #       {"key_data1": {"key1": "value1", "key2": "value2"}},  
-    #       {"key_data2": {"key1": "value1", "key2": "value2"}}
-    #   ]
-    # }
-
     sync_data = Column(JSON)
 
     is_active = Column(Boolean)

@@ -28,3 +28,5 @@ class ConfigData:
 
     secret: str = config["SECRETS"]["secret"]
     algorithm: str = config["SECRETS"]["algorithm"]
+
+    date_format = "%d-%m-%Y %H:%M:%S"

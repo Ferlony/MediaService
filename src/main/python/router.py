@@ -1,7 +1,5 @@
+import http
 from os import stat
-from datetime import datetime
-
-from pytz import utc
 
 from typing import Annotated, Optional
 from fastapi.staticfiles import StaticFiles
@@ -17,7 +15,7 @@ from src.main.python.security.auth_handler import (signJWT, decodeJWT)
 
 import src.main.python.file_worker as file_worker
 from src.main.python.config.config_dataclass import ConfigData
-from src.main.python.models import ParserModel, UserSchema
+from src.main.python.models import (ParserModel, UserSchema, SyncSchema)
 from src.main.python.media_response import MediaResponse
 
 from src.main.python.db.worker_db import (
@@ -136,7 +134,7 @@ async def login(request: Request):
 async def post_login(request: Request, item: UserSchema):
     if check_user_password(item.username, item.password):
         jwt = signJWT(item.username)
-        update_user_last_auth(item.username, datetime.now(utc))
+        update_user_last_auth(item.username, file_worker.get_now_time())
         return jwt
     return {"error": "Incorrect user or password"}
 
@@ -145,19 +143,22 @@ async def post_login(request: Request, item: UserSchema):
 @app.get("/profile", dependencies=[Depends(JWTBearer())])
 async def get_profile(request: Request):
     auth_logger.log_attempt_new_connection_host(request.client.host)
-    # TODO get username from access_token
     decoded_JWT = decodeJWT(request.cookies.get("access_token"))
     username = decoded_JWT["username"]
     previous_auth = get_user_last_auth(username)
     return templates.TemplateResponse(
         "profile.html", {"request": request,
-                        "previous_auth": previous_auth}
+                         "username": username,
+                         "previous_auth": previous_auth}
     )
 
 
-@app.patch("profile/sync", dependencies=[Depends(JWTBearer())])
-async def sync_profile(request: Request):
+@app.patch("/profile/sync", dependencies=[Depends(JWTBearer())])
+async def sync_profile(request: Request, sync_data: SyncSchema):
     auth_logger.log_attempt_new_connection_host(request.client.host)
+    print(sync_data)
+    return http.HTTPStatus.OK
+    # TODO sync algorythm
 
 
 # Pictures

@@ -1,8 +1,11 @@
 import os
 from subprocess import Popen
+from datetime import datetime
 
+from pytz import utc
 from natsort import natsorted
 
+from src.main.python.config.config_dataclass import ConfigData
 import src.main.python.enums as enums
 
 
@@ -159,3 +162,13 @@ def define_parser(item: dict):
         return "Something Wrong: " + str(item)
 
     return item
+
+
+# def get_now_time_formated() -> datetime:
+#     now_time = datetime.now(utc)
+#     # TODO optimize
+#     formated_time = now_time.strftime(ConfigData.date_format)
+#     return datetime.strptime(formated_time, ConfigData.date_format)
+
+def get_now_time() -> datetime:
+    return datetime.now(utc)
