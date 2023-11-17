@@ -1,4 +1,7 @@
 from os import stat
+from datetime import datetime
+
+from pytz import utc
 
 from typing import Annotated, Optional
 from fastapi.staticfiles import StaticFiles
@@ -8,14 +11,19 @@ from starlette.responses import (RedirectResponse)
 from fastapi.exceptions import HTTPException
 
 from src.main.python.security.auth_bearer import JWTBearer
-from src.main.python.security.security import auth_logger, check_user_password
+from src.main.python.security.security import (auth_logger, check_user_password)
 # from src.main.python.security.basic_http_auth import get_current_username
-from src.main.python.security.auth_handler import signJWT
+from src.main.python.security.auth_handler import (signJWT, decodeJWT)
 
 import src.main.python.file_worker as file_worker
 from src.main.python.config.config_dataclass import ConfigData
 from src.main.python.models import ParserModel, UserSchema
 from src.main.python.media_response import MediaResponse
+
+from src.main.python.db.worker_db import (
+    get_user_last_auth,
+    update_user_last_auth
+)
 
 
 app = FastAPI()
@@ -128,7 +136,7 @@ async def login(request: Request):
 async def post_login(request: Request, item: UserSchema):
     if check_user_password(item.username, item.password):
         jwt = signJWT(item.username)
-        # TODO last auth
+        update_user_last_auth(item.username, datetime.now(utc))
         return jwt
     return {"error": "Incorrect user or password"}
 
@@ -137,9 +145,13 @@ async def post_login(request: Request, item: UserSchema):
 @app.get("/profile", dependencies=[Depends(JWTBearer())])
 async def get_profile(request: Request):
     auth_logger.log_attempt_new_connection_host(request.client.host)
+    # TODO get username from access_token
+    decoded_JWT = decodeJWT(request.cookies.get("access_token"))
+    username = decoded_JWT["username"]
+    previous_auth = get_user_last_auth(username)
     return templates.TemplateResponse(
         "profile.html", {"request": request,
-                        "last_auth": }
+                        "previous_auth": previous_auth}
     )
 
 
