@@ -169,7 +169,7 @@ async def get_profile(request: Request):
 
 @app.patch("/profile/sync", dependencies=[Depends(JWTBearer())])
 async def sync_profile(request: Request):
-    sync_data = await request.json()
+    sync_data: dict = await request.json()
     auth_logger.log_attempt_new_connection_host(request.client.host)
     decoded_JWT = decodeJWT(request.cookies.get("access_token"))
     username = decoded_JWT["username"]

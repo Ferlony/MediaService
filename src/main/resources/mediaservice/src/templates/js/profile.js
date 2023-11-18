@@ -37,6 +37,10 @@ function getAllStorage() {
     return values;
 }
 
+function updateAllStorage() {
+    
+}
+
 
 async function syncDevices() {
     var bodyjson = {'sync_data': getAllStorage()}

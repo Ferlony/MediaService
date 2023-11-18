@@ -69,7 +69,7 @@ def get_user_last_auth(username: str) -> datetime:
     return q.previous_auth
 
 
-def get_sync_data(username: str) -> Union[dict, None]:
+def get_sync_data(username: str):
     q = session.query(
         Users.sync_data
     ).filter(
@@ -79,7 +79,7 @@ def get_sync_data(username: str) -> Union[dict, None]:
     return q.sync_data
 
 
-def update_sync_data(username: str, sync_data: dict) -> None:
+def update_sync_data(username: str, sync_data) -> None:
     q = session.query(
         Users
     ).filter(
