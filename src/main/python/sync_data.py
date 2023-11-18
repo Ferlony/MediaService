@@ -1,11 +1,9 @@
-import json
 from typing import Union
 from datetime import datetime
 
 from src.main.python.db.worker_db import (get_sync_data, update_sync_data)
 
 
-# TODO
 class SyncData:
     # {
     #   sync_data:
