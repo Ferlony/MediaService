@@ -30,7 +30,7 @@ function getAllStorage() {
 
     for (var i = 0; i < keys.length; i++) {
         var item = {};
-        item[keys[i]] = localStorage.getItem(keys[i]);
+        item[keys[i]] = JSON.parse(localStorage.getItem(keys[i]));
         values.push(item);
     }
 
@@ -41,7 +41,7 @@ function getAllStorage() {
 function updateAllStorage(items) {
     for (var i = 0; i < items.length; i++) {
         key = Object.keys(items[i])[0]
-        localStorage.setItem(key, JSON.stringify(JSON.parse(items[i][key])));
+        localStorage.setItem(key, JSON.stringify(items[i][key]));
     }
 }
 

@@ -44,16 +44,19 @@ class SyncData:
             for each in current_data_list:
                 current_key, current_values = list(each.items())[0]
                 if current_key == to_update_key:
-                    current_to_sync_values = json.loads(current_values)
+                    # current_to_sync_values = json.loads(current_values)
+                    current_to_sync_values = current_values
                     break
             for each in last_data_list:
                 last_key, last_values = list(each.items())[0]
                 if last_key == to_update_key:
-                    last_to_sync_values = json.loads(last_values)
+                    # last_to_sync_values = json.loads(last_values)
+                    last_to_sync_values = last_values
                     break
 
             synced_values = self.__sync_items(current_to_sync_values, last_to_sync_values)
-            synced_data_list.append({to_update_key: json.dumps(synced_values)})
+            synced_data_list.append({to_update_key: synced_values})
+            # synced_data_list.append({to_update_key: json.dumps(synced_values)})
 
         for old_key in list(old_keys):
             for each in last_data_list:
