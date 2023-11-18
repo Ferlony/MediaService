@@ -149,7 +149,12 @@ async def get_profile(request: Request):
     decoded_JWT = decodeJWT(request.cookies.get("access_token"))
     username = decoded_JWT["username"]
 
-    user = get_user(username)
+    users = get_user(username)
+    user = None
+    for each in users:
+        user = each
+        break
+
     role = user.role
     previous_auth = user.previous_auth
     register_date = user.register_date

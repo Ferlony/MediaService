@@ -56,8 +56,7 @@ def get_user(username: str):
         Users.username == username
     ).all()
 
-    for user in q:
-        return user
+    return q
 
 
 def get_user_last_auth(username: str) -> datetime:

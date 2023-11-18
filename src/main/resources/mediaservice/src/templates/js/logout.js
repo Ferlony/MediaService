@@ -5,5 +5,5 @@ function removeCookie(cookieName){
 
 function logoutButton(){
     removeCookie("access_token")
-    document.getElementById("logoutStatus").innerHTML = "JWT removed";
+    document.getElementById("status").innerHTML = "JWT removed";
 }

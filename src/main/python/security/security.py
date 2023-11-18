@@ -6,8 +6,13 @@ auth_logger = AuthLog()
 
 
 def check_user(username: str, password: str):
-    user = get_user(username)
-    print(user)
+    users = get_user(username)
+
+    user = None
+    for each in users:
+        user = each
+        break
+
     if not user:
         return False
     if __check_user_password(user, password) and __check_is_activated(user):
