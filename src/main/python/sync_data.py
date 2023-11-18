@@ -36,15 +36,6 @@ class SyncData:
         new_keys: set = current_data_keys - to_update_keys  # C ~ B*
         old_keys: set = last_data_keys - to_update_keys  # E ~ A*
 
-        print("A*", last_data_list)
-        print("B*", current_data_list)
-
-        print("A", last_data_keys)
-        print("B", current_data_keys)
-        print("C", new_keys)
-        print("D", to_update_keys)
-        print("E", old_keys)
-
         synced_data_list = []
 
         for to_update_key in list(to_update_keys):
@@ -80,11 +71,19 @@ class SyncData:
 
         return {"sync_data": synced_data_list}
 
-    def sync_devices(self, current_data: dict, username: str):
+    def sync_devices(self, current_data: Union[dict, None], username: str):
         last_data = get_sync_data(username)
+
+        if not current_data and not last_data:
+            return None
+
         if not last_data:
             sync_data = current_data
             update_sync_data(username, sync_data)
+            return sync_data
+
+        if not current_data:
+            sync_data = last_data
             return sync_data
 
         sync_data = self.__sync_alg(current_data, last_data)

@@ -37,14 +37,19 @@ function getAllStorage() {
     return values;
 }
 
-function updateAllStorage() {
-    
+
+function updateAllStorage(items) {
+    for (var i = 0; i < items.length; i++) {
+        key = Object.keys(items[i])[0]
+        localStorage.setItem(key, JSON.stringify(JSON.parse(items[i][key])));
+    }
 }
 
 
 async function syncDevices() {
-    var bodyjson = {'sync_data': getAllStorage()}
-    var syncData = await patchToSync(bodyjson, "/sync")
-    console.log(syncData)
+    var bodyjson = {'sync_data': getAllStorage()};
+    var syncData =  await patchToSync(bodyjson, "/sync");
+    var itemsArray = JSON.parse(syncData)["sync_data"];
+    updateAllStorage(itemsArray);
     document.getElementById("status").innerHTML = syncData;
 }
