@@ -2,6 +2,7 @@ from typing import Union
 from datetime import datetime
 
 from src.main.python.db.worker_db import (get_sync_data, update_sync_data)
+from src.main.python.config.config_dataclass import ConfigData
 
 
 class SyncData:
@@ -15,8 +16,8 @@ class SyncData:
 
     @staticmethod
     def __sync_items(current_item: dict, last_item: dict) -> dict:
-        current_date: datetime = current_item["date"]
-        last_date: datetime = last_item["date"]
+        current_date: datetime = datetime.strptime(current_item["date"], ConfigData.date_format)
+        last_date: datetime = datetime.strptime(last_item["date"], ConfigData.date_format)
 
         if current_date > last_date:
             return current_item
