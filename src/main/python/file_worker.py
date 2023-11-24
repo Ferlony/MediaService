@@ -158,7 +158,7 @@ def define_parser(item: dict):
     if ((parser_type == enums.ParserTypeEnum.youtube.value) or
             (parser_type == enums.ParserTypeEnum.with_headers.value)):
         try:
-            Popen(f"cd multi_parser && python3 -m src.main -p {parser_type} -a {action} -u '{url}'", shell=True)
+            Popen(f"cd src/main/python/multi_parser && python3 -m src.main -p {parser_type} -a {action} -u '{url}'", shell=True)
         except Exception as e:
             print(e)
             return e
