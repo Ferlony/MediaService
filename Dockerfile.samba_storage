@@ -1,0 +1,13 @@
+# TODO
+FROM debian:12
+
+USER root
+
+COPY ./configs/for_docker/
+
+RUN apt update && apt upgrade -y &&\
+    apt install samba -y
+
+RUN useradd -m samba &&\
+    printf $passwd | passwd samba
+EXPOSE 445

@@ -1,0 +1,12 @@
+FROM debian:12
+
+RUN apt update && apt upgrade -y &&\
+    apt install transmission-daemon -y
+
+COPY ./configs/for_docker/settings.json /etc/transmission-daemon/settings.json
+
+RUN systemctl stop transmission-daemon.service 
+
+EXPOSE 51413/tcp 51413/udp 8001
+
+CMD ["systemctl", "start", "transmission-daemon.service"]

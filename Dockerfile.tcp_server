@@ -1,0 +1,28 @@
+FROM debian:12
+
+RUN apt update && apt upgrade -y &&\
+    apt install git npm -y
+
+WORKDIR /app
+
+COPY ./src /app/
+RUN git clone https://github.com/Ferlony/multi_parser.git /app/src/main/python/ &&\
+    mkdir /app/src/main/resources/mediaservice/src/templates/js/node_modules/ &&\
+    alias python='python3'
+
+COPY ./configs/for_docker/media_service_config.ini /app/src/main/python/config/config.ini
+COPY ./configs/for_docker/parsers_config.ini /app/src/main/python/multi_parser/src/config.ini
+
+RUN pip install -r requirements.txt &&\
+	pip install -r src/main/python/multi_parser/requirements.txt
+
+RUN python -m src.main.python.db.user_worker_db --option 1
+
+WORKDIR /app/src/main/resources/mediaservice/src/templates/js/node_modules
+RUN npm -i shaka-player
+
+WORKDIR /app
+
+EXPOSE 8000 
+
+CMD ["python", "-m", "src.main.python.main_MediaService"]
