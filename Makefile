@@ -5,7 +5,7 @@ up:
 	docker-compose -f docker-compose.yml up -d
 
 start:
-	docker-compose -f docker-compose.yml start
+	docker-compose -f docker-compose.yml start -d
 
 logs:
 	docker-compose -f docker-compose.yml logs
