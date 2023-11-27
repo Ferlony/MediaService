@@ -3,11 +3,26 @@ FROM debian:12
 
 USER root
 
-COPY ./configs/for_docker/
+COPY ./configs/for_docker/samba /
 
 RUN apt update && apt upgrade -y &&\
     apt install samba -y
 
-RUN useradd -m samba &&\
-    printf $passwd | passwd samba
-EXPOSE 445
+RUN samba_password=$(awk -F "=" '/password/ {print $2}' /samba/samba_share_creds.ini) &&\
+    samba_user=$(awk -F "=" '/username/ {print $2}' /samba/samba_share_creds.ini) &&\
+    useradd -m $samba_user &&\
+    echo "$samba_password" | passwd samba &&\
+    cp /samba/smb.conf /etc/samba/smb.conf &&\
+    mkdir share && mkdir share/multimedia && mkdir share/transmission &&\
+    mkdir share/transmission/downloads && mkdir share/transmission/Downloads &&\
+    mkdir share/multimedia/Pictures &&\
+    mkdir share/multimedia/Videos &&\
+    mkdir share/multimedia/Music &&\
+    mkdir share/multimedia/Files
+
+
+USER $samba_user
+
+EXPOSE 445 137 138 139
+
+CMD ["systemctl", "start", "smbd"]

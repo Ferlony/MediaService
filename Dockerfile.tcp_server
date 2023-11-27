@@ -5,13 +5,18 @@ RUN apt update && apt upgrade -y &&\
 
 WORKDIR /app
 
-COPY ./src /app/
+COPY ./src /app/ 
+
 RUN git clone https://github.com/Ferlony/multi_parser.git /app/src/main/python/ &&\
     mkdir /app/src/main/resources/mediaservice/src/templates/js/node_modules/ &&\
     alias python='python3'
 
 COPY ./configs/for_docker/media_service_config.ini /app/src/main/python/config/config.ini
 COPY ./configs/for_docker/parsers_config.ini /app/src/main/python/multi_parser/src/config.ini
+COPY ./configs/for_docker/samba/fatab /app/
+
+RUN cat /app/fstab >> /etc/fatab &&\
+    mount -a
 
 RUN pip install -r requirements.txt &&\
 	pip install -r src/main/python/multi_parser/requirements.txt

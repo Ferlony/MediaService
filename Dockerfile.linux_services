@@ -3,9 +3,18 @@ FROM debian:12
 RUN apt update && apt upgrade -y &&\
     apt install transmission-daemon -y
 
-COPY ./configs/for_docker/settings.json /etc/transmission-daemon/settings.json
+RUN mkdir settings &&\
+    mkdir /media/samba &&\
+    mkdir /media/samba/multimedia &&\
+    mkdir /media/samba/transmission
 
-RUN systemctl stop transmission-daemon.service 
+COPY ./configs/for_docker/settings.json /etc/transmission-daemon/settings.json
+COPY ./configs/for_docker/samba/fstab /settings/fstab
+COPY ./configs/for_docker/samba_share_creds.txt /settings/
+
+RUN systemctl stop transmission-daemon.service &&\
+    cat /settings/fstab >> /etc/fatab &&\
+    mount -a
 
 EXPOSE 51413/tcp 51413/udp 8001
 
