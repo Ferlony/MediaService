@@ -23,7 +23,6 @@ RUN samba_password=$(awk -F "=" '/password/ {print $2}' /samba/samba_share_creds
 
 USER $samba_user
 
-EXPOSE 445
-# 137 138 139
+EXPOSE 445 137 138 139
 
 CMD ["systemctl", "start", "smbd"]

@@ -9,7 +9,10 @@ services:
       context: .
       dockerfile: Dockerfile.samba_storage
     ports:
-      - 8003:445
+      - 8010:445
+      - 8011:137
+      - 8012:138
+      - 8013:139
   media_service_tcp_server:
     image: media_service_tcp_server
     environment:
