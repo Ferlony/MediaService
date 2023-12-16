@@ -5,34 +5,66 @@ services:
     image: samba_storage
     environment:
       - TZ="Europe/Dublin"
+    env_file: 
+      - .env
     build:
       context: .
       dockerfile: Dockerfile.samba_storage
+      args:
+        samba_user: ${username}
+        samba_password: ${password}
+        samba_domain: ${domain}
     ports:
       - 8010:445
-      - 8011:137
-      - 8012:138
-      - 8013:139
+      # - 8011:137
+      # - 8012:138
+      # - 8013:139
+
   media_service_tcp_server:
     image: media_service_tcp_server
     environment:
       - TZ="Europe/Dublin"
+    env_file: 
+      - .env
     depends_on:
       - samba_storage
+    cap_add:
+      - SYS_ADMIN
+      - DAC_READ_SEARCH
+    security_opt:
+      - apparmor:unconfined
     build:
       context: .
       dockerfile: Dockerfile.tcp_server
+      args:
+        samba_user: ${username}
+        samba_password: ${password}
+        samba_domain: ${domain}
+
     ports:
       - 8000:8000
+
   linux_services:
     image: media_service_linux_services
     environment:
       - TZ="Europe/Dublin"
+    env_file: 
+      - .env
     depends_on:
       - samba_storage
+    cap_add:
+      - SYS_ADMIN
+      - DAC_READ_SEARCH
+    security_opt:
+      - apparmor:unconfined
     build: 
       context: .
       dockerfile: Dockerfile.linux_services
+      args:
+        samba_user: ${username}
+        samba_password: ${password}
+        samba_domain: ${domain}
+
     ports:
       - 51413:51413
       - 51413:51413/udp 

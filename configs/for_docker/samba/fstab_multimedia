@@ -1,0 +1,1 @@
+//0.0.0.0/multimedia /media/samba/multimedia cifs credentials=./samba_share_creds.txt,file_mode=0777,dir_mode=0777,port=8010,iocharset=utf8,sec=ntlmssp 0 0
