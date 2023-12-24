@@ -33,7 +33,11 @@ def init_database():
     # finally:
     _create_database()
     reg_date = get_now_time()
-    add_user(ConfigData.user, hash_data(ConfigData.password), "admin", reg_date, None, None, True)
+    try:
+        add_user(ConfigData.user, hash_data(ConfigData.password), "admin", reg_date, None, None, True)
+    except Exception as e:
+        print(e)
+    return
 
 
 def add_user(username, password, role, register_date, previous_auth, sync_data, is_active):

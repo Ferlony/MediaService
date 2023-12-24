@@ -5,33 +5,32 @@ USER root
 ARG samba_user
 ARG samba_password
 ARG samba_domain
+ARG host_ip
 
 RUN apt update && apt upgrade -y &&\
-    apt install git npm -y
+    apt install git npm python3-pip -y
 
 RUN mkdir settings &&\
     mkdir /media/samba &&\
-    mkdir /media/samba/multimedia &&\
-    mkdir /media/samba/transmission
+    mkdir /media/samba/multimedia
+    # mkdir /media/samba/transmission
 
-COPY ./configs/for_docker/samba/fstab_multimedia /settings/fstab_multimedia
-COPY ./configs/for_docker/samba/fstab_transmission /settings/fstab_transmission
+# COPY ./configs/for_docker/samba/fstab_multimedia /settings/fstab_multimedia
+# COPY ./configs/for_docker/samba/fstab_transmission /settings/fstab_transmission
 # COPY ./configs/for_docker/samba/fstab /settings/fstab
-COPY ./configs/for_docker/samba/samba_share_creds.txt /settings/
+# COPY ./configs/for_docker/samba/samba_share_creds.txt /settings/
 
-WORKDIR /settings
+# WORKDIR /settings
 
 # RUN mount -t cifs $(cat /settings/fstab_multimedia)
 # RUN mount -t cifs $(cat /settings/fstab_transmission)
-RUN mount -t cifs //0.0.0.0/multimedia /media/samba/multimedia -o user=$samba_user,password=$samba_password
-RUN mount -t cifs //0.0.0.0/transmission /media/samba/transmission -o user=$samba_user,password=$samba_password
+# RUN mount -t cifs //$host_ip/multimedia /media/samba/multimedia -o user=$samba_user,password=$samba_password
+# RUN mount -t cifs //$host_ip/transmission /media/samba/transmission -o user=$samba_user,password=$samba_password
 
 # RUN cat /settings/fstab >> /etc/fstab &&\
 #     mount -a
 
 WORKDIR /app
-
-RUN alias python='python3'
 
 COPY ./src/ /app/src/
 COPY ./configs/for_docker/media_service_config.ini /app/src/main/python/config/config.ini
@@ -42,16 +41,18 @@ RUN git clone https://github.com/Ferlony/multi_parser.git /multi_parser &&\
 
 # RUN mkdir /app/src/main/resources/mediaservice/src/templates/js/node_modules/
 
-RUN pip install -r requirements.txt &&\
+RUN rm /usr/lib/python3.*/EXTERNALLY-MANAGED
+
+RUN pip install -r src/main/python/requirements.txt &&\
 	pip install -r src/main/python/multi_parser/requirements.txt
 
-RUN python -m src.main.python.db.user_worker_db --option 1
+RUN python3 -m src.main.python.db.user_worker_db --option 1
 
 WORKDIR /app/src/main/resources/mediaservice/src/templates/js/node_modules
-RUN npm -i shaka-player
+RUN npm i shaka-player
 
 WORKDIR /app
 
 EXPOSE 8000 
 
-CMD ["python", "-m", "src.main.python.main_MediaService"]
+CMD ["python3", "-m", "src.main.python.main_MediaService"]
