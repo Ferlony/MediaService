@@ -7,9 +7,9 @@ services:
       - TZ="Europe/Dublin"
     env_file: 
       - .env
-    volumes:
-      - multimedia:/share/transmission/
-      - transmission:/share/multimedia/
+    # volumes:
+    #   - multimedia:/share/transmission/
+    #   - transmission:/share/multimedia/
     build:
       context: .
       dockerfile: Dockerfile.samba_storage
@@ -19,7 +19,7 @@ services:
         samba_domain: ${domain}
         host_ip: ${host_ip}
     ports:
-      - 8010:445
+      - 445:445
       # - 8011:137
       # - 8012:138
       # - 8013:139
@@ -32,13 +32,13 @@ services:
       - .env
     depends_on:
       - samba_storage
-    cap_add:
-      - SYS_ADMIN
-      - DAC_READ_SEARCH
-    security_opt:
-      - apparmor:unconfined
-    volumes:
-      - multimedia:/media/samba/multimedia/
+    # cap_add:
+    #   - SYS_ADMIN
+    #   - DAC_READ_SEARCH
+    # security_opt:
+    #   - apparmor:unconfined
+    # volumes:
+    #   - multimedia:/media/samba/multimedia/
     build:
       context: .
       dockerfile: Dockerfile.tcp_server
@@ -59,13 +59,8 @@ services:
       - .env
     depends_on:
       - samba_storage
-    cap_add:
-      - SYS_ADMIN
-      - DAC_READ_SEARCH
-    security_opt:
-      - apparmor:unconfined
-    volumes:
-      - transmission:/media/samba/transmission/
+    # volumes:
+    #   - transmission:/media/samba/transmission/
     build: 
       context: .
       dockerfile: Dockerfile.linux_services
@@ -81,16 +76,16 @@ services:
       - 8001:8001
 
 
-volumes:
-  multimedia:
-    name: multimedia
-    driver_opts:
-      type: cifs
-      o: "username=${username},password=${password},port=8010,iocharset=utf8,sec=ntlmssp,vers=3.0,file_mode=0777,dir_mode=0777"
-      device: "//${host_ip}/share/multimedia/"
-  transmission:
-    name: transmission
-    driver_opts:
-      type: cifs
-      o: "username=${username},password=${password},port=8010,iocharset=utf8,sec=ntlmssp,vers=3.0,file_mode=0777,dir_mode=0777"
-      device: "//${host_ip}/share/transmission/"
+# volumes:
+#   multimedia:
+#     name: multimedia
+#     driver_opts:
+#       type: cifs
+#       o: "username=${username},password=${password},port=8010,iocharset=utf8,sec=ntlmssp,vers=3.0,file_mode=0777,dir_mode=0777"
+#       device: "//${host_ip}/share/multimedia/"
+#   transmission:
+#     name: transmission
+#     driver_opts:
+#       type: cifs
+#       o: "username=${username},password=${password},port=8010,iocharset=utf8,sec=ntlmssp,vers=3.0,file_mode=0777,dir_mode=0777"
+#       device: "//${host_ip}/share/transmission/"

@@ -10,6 +10,15 @@ start:
 logs:
 	docker-compose -f docker-compose.yml logs
 
+create-vd:
+	./create_vd.sh -s 1024 &&\
+	
+	if [ ! -d "storage" ]; then \
+  		mkdir storage; \
+	fi &&\
+	mv multimedia_vdisk.img storage/ &&\
+	mv transmission_vdisk.img storage/
+
 
 build-back:
 	cd src/main/python/ &&\
