@@ -5,34 +5,16 @@ USER root
 ARG samba_user
 ARG samba_password
 ARG samba_domain
-ARG host_ip
 
 RUN apt update && apt upgrade -y &&\
     apt install transmission-daemon -y
 
 RUN mkdir settings &&\
     mkdir /media/samba &&\
-    # mkdir /media/samba/multimedia &&\
     mkdir /media/samba/transmission
 
 COPY ./configs/for_docker/settings.json /etc/transmission-daemon/settings.json
-# COPY ./configs/for_docker/samba/fstab_multimedia /settings/fstab_multimedia
-# COPY ./configs/for_docker/samba/fstab_transmission /settings/fstab_transmission
-# COPY ./configs/for_docker/samba/fstab /settings/fstab
-# COPY ./configs/for_docker/samba/samba_share_creds.txt /settings/
-
-WORKDIR /settings
-
-# RUN mount -t cifs $(cat /settings/fstab_multimedia)
-# RUN mount -t cifs $(cat /settings/fstab_transmission)
-# RUN mount -t cifs //$host_ip/multimedia /media/samba/multimedia -o user=$samba_user,password=$samba_password
-# RUN mount -t cifs //$host_ip/transmission /media/samba/transmission -o user=$samba_user,password=$samba_password
-
-# RUN cat /settings/fstab >> /etc/fstab &&\
-#     mount -a
 
 EXPOSE 51413/tcp 51413/udp 8001
-
-USER transmission
 
 CMD ["systemctl", "start", "transmission-daemon.service"]

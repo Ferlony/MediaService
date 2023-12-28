@@ -1,45 +1,12 @@
 version: "3"
 
 services:
-  # samba_storage:
-  #   image: samba_storage
-  #   environment:
-  #     - TZ="Europe/Dublin"
-  #   env_file: 
-  #     - .env
-  #   # volumes:
-  #   #   - multimedia:/share/transmission/
-  #   #   - transmission:/share/multimedia/
-  #   volumes:
-  #     - ./storage/multimedia/:/share/multimedia:rw
-  #     - ./storage/transmission/:/share/transmission:rw
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.samba_storage
-  #     args:
-  #       samba_user: ${username}
-  #       samba_password: ${password}
-  #       samba_domain: ${domain}
-  #       host_ip: ${host_ip}
-  #   ports:
-  #     - 8010:445
-  #     # - 8011:137
-  #     # - 8012:138
-  #     # - 8013:139
-
   media_service_tcp_server:
     image: media_service_tcp_server
     environment:
       - TZ="Europe/Dublin"
     env_file: 
       - .env
-    # depends_on:
-    #   - samba_storage
-    # cap_add:
-    #   - SYS_ADMIN
-    #   - DAC_READ_SEARCH
-    # security_opt:
-    #   - apparmor:unconfined
     volumes:
       - multimedia:/media/samba/multimedia/
     build:
@@ -49,7 +16,6 @@ services:
         samba_user: ${username}
         samba_password: ${password}
         samba_domain: ${domain}
-        host_ip: ${host_ip}
 
     ports:
       - 8000:8000
@@ -60,8 +26,6 @@ services:
       - TZ="Europe/Dublin"
     env_file: 
       - .env
-    # depends_on:
-    #   - samba_storage
     volumes:
       - transmission:/media/samba/transmission/
     build: 
@@ -71,7 +35,6 @@ services:
         samba_user: ${username}
         samba_password: ${password}
         samba_domain: ${domain}
-        host_ip: ${host_ip}
 
     ports:
       - 51413:51413
@@ -85,10 +48,10 @@ volumes:
     driver_opts:
       type: cifs
       o: "username=${username},password=${password},iocharset=utf8,sec=ntlmssp,file_mode=0777,dir_mode=0777"
-      device: "//${host_ip}/share/multimedia/"
+      device: "//${samba_address}/share/multimedia/"
   transmission:
     name: transmission
     driver_opts:
       type: cifs
       o: "username=${username},password=${password},iocharset=utf8,sec=ntlmssp,file_mode=0777,dir_mode=0777"
-      device: "//${host_ip}/share/transmission/"
+      device: "//${samba_address}/share/transmission/"

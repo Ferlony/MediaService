@@ -1,3 +1,0 @@
-username=samba
-password=samba
-domain=samba
