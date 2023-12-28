@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  samba_storage:
+    image: samba_storage
+    environment:
+      - TZ="Europe/Dublin"
+    env_file: 
+      - .env
+    # volumes:
+    #   - multimedia:/share/transmission/
+    #   - transmission:/share/multimedia/
+    # volumes:
+    #   - type: bind
+    #     source: ./storage/multimedia/ 
+    #     target: /share/multimedia/
+    #   - type: bind
+    #     source: ./storage/transmission/ 
+    #     target: /share/transmission/
+    build:
+      context: .
+      dockerfile: Dockerfile.samba_storage
+      args:
+        samba_user: ${username}
+        samba_password: ${password}
+        samba_domain: ${domain}
+        host_ip: ${host_ip}
+    ports:
+      - 8010:445
+      # - 137:137
+      # - 138:138
+      # - 139:139

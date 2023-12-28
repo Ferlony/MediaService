@@ -1,9 +1,10 @@
 #!/bin/bash
 
-while getopts "s:" var
+while getopts "s:n:" var
 do
    case "$var" in
        s) size=${OPTARG};;
+       n) name=${OPTARG};;
    esac
 done
 
@@ -25,12 +26,7 @@ part_disk() {
   ) | fdisk $1
 }
 
-create_disk multimedia_vdisk.img
-create_disk transmission_vdisk.img
 
-part_disk multimedia_vdisk.img
-part_disk transmission_vdisk.img
-
-yes | mkfs.ext4 multimedia_vdisk.img
-yes | mkfs.ext4 transmission_vdisk.img
-
+create_disk $name.img
+part_disk $name.img
+yes | mkfs.ext4 $name.img
