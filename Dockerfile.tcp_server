@@ -13,6 +13,8 @@ RUN mkdir settings &&\
     mkdir /media/samba &&\
     mkdir /media/samba/multimedia
 
+# RUN mount -t cifs //$samba_address/multimedia /media/samba/multimedia -o user=$samba_user,password=$samba_password
+
 WORKDIR /app
 
 COPY ./src/ /app/src/

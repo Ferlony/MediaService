@@ -1,0 +1,20 @@
+FROM alpine:3.19
+
+ARG samba_user
+ARG samba_password
+ARG samba_domain
+ARG samba_address
+
+RUN apk update && apk add --upgrade apk-tools && apk upgrade --available &&\
+    apk add transmission-daemon
+
+RUN mkdir -p /media/samba/ &&\
+    mkdir -p /media/samba/transmission/
+
+# RUN mount -t cifs //$samba_address/transmission /media/samba/transmission -o user=$samba_user,password=$samba_password
+
+COPY ./configs/for_docker/settings.json /etc/transmission-daemon/
+
+EXPOSE 51413/tcp 51413/udp 8001
+
+CMD ["transmission-daemon", "-f", "-g", "/etc/transmission-daemon/"]

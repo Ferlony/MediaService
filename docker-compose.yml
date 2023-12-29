@@ -16,12 +16,13 @@ services:
         samba_user: ${username}
         samba_password: ${password}
         samba_domain: ${domain}
+        samba_address: ${samba_address}
 
     ports:
       - 8000:8000
 
-  linux_services:
-    image: media_service_linux_services
+  transmission_daemon:
+    image: transmission_daemon
     environment:
       - TZ="Europe/Dublin"
     env_file: 
@@ -30,28 +31,28 @@ services:
       - transmission:/media/samba/transmission/
     build: 
       context: .
-      dockerfile: Dockerfile.linux_services
+      dockerfile: Dockerfile.transmission_daemon
       args:
         samba_user: ${username}
         samba_password: ${password}
         samba_domain: ${domain}
+        samba_address: ${samba_address}
 
     ports:
       - 51413:51413
       - 51413:51413/udp 
       - 8001:8001
 
-
 volumes:
   multimedia:
     name: multimedia
     driver_opts:
       type: cifs
-      o: "username=${username},password=${password},iocharset=utf8,sec=ntlmssp,file_mode=0777,dir_mode=0777"
-      device: "//${samba_address}/share/multimedia/"
+      o: "username=${username},password=${password},file_mode=0777,dir_mode=0777"
+      device: "//${samba_address}/multimedia/"
   transmission:
     name: transmission
     driver_opts:
       type: cifs
-      o: "username=${username},password=${password},iocharset=utf8,sec=ntlmssp,file_mode=0777,dir_mode=0777"
-      device: "//${samba_address}/share/transmission/"
+      o: "username=${username},password=${password},file_mode=0777,dir_mode=0777"
+      device: "//${samba_address}/transmission/"
