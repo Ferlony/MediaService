@@ -21,15 +21,12 @@ COPY ./src/ /app/src/
 COPY ./configs/for_docker/media_service_config.ini /app/src/main/python/config/config.ini
 COPY ./configs/for_docker/parsers_config.ini /app/src/main/python/multi_parser/src/config.ini
 
-RUN git clone https://github.com/Ferlony/multi_parser.git /multi_parser &&\
-    mv /multi_parser/ /app/src/main/python/multi_parser
-
-# RUN mkdir /app/src/main/resources/mediaservice/src/templates/js/node_modules/
-
 RUN rm /usr/lib/python3.*/EXTERNALLY-MANAGED
 
-RUN pip install -r src/main/python/requirements.txt &&\
-	pip install -r src/main/python/multi_parser/requirements.txt
+RUN git clone https://github.com/Ferlony/multi_parser.git /multi_parser
+RUN pip install -r /multi_parser/requirements.txt
+RUN mv /multi_parser/ /app/src/main/python/multi_parser
+RUN pip install -r src/main/python/requirements.txt
 
 RUN python3 -m src.main.python.db.user_worker_db --option 1
 
