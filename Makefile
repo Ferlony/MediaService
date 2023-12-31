@@ -25,6 +25,14 @@ build-back:
 		python3.11 -m venv venv ;\
 	fi &&\
 	. venv/bin/activate &&\
+	if [ ! -d "local" ]; then \
+		mkdir local && cd local && touch db.sqlite3 && cd .. ;\
+	else \
+		cd local &&\
+		if [ ! -f "db.sqlite3" ]; then \
+			touch db.sqlite3 && cd .. ; \
+		fi ;\
+	fi &&\
 	pip install -r requirements.txt &&\
 	pip install -r multi_parser/requirements.txt &&\
 	echo "back finished building"
