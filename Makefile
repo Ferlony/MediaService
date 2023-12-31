@@ -10,33 +10,13 @@ start:
 logs:
 	docker-compose -f docker-compose.yml logs
 
-create-vd:
-	./create_vd.sh -s 1024 -n multimedia_vdisk &&\
-	./create_vd.sh -s 1024 -n transmission_vdisk &&\
-	if [ ! -d "storage" ]; then \
-  		mkdir storage; \
-	fi &&\
-	mv multimedia_vdisk.img storage/ &&\
-	mv transmission_vdisk.img storage/ &&\
-	cd storage/ &&\
-	if [ ! -d "multimedia" ]; then \
-  		mkdir multimedia; \
-	fi &&\
-	if [ ! -d "transmission" ]; then \
-  		mkdir transmission; \
-	fi &&\
-	cd ..
-
-privileged-mount:
-	cd storage &&\
-	mount -o loop ./multimedia_vdisk.img ./multimedia/ &&\
-	mount -o loop ./transmission_vdisk.img ./transmission/ &&\
-	cd ..
-
-
 build-back:
 	cd src/main/python/ &&\
-	git clone https://github.com/Ferlony/multi_parser.git &&\
+	if [ -d "multi_parser" ]; then \
+    cd multi_parser && git pull origin main && cd .. ; \
+	else \
+		git clone https://github.com/Ferlony/multi_parser.git ;\
+  fi &&\
 	cd ../../.. &&\
 	cp configs/media_service_config.ini src/main/python/config/config.ini &&\
 	cp configs/parsers_config.ini src/main/python/multi_parser/src/config.ini &&\
@@ -49,7 +29,11 @@ build-back:
 
 build-front:
 	echo "$PWD" &&\
-	cd src/main/resources/mediaservice/src/templates/js/node_modules/ &&\
+	cd src/main/resources/mediaservice/src/templates/js/ &&\
+	if [! -d "node_modules"]; then \
+		mkdir node_modules;\
+	fi &&\
+	cd node_modules &&\
 	npm i shaka-player &&\
 	echo "front finished building"
 
