@@ -21,19 +21,18 @@ build-back:
 	cp configs/media_service_config.ini src/main/python/config/config.ini &&\
 	cp configs/parsers_config.ini src/main/python/multi_parser/src/config.ini &&\
 	cd src/main/python/ &&\
-	python3.11 -m venv venv &&\
+	if [ ! -d "venv" ]; then \
+		python3.11 -m venv venv ;\
+	fi &&\
 	. venv/bin/activate &&\
 	pip install -r requirements.txt &&\
 	pip install -r multi_parser/requirements.txt &&\
 	echo "back finished building"
 
 build-front:
-	echo "$PWD" &&\
 	cd src/main/resources/mediaservice/src/templates/js/ &&\
-	if [! -d "node_modules"]; then \
-		mkdir node_modules;\
-	fi &&\
-	cd node_modules &&\
+	mkdir -p node_modules/ &&\
+	cd node_modules/ &&\
 	npm i shaka-player &&\
 	echo "front finished building"
 
@@ -66,5 +65,5 @@ work-with-db:
 	cd src/main/python/ &&\
 	. venv/bin/activate &&\
 	cd ../../.. &&\
-	python -m src.main.python.db.user_worker_db
+	python3 -m src.main.python.db.user_worker_db --option 1
 
