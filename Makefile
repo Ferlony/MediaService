@@ -1,14 +1,12 @@
-build:
-	docker-compose -f docker-compose.yml build
-
 up:
-	docker-compose -f docker-compose.yml up -d
+	VBoxManage startvm alpine-storage --type headless &&\
+	sleep 60 &&\
+	docker-compose up -d
 
 start:
-	docker-compose -f docker-compose.yml start -d
-
-logs:
-	docker-compose -f docker-compose.yml logs
+	VBoxManage startvm alpine-storage --type headless &&\
+	sleep 60 &&\
+	docker-compose start
 
 build-back:
 	cd src/main/python/ &&\
