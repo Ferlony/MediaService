@@ -23,14 +23,6 @@ build-back:
 		python3.11 -m venv venv ;\
 	fi &&\
 	. venv/bin/activate &&\
-	if [ ! -d "local" ]; then \
-		mkdir local && cd local && touch db.sqlite3 && cd .. ;\
-	else \
-		cd local &&\
-		if [ ! -f "db.sqlite3" ]; then \
-			touch db.sqlite3 && cd .. ; \
-		fi ;\
-	fi &&\
 	pip install -r requirements.txt &&\
 	pip install -r multi_parser/requirements.txt &&\
 	echo "back finished building"
@@ -69,6 +61,14 @@ no-docker-logs:
 
 work-with-db:
 	cd src/main/python/ &&\
+	if [ ! -d "local" ]; then \
+		mkdir local && cd local && touch db.sqlite3 && cd .. ;\
+	else \
+		cd local &&\
+		if [ ! -f "db.sqlite3" ]; then \
+			touch db.sqlite3 && cd .. ; \
+		fi ;\
+	fi &&\
 	. venv/bin/activate &&\
 	cd ../../.. &&\
 	python3 -m src.main.python.db.user_worker_db --option 1

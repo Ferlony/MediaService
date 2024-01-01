@@ -6,7 +6,7 @@ ARG samba_user
 ARG samba_password
 ARG samba_domain
 
-RUN apt update && apt upgrade -y &&\
+RUN apt update && apt-get update --fix-missing && apt upgrade -y &&\
     apt install git npm python3-pip -y
 
 RUN mkdir settings &&\
@@ -28,6 +28,7 @@ RUN pip install -r /multi_parser/requirements.txt
 RUN mv /multi_parser/ /app/src/main/python/multi_parser
 RUN pip install -r src/main/python/requirements.txt
 
+RUN mkdir /app/src/main/python/local/ && touch /app/src/main/python/local/db.sqlite3
 RUN python3 -m src.main.python.db.user_worker_db --option 1
 
 WORKDIR /app/src/main/resources/mediaservice/src/templates/js/node_modules
