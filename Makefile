@@ -61,15 +61,16 @@ no-docker-logs:
 
 work-with-db:
 	cd src/main/python/ &&\
+	. venv/bin/activate &&\
 	if [ ! -d "local" ]; then \
 		mkdir local && cd local && touch db.sqlite3 && cd .. ;\
 	else \
 		cd local &&\
 		if [ ! -f "db.sqlite3" ]; then \
-			touch db.sqlite3 && cd .. ; \
-		fi ;\
+			touch db.sqlite3 ; \
+		fi &&\
+		cd .. ;\
 	fi &&\
-	. venv/bin/activate &&\
 	cd ../../.. &&\
 	python3 -m src.main.python.db.user_worker_db --option 1
 
