@@ -18,7 +18,7 @@
                 <div class="div-box">
                     <img class="image-preview" src="{{ url_for(img_prev, path=each["path"]) }}"
                             alt=" " />
-                    <p>{{each["name"]}}</p>
+                    <p class="name-max-width">{{each["name"]}}</p>
                 </div>
             </a>
             {% endfor %}

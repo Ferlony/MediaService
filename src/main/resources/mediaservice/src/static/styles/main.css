@@ -41,9 +41,10 @@ a{
     color: white;
 }
 
-header {
+header, .name-max-width  {
     max-width: 90vw;
 }
+
 
 .login-button {
     width: 240px;
