@@ -1,27 +1,29 @@
-.nav-bar{
+.nav-bar {
     position: fixed;
     right: 20px;
     bottom: 5px;
+    text-align: center;
+    vertical-align: middle;
 }
 
-.div-res{
-    margin-bottom: 20px;
+.div-res {
     color: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.2);
     border: 2px solid;
-    margin: 10px;
+    margin-top: 10px;
     padding: 10px;
-
 }
 
-.img-fit{
+
+.img-fit {
     max-width: 90vw;
     max-height: 90vh;
-
 }
 
-@media screen and (max-width:1000px) and (orientation:portrait){
+@media screen and (max-width:1000px) and (orientation:portrait) {
     .div-res{
         font-size: xx-large;
+        padding: 25px;
     }
+
 }
