@@ -41,6 +41,10 @@ a{
     color: white;
 }
 
+header {
+    max-width: 90vw;
+}
+
 
 @media screen and (max-width:1000px) and (orientation:portrait){
     .div-box{
