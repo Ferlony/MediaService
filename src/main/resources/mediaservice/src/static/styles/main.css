@@ -45,18 +45,42 @@ header {
     max-width: 90vw;
 }
 
+.login-button {
+    width: 240px;
+    margin-top: 50px;
+}
+
+.login-input {
+    width: 240px;
+}
 
 @media screen and (max-width:1000px) and (orientation:portrait){
-    .div-box{
+    .div-box {
         padding: 5%;
         margin: 5%;
         
     }
-    body{
+
+    body {
         font-size: xx-large;
     }
-    .image-preview{
+
+    .image-preview {
         height: 800px;
         width: 800px;
     }
+
+    .login-button {
+        font-size: xx-large;
+        padding: 20px;
+        width: 50vw;
+    }
+
+    .login-input {
+        font-size: xx-large; 
+        padding: 10px;
+        width: 50vw;
+    }
+
+
 }
