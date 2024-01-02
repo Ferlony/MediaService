@@ -42,7 +42,7 @@ a{
 }
 
 header, .name-max-width  {
-    max-width: 90vw;
+    overflow-wrap: break-word;
 }
 
 
