@@ -10,6 +10,7 @@ from src.main.python.db.models import *
 from src.main.python.config.config_dataclass import ConfigData
 from src.main.python.security.hash_data import hash_data
 from src.main.python.file_worker import get_now_time
+from src.main.python.enums import Roles
 
 
 def add_data(data):
@@ -33,14 +34,10 @@ def init_database():
     # finally:
     _create_database()
     reg_date = get_now_time()
-    try:
-        add_user(ConfigData.user, hash_data(ConfigData.password), "admin", reg_date, None, None, True)
-    except Exception as e:
-        print(e)
-    return
+    return add_user(ConfigData.user, ConfigData.password, Roles.admin.name, reg_date, None, None, True)
 
 
-def add_user(username, password, role, register_date, previous_auth, sync_data, is_active):
+def _add_user(username, password, role, register_date, previous_auth, sync_data, is_active):
     user = Users(username=username,
                  password=password,
                  role=role,
@@ -51,6 +48,14 @@ def add_user(username, password, role, register_date, previous_auth, sync_data, 
     if len(get_user(username)) > 0:
         raise Exception("User already exist")
     add_data(user)
+
+def add_user(username, password, role=Roles.user.name, register_date=get_now_time(), previous_auth=None, sync_data=None, is_active=False):
+    try:
+        _add_user(username, hash_data(password), role, register_date, previous_auth, sync_data, is_active)
+        return "User successfully added"
+    except Exception as e:
+        return e
+
 
 
 def get_user(username: str):

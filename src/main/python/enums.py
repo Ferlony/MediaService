@@ -18,3 +18,8 @@ class ParserYoutubeActionEnum(Enum):
 class ParserSonglyricsActionEnum(Enum):
     one_song = 1
     playlist_song = 2
+
+
+class Roles(Enum):
+    admin = 1
+    user = 2

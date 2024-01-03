@@ -23,7 +23,8 @@ from src.main.python.sync_data import SyncData
 from src.main.python.db.worker_db import (
     get_user_last_auth,
     update_user_last_auth,
-    get_user
+    get_user, 
+    add_user
 )
 
 
@@ -79,13 +80,6 @@ async def not_found_exception_handler(request: Request, exc: HTTPException):
     return RedirectResponse("http://" + ConfigData.config_host + ":" + str(ConfigData.config_port) + "/notfound")
 
 
-# Index
-# @app.get("/")
-# async def root(request: Request, username: Annotated[str, Depends(get_current_username)]):
-#     auth_logger.log_attempt_new_connection_host(request.client.host)
-#     return templates.TemplateResponse(
-#         "index.html", {"request": request, "username": username}
-#     )
 @app.get("/", dependencies=[Depends(JWTBearer())])
 async def root(request: Request):
     auth_logger.log_attempt_new_connection_host(request.client.host)
@@ -118,11 +112,9 @@ async def register(request: Request):
     )    
 
 
-# @app.post("/register")
-# async def post_register(request: Request, item: UserSchema):
-#     # TODO register db call
-#
-#     return signJWT(item.username)
+@app.post("/register")
+async def post_register(request: Request, item: UserSchema):
+    return add_user(item.username, item.password)
 
 
 @app.get("/login")

@@ -37,6 +37,20 @@ async function loginButton(){
     document.getElementById("responseStatus").innerHTML = status;
 }
 
+async function registerButton() {
+    var username = document.getElementById("login").value;
+    var password = document.getElementById("password").value;
+
+    var bodyjson = {
+        "username": username,
+        "password": password
+    };
+
+    var responseStatus = await postForUser(bodyjson);
+
+    document.getElementById("responseStatus").innerHTML = responseStatus;
+}
+
 
 function setTokenToLocalStorage(data){
     jwt = JSON.parse(data);
