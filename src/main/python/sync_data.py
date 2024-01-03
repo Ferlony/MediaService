@@ -91,3 +91,7 @@ class SyncData:
         sync_data = self.__sync_alg(current_data, last_data)
         update_sync_data(username, sync_data)
         return sync_data
+    
+    def getdata_user(self, username: str):
+        last_data = get_sync_data(username)
+        return last_data

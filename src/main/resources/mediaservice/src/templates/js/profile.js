@@ -15,14 +15,14 @@ async function patchToSync(bodyjson, path){
 }
 
 
-// Not in use?
-function getNameFromJWT(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) {
-        return parts.pop().split(';').shift();
-    } 
+async function getData(path) {
+    const response = await fetch(url + path, {
+        method: 'GET'
+    }).then(response => response.json());
+
+    return JSON.stringify(response);
 }
+
 
 function getAllStorage() {
     var values = [];
@@ -51,5 +51,15 @@ async function syncDevices() {
     var syncData =  await patchToSync(bodyjson, "/sync");
     var itemsArray = JSON.parse(syncData)["sync_data"];
     updateAllStorage(itemsArray);
+    document.getElementById("statusData").innerHTML = null;
     document.getElementById("status").innerHTML = syncData;
+}
+
+
+async function getDataToLocal() {
+    var savedData = await getData("/getdata");
+    var itemsArray = JSON.parse(savedData)["sync_data"];
+    updateAllStorage(itemsArray);
+    document.getElementById("status").innerHTML = null;
+    document.getElementById("statusData").innerHTML = savedData;
 }

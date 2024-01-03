@@ -176,6 +176,14 @@ async def sync_profile(request: Request):
     return SyncData().sync_devices(sync_data, username)
 
 
+@app.get("/profile/getdata", dependencies=[Depends(JWTBearer())])
+async def getdata_profile(request: Request):
+    auth_logger.log_attempt_new_connection_host(request.client.host)
+    decoded_JWT = decodeJWT(request.cookies.get("access_token"))
+    username = decoded_JWT["username"]
+    return SyncData().getdata_user(username)
+
+
 # Pictures
 @app.get("/pictures", dependencies=[Depends(JWTBearer())])
 async def pictures(request: Request):

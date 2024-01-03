@@ -8,11 +8,24 @@
     margin: 1%;
     padding: 1%;
     text-align: center;
+
 }
 
 .div-box:hover{
     color: #913831;
 }
+/* Test 
+================*/
+.div-box > .div-box:hover > .div-box {
+    background-color: unset !important;
+    color: unset !important;
+}
+
+.dang-button > .dang-button:hover > .dang-button {
+    background-color: unset !important;
+    color: unset !important;
+}
+/*-------------*/
 
 .image-preview{
     height: 600px;
@@ -54,6 +67,7 @@ header, .name-max-width  {
 .login-input {
     width: 240px;
 }
+
 
 @media screen and (max-width:1000px) and (orientation:portrait){
     .div-box {
