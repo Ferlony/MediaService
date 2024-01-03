@@ -217,7 +217,10 @@ async def videos(request: Request):
 @app.get("/videos/{directory}", dependencies=[Depends(JWTBearer())])
 async def video_directory(request: Request, directory):
     auth_logger.log_attempt_new_connection_host(request.client.host)
-    files = file_worker.get_files_in_directory(directory, ConfigData.video_path, True)
+    files = file_worker.check_format(
+        file_worker.get_files_in_directory(directory, ConfigData.video_path, True),
+        ConfigData.allowed_video
+    )
     response = templates.TemplateResponse(
         "videos.html", {"request": request,
                         "directory": directory,
@@ -231,8 +234,8 @@ async def video_directory(request: Request, directory):
 async def media(file_dir: str, file_path: str, range_header: Optional[str] = Header('bytes=0-', alias="Range")):
     print(file_path)
 
-    if '..' in file_path:
-        raise Exception(file_path + ' is not allowed')
+    # if '..' in file_path:
+    #     raise Exception(file_path + ' is not allowed')
 
     full_path = ConfigData.video_path + file_dir + "/" + file_path
     start, end = range_header.strip('bytes=').split('-')
@@ -261,7 +264,10 @@ async def music(request: Request):
 @app.get("/music/{directory}", dependencies=[Depends(JWTBearer())])
 async def music_directory(request: Request, directory):
     auth_logger.log_attempt_new_connection_host(request.client.host)
-    files = file_worker.get_files_in_directory(directory, ConfigData.music_path, True)
+    files = file_worker.check_format(
+        file_worker.get_files_in_directory(directory, ConfigData.music_path, True),
+        ConfigData.allowed_music
+    )
     return templates.TemplateResponse(
         "music.html", {"request": request,
                        "directory": directory,

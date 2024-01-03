@@ -5,11 +5,8 @@ from datetime import datetime
 from pytz import utc
 from natsort import natsorted
 
-# from src.main.python.config.config_dataclass import ConfigData
 import src.main.python.enums as enums
-
-
-images_formats = [".jpg", ".jpeg", ".png"]
+from src.main.python.config.config_dataclass import ConfigData
 
 
 def __get_dirs_in_path(path):
@@ -18,6 +15,15 @@ def __get_dirs_in_path(path):
     for each in files_in_dir:
         if os.path.isdir(path + each):
             out.append(each)
+    return out
+
+
+def check_format(items: list, allowed_format: list) -> list:
+    out = []
+    for each in items:
+        for sign in allowed_format:
+            if each["name"].endswith(sign):
+                out.append(each)
     return out
 
 
@@ -43,7 +49,7 @@ def get_dirs_in_path_with_image(path):
                         break
                     filepath = os.path.join(root, filename)
                     rel_filepath = filepath.replace(path, "")
-                    for sign in images_formats:
+                    for sign in ConfigData.allowed_img:
                         if filename.endswith(sign):
                             files_list.append({"name": each, "path": rel_filepath})
                             flag = True

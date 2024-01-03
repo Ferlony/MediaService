@@ -1,6 +1,8 @@
 import configparser
 from dataclasses import dataclass
 
+from src.main.python.gen_def import read_json
+
 
 @dataclass
 class ConfigData:
@@ -30,3 +32,8 @@ class ConfigData:
     algorithm: str = config["SECRETS"]["algorithm"]
 
     date_format = "%Y-%m-%d %H:%M:%S"
+
+    allowed_formats = read_json("src/main/python/config/allowed_formats.json")
+    allowed_img = allowed_formats["img"]
+    allowed_video = allowed_formats["video"]
+    allowed_music = allowed_formats["music"]
