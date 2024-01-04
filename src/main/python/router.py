@@ -277,6 +277,25 @@ async def music_directory(request: Request, directory):
     )
 
 
+@app.get("/media_mus/{file_dir}/{file_path}", dependencies=[Depends(JWTBearer())])
+async def media(file_dir: str, file_path: str, range_header: Optional[str] = Header('bytes=0-', alias="Range")):
+    print(file_path)
+
+    # if '..' in file_path:
+    #     raise Exception(file_path + ' is not allowed')
+
+    full_path = ConfigData.music_path + file_dir + "/" + file_path
+    start, end = range_header.strip('bytes=').split('-')
+    start = int(start)
+    size = stat(full_path)[6]
+    end = min(size-1, start+10)
+    return MediaResponse(path=full_path, status_code=206, offset=start, headers={
+        'Accept-Ranges': 'bytes',
+        'Content-Range': 'bytes %s-%s/%s' % (start, end, size),
+        'Content-Length': str(size-start)
+    })
+
+
 # Text Files
 @app.get("/textfiles", dependencies=[Depends(JWTBearer())])
 async def textfiles(request: Request):

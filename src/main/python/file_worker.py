@@ -20,6 +20,10 @@ def __get_dirs_in_path(path):
 
 def check_format(items: list, allowed_format: list) -> list:
     out = []
+
+    # print("items\n", items)
+    # print("allowed formats\n", allowed_format)
+
     for each in items:
         for sign in allowed_format:
             if each["name"].endswith(sign):
@@ -164,7 +168,8 @@ def define_parser(item: dict):
     if ((parser_type == enums.ParserTypeEnum.youtube.value) or
             (parser_type == enums.ParserTypeEnum.with_headers.value)):
         try:
-            Popen(f"cd src/main/python/multi_parser && python3 -m src.main -p {parser_type} -a {action} -u '{url}'", shell=True)
+            Popen(f"cd src/main/python/multi_parser && python3 -m src.main -p {parser_type} -a {action} -u '{url}'",
+                  shell=True)
         except Exception as e:
             print(e)
             return e

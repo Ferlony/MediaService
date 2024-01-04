@@ -27,7 +27,7 @@
               <ol>
                 {% for each in list %}
                 <li>
-                    <span class="simp-source" data-src="{{ url_for('mus', path=each["path"]) }}">
+                    <span class="simp-source" data-src="{{ url_for('mus', path=each['path']) }}">
                         {{each["name"]}}
                     </span>
                     <span class="simp-desc">

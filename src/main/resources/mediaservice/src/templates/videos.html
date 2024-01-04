@@ -50,8 +50,7 @@
         <script type="text/javascript">
           var name = "{{ url_for('vid', path=each["name"]) }}";
           var src = "{{ url_for('vid', path=each["path"]) }}";
-          //var ip =  location.host;
-          var media_src = src.replace('vid', 'media_vid');
+          var media_src = src.replace('/vid/', '/media_vid/');
           console.log("media_src", media_src);
           playlist.push({"name": name.substr(name.lastIndexOf("/") + 1),
             "src": media_src});
