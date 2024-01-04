@@ -8,7 +8,6 @@ window.addEventListener("DOMContentLoaded", () => {
   // (A2) AUDIO PLAYER & GET HTML CONTROLS
   const audio = new Audio(),
         aPlay = document.getElementById("aPlay"),
-        // aPlayIco = document.getElementById("aPlayIco"),
         aNow = document.getElementById("aNow"),
         aTime = document.getElementById("aTime"),
         aSeek = document.getElementById("aSeek"),
@@ -154,11 +153,25 @@ window.addEventListener("DOMContentLoaded", () => {
   aVolIco.addEventListener("click", () => {
     audio.volume = audio.volume==0 ? 1 : 0 ;
     aVolume.value = audio.volume;
-    aVolIco.innerHTML = (aVolume.value==0 ? "volume_mute" : "volume_up");
+    toggleVolumeIcon(aVolume.value);
+
   });
+
+  function toggleVolumeIcon(volumeValue) {
+    var elem = document.getElementById("aVolIco");
+    if (volumeValue == 0) {
+      elem.classList.remove("button-volume");
+      elem.classList.add("button-mute");
+    }
+    else {
+      elem.classList.remove("button-mute");
+      elem.classList.add("button-volume");
+    }
+  }
+
   aVolume.addEventListener("change", () => {
     audio.volume = aVolume.value;
-    aVolIco.innerHTML = (aVolume.value==0 ? "volume_mute" : "volume_up");
+    toggleVolumeIcon(aVolume.value);
   });
 
   // (G) ENABLE/DISABLE CONTROLS
