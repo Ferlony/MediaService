@@ -4,9 +4,20 @@
         <title>Music - {{directory}}</title>
         <link href="{{ url_for('static', path='styles/main.css') }}" rel="stylesheet">
         <link href="{{ url_for('static', path='styles/music.css') }}" rel="stylesheet">
+        <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
         <link href="{{ url_for('static', path='styles/buttons.css') }}" rel="stylesheet">
         <link href="{{ url_for('static', path='assets/favicon.ico')}}" rel="icon" type="image/x-icon">
     </head>
+
+
+    {% block javascript %}
+    <script type="text/javascript">
+        const cookiename = "{{directory}}";
+        {% include "js/cookies.js" %}
+        {% include "js/music_player.js" %}
+    </script>
+    {% endblock %}
+
 
     <body class="background-colour">
         <div>
@@ -22,33 +33,48 @@
             </a>
         </div>
         
-        <div class="simple-audio-player" id="simp" data-config='{"shide_top":false,"shide_btm":false,"auto_load":false}'>
-            <div class="simp-playlist">
-              <ol>
-                {% for each in list %}
-                <li>
-                    <span class="simp-source" data-src="{{ url_for('mus', path=each['path']) }}">
-                        {{each["name"]}}
-                    </span>
-                    <span class="simp-desc">
-                        {{each["dir_name"]}}
-                    </span>
-                </li>
-                {% endfor %}
-              </ol>
+        <div id="aWrap">
+            <!--Current track-->
+            <div id="currentTrack">
+
             </div>
-            <div class="simp-footer"></div>
+            
+            <!-- (A) PLAY/PAUSE BUTTON -->
+            <div id="aPlay" class="button-play">
+            </div>
+      
+            <!-- (B) TIME -->
+            <div id="aCron">
+              <span id="aNow"></span> / <span id="aTime"></span>
+            </div>
+      
+            <!-- (C) SEEK BAR -->
+            <input id="aSeek" type="range" min="0" value="0" step="1" disabled>
+      
+            <!-- (D) VOLUME SLIDE -->
+            <span id="aVolIco" class="material-icons">volume_up</span>
+            <input id="aVolume" type="range" min="0" max="1" value="1" step="0.1" disabled>
+      
+            <!-- (E) PLAYLIST -->
+            <div id="aList"></div>
           </div>
 
-        {% block javascript %}
-        <script type="text/javascript">
-            const cookiename = "{{directory}}";
-            {% include "js/cookies.js" %}
-            {% include "js/music_player.js" %}
-        </script>
-        {% endblock %}
-        
-
+          {% for each in list %}
+          <script type="text/javascript">
+            var name = "{{ url_for('mus', path=each["name"]) }}";
+            var src = "{{ url_for('mus', path=each["path"]) }}";
+            var album = "{{ url_for('mus', path=each["dir_name"]) }}";
+            var media_src = src.replace('/mus/', '/media_mus/');
+            console.log("media_src", media_src);
+            playlist.push(
+                {
+                    "name": name.substr(name.lastIndexOf("/") + 1),
+                    "src": media_src,
+                    "album": album
+                }
+            );
+          </script>
+          {% endfor %}
 
     </body>
 </html>
