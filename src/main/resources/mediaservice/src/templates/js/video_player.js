@@ -65,10 +65,8 @@ window.addEventListener("DOMContentLoaded", () => {
     // (B4) AUTOPLAY NEXT VIDEO IN THE PLAYLIST
     video.addEventListener("ended", () => {
       vidNow++;
-      setCookieToLocalStorage(genCookie(cookietype, vidNow), cookiename);
       if (vidNow >= playlist.length) { 
         vidNow = 0; 
-        setCookieToLocalStorage(genCookie(cookietype, vidNow), cookiename);
       }
       vidPlay(vidNow);
     });

@@ -31,51 +31,56 @@
                 </div>
             </a>
         </div>
+
+
+        <div class="wrapper">
+            <div class="current-item">
+                <b id="currentTrack"></b>
+                <p id="currentAlbum"></p>
+            </div>
         
-        <div id="aWrap">
-            <!--Current track-->
-            <div id="currentTrack">
+            <div id="aWrap">
+                <!--Current track-->
+    
+                <div class="button-back size-button" onclick="prevSong()"></div>
+                
+                <!-- (A) PLAY/PAUSE BUTTON -->
+                <div id="aPlay" class="button-play">
+                </div>
+        
+                <div class="button-next size-button" onclick="nextSong()"></div>
 
+                <!-- (B) TIME -->
+                <div id="aCron">
+                <span id="aNow"></span> / <span id="aTime"></span>
+                </div>
+        
+                <!-- (C) SEEK BAR -->
+                <input id="aSeek" type="range" min="0" value="0" step="1" disabled>
+                <!-- (D) VOLUME SLIDE -->
+                
+                <span id="aVolIco" class="button-volume"></span>
+                <input id="aVolume" type="range" min="0" max="1" value="1" step="0.1" disabled>
+        
+                <!-- (E) PLAYLIST -->
+                <div id="aList"></div>
+                {% for each in list %}
+                <script type="text/javascript">
+                    var name = "{{ url_for('mus', path=each["name"]) }}";
+                    var src = "{{ url_for('mus', path=each["path"]) }}";
+                    var album = "{{directory}}";
+                    var media_src = src.replace('/mus/', '/media_mus/');
+                    console.log("media_src", media_src);
+                    playlist.push(
+                        {
+                            "name": name.substr(name.lastIndexOf("/") + 1),
+                            "src": media_src,
+                            "album": album
+                        }
+                    );
+                </script>
+                {% endfor %}
             </div>
-            
-            <div class="button-back size-button"></div>
-            
-            <!-- (A) PLAY/PAUSE BUTTON -->
-            <div id="aPlay" class="button-play">
-            </div>
-      
-            <div class="button-next size-button"></div>
-
-            <!-- (B) TIME -->
-            <div id="aCron">
-              <span id="aNow"></span> / <span id="aTime"></span>
-            </div>
-      
-            <!-- (C) SEEK BAR -->
-            <input id="aSeek" type="range" min="0" value="0" step="1" disabled>
-            <!-- (D) VOLUME SLIDE -->
-            
-            <span id="aVolIco" class="button-volume"></span>
-            <input id="aVolume" type="range" min="0" max="1" value="1" step="0.1" disabled>
-      
-            <!-- (E) PLAYLIST -->
-            <div id="aList"></div>
-            {% for each in list %}
-            <script type="text/javascript">
-                var name = "{{ url_for('mus', path=each["name"]) }}";
-                var src = "{{ url_for('mus', path=each["path"]) }}";
-                var album = "{{ url_for('mus', path=each["dir_name"]) }}";
-                var media_src = src.replace('/mus/', '/media_mus/');
-                console.log("media_src", media_src);
-                playlist.push(
-                    {
-                        "name": name.substr(name.lastIndexOf("/") + 1),
-                        "src": media_src,
-                        "album": album
-                    }
-                );
-            </script>
-            {% endfor %}
         </div>
 
     </body>

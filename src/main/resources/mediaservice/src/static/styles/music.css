@@ -5,14 +5,21 @@
     flex-wrap: wrap;
     align-items: center;
     box-sizing: border-box;
-    padding: 10px;
-    border-radius: 10px;
-    background: #484848;
+}
 
+.wrapper {
+    background: #484848;
     position: absolute;
     max-width: 60vw;
     min-width: 60vw;
+    left: 20%;
+    right: 20%;
+    padding: 10px;
+    border-radius: 10px;
+}
 
+.current-item {
+    padding-bottom: 10px;
 }
 
 .size-button {

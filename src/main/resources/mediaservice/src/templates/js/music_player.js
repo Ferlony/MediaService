@@ -2,6 +2,9 @@ let playlist = []
 const cookietype = "music";
 console.log(playlist);
 
+let cookie = getOrCreateCookie(cookiename, cookietype);
+var audNow = cookie['playnow'] // current song
+
 window.addEventListener("DOMContentLoaded", () => {
   // (A) PLAYER INIT
 
@@ -24,7 +27,7 @@ window.addEventListener("DOMContentLoaded", () => {
     else {
       row.className = "aRow color-mod";
     }
-    row.innerHTML = String((Number(i) + 1)) + ". " + playlist[i]["name"] + "\n" + "";
+    row.innerHTML = String((Number(i) + 1)) + ". " + playlist[i]["name"] + "&nbsp;&nbsp;&nbsp;&nbsp;" + playlist[i]["album"];
     row.addEventListener("click", () => audPlay(i));
     playlist[i]["row"] = row;
     aList.appendChild(row);
@@ -32,15 +35,13 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // (B) PLAY MECHANISM
   // (B1) FLAGS
-  let cookie = getOrCreateCookie(cookiename, cookietype);
-
-  var audNow = cookie['playnow'], // current song
-      audStart = false, // auto start next song
+  var audStart = false, // auto start next song
 
   // (B2) PLAY SELECTED SONG
   audPlay = (idx, nostart) => {
     audNow = idx;
     setCookieToLocalStorage(genCookie(cookietype, audNow), cookiename);
+    setCurrentTrackStatus(playlist[audNow]["name"], playlist[audNow]["album"])
     audStart = nostart ? false : true;
     audio.src = encodeURI(playlist[idx]["src"]);
     for (let i in playlist) {
@@ -62,18 +63,20 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
   // (B4) AUTOPLAY NEXT SONG IN THE PLAYLIST
-  audio.addEventListener("ended", () => {
-    audNow++;
-    setCookieToLocalStorage(genCookie(cookietype, audNow), cookiename);
-    if (audNow >= playlist.length) { 
-      audNow = 0;
-      setCookieToLocalStorage(genCookie(cookietype, audNow), cookiename);
-    }
-    audPlay(audNow);
-  });
+  audio.addEventListener("ended", () => nextSong());
 
   // (B5) INIT SET FIRST SONG
   audPlay(cookie['playnow'], true);
+  setCurrentTrackStatus(playlist[cookie['playnow']]["name"], playlist[cookie['playnow']]["album"]);
+
+
+  function setCurrentTrackStatus(name, album) {
+    var currentTrack = document.getElementById("currentTrack");
+    var currentAlbum = document.getElementById("currentAlbum");
+    currentTrack.innerHTML = name;
+    currentAlbum.innerHTML = album;
+  }
+
 
   // (C) PLAY/PAUSE BUTTON
   // (C1) AUTO SET PLAY/PAUSE TEXT
@@ -96,7 +99,7 @@ window.addEventListener("DOMContentLoaded", () => {
   // (C2) CLICK TO PLAY/PAUSE
   aPlay.addEventListener("click", () => playAudio());
 
-  function playAudio(){
+  function playAudio() {
     if (audio.paused) { 
       audio.play(); 
     }
@@ -104,6 +107,24 @@ window.addEventListener("DOMContentLoaded", () => {
       audio.pause(); 
     }
   };
+
+  window.nextSong = function() {
+    audNow++;
+    if (audNow >= playlist.length) { 
+      audNow = 0;
+    }
+    audPlay(audNow);
+  }
+
+  window.prevSong = function() {
+    if (audNow == 0) {
+      audNow = playlist.length - 1;
+    }
+    else {
+      audNow--;
+    }
+    audPlay(audNow);
+  }
 
   // (D) TRACK PROGRESS
   // (D1) SUPPORT FUNCTION - FORMAT HH:MM:SS
