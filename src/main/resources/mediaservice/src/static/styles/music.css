@@ -19,7 +19,7 @@
 }
 
 .current-item {
-    padding-bottom: 10px;
+    padding: 10px;
 }
 
 .size-button {
@@ -28,11 +28,13 @@
     cursor: pointer;
 }
 
+.size-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
 /* (C) PLAY/PAUSE BUTTON */
 #aPlay {
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
+
 }
 
 /* (D) TIME */
@@ -89,9 +91,6 @@
 /* (F) VOLUME */
 #aVolIco {
     margin: 0 10px;
-    cursor: pointer;
-    width: 32px;
-    height: 32px;
 }
 
 /* (G) PLAYLIST */
@@ -101,6 +100,23 @@
     margin: 10px;
     color: #7e7e7e;
     background: #353839;
+    
+    max-height: 40vh;
+    scrollbar-color:#73797f #2f3841;
+    overflow-y:auto;
+    overflow-x: auto; 
+
+}
+
+#aList ol::-webkit-scrollbar-track{
+    background-color:#2f3841;
+}
+#aList ol::-webkit-scrollbar{
+    width:6px;
+    background-color:#2f3841;
+}
+#aList ol::-webkit-scrollbar-thumb{
+    background-color:#73797f;
 }
 
 .aRow {
