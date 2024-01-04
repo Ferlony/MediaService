@@ -53,6 +53,9 @@ no-docker-start:
 	cd src/main/python/ &&\
 	. venv/bin/activate &&\
 	cd ../../.. &&\
+	if [ -f "nohup.out" ]; then \
+		cat /dev/null > nohup.out ; \
+	fi &&\
 	nohup python -m src.main.python.main_MediaService &
 
 no-docker-logs:
