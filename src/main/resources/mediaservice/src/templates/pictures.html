@@ -7,6 +7,12 @@
         <link href="{{ url_for('static', path='styles/pictures.css') }}" rel="stylesheet">
     </head>
 
+    {% block javascript %}
+    <script type="text/javascript">
+        {% include "js/pictures.js" %}
+    </script>
+    {% endblock %}
+
     <body class="background-colour">
         <div id="header">
             <a href="/">
@@ -20,6 +26,21 @@
                 </div>
             </a>
         </div>
+
+        {% for each in list %}
+        <script>
+            var name = "{{each['name']}}"
+            var src = "{{ url_for('pic', path=each['path']) }}";
+            picList.push(
+                {
+                    "name": name,
+                    "src": src
+                }
+            );
+
+        </script>
+        
+        {% endfor %}
 
         <header>
             <h1>{{directory}}</h1>
@@ -43,30 +64,24 @@
                     <img class="img-res" src="{{ url_for('static', path='assets/buttons/button_down_down.png') }}"/>
                 </a>
             </div>
-            {% block javascript %}
-            <script type="text/javascript">
-                {% include "js/scrolling.js" %}
-            </script>
-            {% endblock %}
         </div> -->
         <div class="nav-bar">
             <a href="#header"><div class="div-res">OnTop</div></a>
             <a href="#footer"><div class="div-res">OnBot</div></a>
         </div>
+
         <div>
-            <ol>
-                {% for each in list %}
-                <li>
-                    <a href="{{ url_for('pic', path=each["path"]) }}" target="_blank">
-                    <img class="img-fit" src="{{ url_for('pic', path=each["path"]) }}"
-                        alt="Cant load: {{each["name"]}}" />
-                    </a>
-                </li>
-                {% endfor %}
-            </ol>
+            <ul id="picblock">
+
+            </ul>
         </div>
         <footer id="footer">
-            <p>End</p>
+            <div class="div-box" onclick="addNextPics()">
+                More
+            </div>
+            <div class="div-box" onclick="addAllPics()">
+                All
+            </div>
         </footer>
     </body>
 </html>

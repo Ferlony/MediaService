@@ -8,24 +8,13 @@
     margin: 1%;
     padding: 1%;
     text-align: center;
+    cursor: pointer;
 
 }
 
 .div-box:hover{
     color: #913831;
 }
-/* Test 
-================*/
-.div-box > .div-box:hover > .div-box {
-    background-color: unset !important;
-    color: unset !important;
-}
-
-.dang-button > .dang-button:hover > .dang-button {
-    background-color: unset !important;
-    color: unset !important;
-}
-/*-------------*/
 
 .image-preview{
     height: 600px;
