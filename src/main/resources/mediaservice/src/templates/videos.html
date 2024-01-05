@@ -48,12 +48,14 @@
 
         {% for each in list %}
         <script type="text/javascript">
-          var name = "{{ url_for('vid', path=each["name"]) }}";
-          var src = "{{ url_for('vid', path=each["path"]) }}";
-          var media_src = src.replace('/vid/', '/media_vid/');
-          console.log("media_src", media_src);
-          playlist.push({"name": name.substr(name.lastIndexOf("/") + 1),
-            "src": media_src});
+            var name = "{{each['name']}}";
+            var src = "/media_vid/" + "{{each['path']}}";
+            playlist.push(
+                {
+                    "name": name,
+                    "src": src
+                }
+            );
         </script>
         {% endfor %}
 

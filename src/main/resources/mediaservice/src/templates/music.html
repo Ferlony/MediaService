@@ -66,15 +66,13 @@
                 <div id="aList"></div>
                 {% for each in list %}
                 <script type="text/javascript">
-                    var name = "{{ url_for('mus', path=each["name"]) }}";
-                    var src = "{{ url_for('mus', path=each["path"]) }}";
-                    var album = "{{directory}}";
-                    var media_src = src.replace('/mus/', '/media_mus/');
-                    console.log("media_src", media_src);
+                    var name = "{{each['name']}}";
+                    var src = "/media_mus/" + "{{each['path']}}";
+                    var album = "{{each['dir_name']}}";
                     playlist.push(
                         {
-                            "name": name.substr(name.lastIndexOf("/") + 1),
-                            "src": media_src,
+                            "name": name,
+                            "src": src,
                             "album": album
                         }
                     );
