@@ -20,7 +20,7 @@ build-back:
 	cp configs/parsers_config.ini src/main/python/multi_parser/src/config.ini &&\
 	cd src/main/python/ &&\
 	if [ ! -d "venv" ]; then \
-		python3.11 -m venv venv ;\
+		python3 -m venv venv ;\
 	fi &&\
 	. venv/bin/activate &&\
 	pip install -r requirements.txt &&\
