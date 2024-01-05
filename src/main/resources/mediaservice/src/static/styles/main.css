@@ -12,7 +12,21 @@
 
 }
 
+.button-box {
+    border: 2px groove white;
+    margin: 1%;
+    padding: 1%;
+    text-align: left;
+    position: relative;
+    cursor: pointer;
+    max-width: fit-content;
+}
+
 .div-box:hover{
+    color: #913831;
+}
+
+.button-box:hover {
     color: #913831;
 }
 

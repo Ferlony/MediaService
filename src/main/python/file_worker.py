@@ -1,6 +1,8 @@
 import os
 from subprocess import Popen
 from datetime import datetime
+from shutil import make_archive, rmtree, move
+from time import sleep
 
 from pytz import utc
 from natsort import natsorted
@@ -188,3 +190,41 @@ def define_parser(item: dict):
 def get_now_time() -> datetime:
     # return datetime.now(utc)
     return datetime.now()
+
+
+async def make_zip_from_dir(dir_path: str, dir_name: str, path_location: str) -> str:
+    out = dir_name + ".zip"
+    path_location += out
+    if not os.path.exists(path_location):
+        make_archive(base_name=dir_name,
+                     format='zip',
+                     root_dir=dir_path)
+        move(out, path_location)
+        print(f"archive '{out}' has been create")
+
+    while True:
+        if os.path.exists(path_location):
+            break
+        sleep(1)
+
+    return out
+
+
+def clear_tmp():
+    rmtree(ConfigData.tmp_path + "*")
+
+
+def check_tmp_structure():
+    if not os.path.exists(ConfigData.tmp_path + "Pictures/"):
+        os.mkdir(ConfigData.tmp_path + "Pictures/")
+
+    if not os.path.exists(ConfigData.tmp_path + "Music/"):
+        os.mkdir(ConfigData.tmp_path + "Music/")
+
+    if not os.path.exists(ConfigData.tmp_path + "Videos/"):
+        os.mkdir(ConfigData.tmp_path + "Videos/")
+
+    if not os.path.exists(ConfigData.tmp_path + "Text/"):
+        os.mkdir(ConfigData.tmp_path + "Text/")
+
+    return

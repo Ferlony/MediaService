@@ -1,4 +1,5 @@
 import http
+import multiprocessing.pool
 from os import stat
 import json
 from typing import Annotated, Optional, Union
@@ -6,7 +7,7 @@ from typing import Annotated, Optional, Union
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi import (FastAPI, Request, Depends, Header)
-from starlette.responses import (RedirectResponse)
+from starlette.responses import (RedirectResponse, FileResponse)
 from fastapi.exceptions import HTTPException
 
 from src.main.python.security.auth_bearer import JWTBearer
@@ -201,6 +202,15 @@ async def pictures_directory(request: Request, directory):
     )
 
 
+@app.get("/pictures/downloadzip/{dir_path:path}", dependencies=[Depends(JWTBearer())])
+async def download_zip(request: Request, dir_path: str):
+    abs_path = ConfigData.files_path + dir_path
+    dir_name = file_worker.get_dir_name(abs_path)
+    path_location = ConfigData.tmp_path_pic
+    file_zip = await file_worker.make_zip_from_dir(abs_path, dir_name, path_location)
+    return FileResponse(path_location + file_zip, filename=file_zip, media_type='application/octet-stream')
+
+
 # Videos
 @app.get("/videos", dependencies=[Depends(JWTBearer())])
 async def videos(request: Request):
@@ -245,6 +255,15 @@ async def media(request: Request, file_path: str, range_header: Optional[str] = 
         'Content-Range': 'bytes %s-%s/%s' % (start, end, size),
         'Content-Length': str(size-start)
     })
+
+
+@app.get("/videos/downloadzip/{dir_path:path}", dependencies=[Depends(JWTBearer())])
+async def download_zip(request: Request, dir_path: str):
+    abs_path = ConfigData.files_path + dir_path
+    dir_name = file_worker.get_dir_name(abs_path)
+    path_location = ConfigData.tmp_path_vid
+    file_zip = await file_worker.make_zip_from_dir(abs_path, dir_name, path_location)
+    return FileResponse(path_location + file_zip, filename=file_zip, media_type='application/octet-stream')
 
 
 # Music
@@ -292,6 +311,15 @@ async def media(request: Request, file_path: str, range_header: Optional[str] = 
     })
 
 
+@app.get("/music/downloadzip/{dir_path:path}", dependencies=[Depends(JWTBearer())])
+async def download_zip(request: Request, dir_path: str):
+    abs_path = ConfigData.files_path + dir_path
+    dir_name = file_worker.get_dir_name(abs_path)
+    path_location = ConfigData.tmp_path_mus
+    file_zip = await file_worker.make_zip_from_dir(abs_path, dir_name, path_location)
+    return FileResponse(path_location + file_zip, filename=file_zip, media_type='application/octet-stream')
+
+
 # Text Files
 @app.get("/textfiles", dependencies=[Depends(JWTBearer())])
 async def textfiles(request: Request):
@@ -315,6 +343,15 @@ async def textfiles_directory(request: Request, directory):
                           "list": files
                       }
     )
+
+
+@app.get("/textfiles/downloadzip/{dir_path:path}", dependencies=[Depends(JWTBearer())])
+async def download_zip(request: Request, dir_path: str):
+    abs_path = ConfigData.files_path + dir_path
+    dir_name = file_worker.get_dir_name(abs_path)
+    path_location = ConfigData.tmp_path_text
+    file_zip = await file_worker.make_zip_from_dir(abs_path, dir_name, path_location)
+    return FileResponse(path_location + file_zip, filename=file_zip, media_type='application/octet-stream')
 
 
 # Torrents

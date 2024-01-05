@@ -11,12 +11,19 @@ class ConfigData:
 
     log_auth = f"src/main/python/log/auth.log"
 
+    tmp_path = f"src/main/python/tmp/"
+    tmp_path_pic = f"src/main/python/tmp/Pictures/"
+    tmp_path_mus = f"src/main/python/tmp/Music/"
+    tmp_path_vid = f"src/main/python/tmp/Videos/"
+    tmp_path_text = f"src/main/python/tmp/Text/"
+
     config = configparser.ConfigParser()
     config.read("src/main/python/config/config.ini")
     config_host = str(config["DEFAULT"]["host"])
     config_port = int(config["DEFAULT"]["port"])
     timer = float(config["DEFAULT"]["timer"])
 
+    files_path = str(config["FILES"]["files"])
     pictures_path = str(config["FILES"]["pictures"])
     video_path = str(config["FILES"]["video"])
     music_path = str(config["FILES"]["music"])

@@ -14,6 +14,7 @@
         const cookiename = "{{directory}}";
         {% include "js/cookies.js" %}
         {% include "js/music_player.js" %}
+        {% include "js/download_zip.js" %}
     </script>
     {% endblock %}
 
@@ -30,6 +31,9 @@
                     <h3>Music</h3>
                 </div>
             </a>
+        </div>
+        <div class="button-box" onclick="downloadButtonMus('Music/' + '{{directory}}' + '/')">
+            Download zip
         </div>
 
 

@@ -6,4 +6,5 @@ hypercorn_config.toml
 local
 multi_parser
 venv
-
+tmp
+temp

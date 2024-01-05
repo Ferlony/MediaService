@@ -11,6 +11,7 @@
         const cookiename = "{{directory}}"
         {% include "js/cookies.js" %}
         {% include "js/video_player.js" %}
+        {% include "js/download_zip.js" %}
         {% include "js/node_modules/shaka-player/dist/shaka-player.compiled.js" %}
     </script>
     {% endblock %}
@@ -27,6 +28,9 @@
                     <h3>Videos</h3>
                 </div>
             </a>
+        </div>
+        <div class="button-box" onclick="downloadButtonVid('Videos/' + '{{directory}}' + '/')">
+            Download zip
         </div>
 
         <header>

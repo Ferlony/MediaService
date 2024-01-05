@@ -11,10 +11,13 @@ start:
 build-back:
 	cd src/main/python/ &&\
 	if [ -d "multi_parser" ]; then \
-    cd multi_parser && git pull origin main && cd .. ; \
+        cd multi_parser && git pull origin main && cd .. ; \
 	else \
 		git clone https://github.com/Ferlony/multi_parser.git ;\
-  fi &&\
+    fi &&\
+    if [ ! -d "tmp" ]; then \
+        mkdir tmp ; \
+    fi &&\
 	cd ../../.. &&\
 	cp configs/media_service_config.ini src/main/python/config/config.ini &&\
 	cp configs/parsers_config.ini src/main/python/multi_parser/src/config.ini &&\
