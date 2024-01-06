@@ -9,6 +9,8 @@ services:
       - .env
     volumes:
       - multimedia:/media/samba/multimedia/
+    depends_on:
+      - postgres
     build:
       context: .
       dockerfile: Dockerfile.tcp_server

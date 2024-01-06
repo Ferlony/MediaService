@@ -7,7 +7,7 @@ from sqlalchemy.ext.compiler import compiles
 from src.main.python.config.config_dataclass import ConfigData
 
 # engine = create_engine(f'sqlite:///{ConfigData.db_path}')
-engine = create_engine(f"postgresql+psycopg2://{ConfigData.POSTGRES_USER}:{ConfigData.POSTGRES_PASSWORD}@{ConfigData.host}/postgres")
+engine = create_engine(f"postgresql+psycopg2://{ConfigData.POSTGRES_USER}:{ConfigData.POSTGRES_PASSWORD}@{ConfigData.POSTGRES_HOST}/postgres")
 session = scoped_session(sessionmaker(bind=engine))
 
 Base = declarative_base()
