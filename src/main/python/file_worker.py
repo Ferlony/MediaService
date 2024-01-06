@@ -210,8 +210,12 @@ async def make_zip_from_dir(dir_path: str, dir_name: str, path_location: str) ->
     return out
 
 
+# TODO: sync threads
 def clear_tmp():
-    rmtree(ConfigData.tmp_path + "*")
+    rmtree(ConfigData.tmp_path)
+    if not os.path.exists(ConfigData.tmp_path):
+        os.mkdir(ConfigData.tmp_path)
+    check_tmp_structure()
 
 
 def check_tmp_structure():
