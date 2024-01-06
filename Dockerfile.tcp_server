@@ -27,6 +27,7 @@ RUN rm /usr/lib/python3.*/EXTERNALLY-MANAGED
 RUN git clone https://github.com/Ferlony/multi_parser.git /multi_parser
 RUN pip install -r /multi_parser/requirements.txt
 RUN mv /multi_parser/ /app/src/main/python/multi_parser
+RUN mkdir -p /app/src/main/python/tmp
 RUN pip install -r src/main/python/requirements.txt
 RUN pip install psycopg2
 
