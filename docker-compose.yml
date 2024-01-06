@@ -42,6 +42,20 @@ services:
       - 51413:51413
       - 51413:51413/udp 
       - 8001:8001
+    
+  postgres:
+    image: postgres:13.3
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    env_file: 
+      - .env
+    environment:
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+
 
 volumes:
   multimedia:
@@ -56,3 +70,5 @@ volumes:
       type: cifs
       o: "username=${username},password=${password},file_mode=0777,dir_mode=0777"
       device: "//${samba_address}/transmission/"
+  pgdata:
+    name: pgdata_mediaservice

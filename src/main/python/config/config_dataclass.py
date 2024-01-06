@@ -35,6 +35,9 @@ class ConfigData:
     user = str(config["SECRETS"]["user"])
     password = str(config["SECRETS"]["password"])
 
+    POSTGRES_USER=str(config["DB"]["POSTGRES_USER"])
+    POSTGRES_PASSWORD=str(config["DB"]["POSTGRES_PASSWORD"])
+
     secret: str = config["SECRETS"]["secret"]
     algorithm: str = config["SECRETS"]["algorithm"]
 

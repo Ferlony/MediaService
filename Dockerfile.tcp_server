@@ -20,6 +20,7 @@ WORKDIR /app
 COPY ./src/ /app/src/
 COPY ./configs/for_docker/media_service_config.ini /app/src/main/python/config/config.ini
 COPY ./configs/for_docker/parsers_config.ini /app/src/main/python/multi_parser/src/config.ini
+COPY ./configs/for_docker/db.py /app/src/main/python/db/db.py
 
 RUN rm /usr/lib/python3.*/EXTERNALLY-MANAGED
 
