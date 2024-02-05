@@ -70,9 +70,9 @@
                 <div id="aList"></div>
                 {% for each in list %}
                 <script type="text/javascript">
-                    var name = "{{each['name']}}";
-                    var src = "/media_mus/" + "{{each['path']}}";
-                    var album = "{{each['dir_name']}}";
+                 var name = "{{each['name']}}";
+                 var src =  "{{ url_for('mus', path=each['path']) | safe }}";
+                 var album = "{{each['dir_name']}}";
                     playlist.push(
                         {
                             "name": name,

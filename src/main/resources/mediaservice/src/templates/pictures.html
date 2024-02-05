@@ -34,7 +34,7 @@
         {% for each in list %}
         <script>
             var name = "{{each['name']}}"
-            var src = "{{ url_for('pic', path=each['path']) }}";
+            var src = "{{ url_for('pic', path=each['path']) | safe }}";
             picList.push(
                 {
                     "name": name,

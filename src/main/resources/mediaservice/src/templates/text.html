@@ -38,7 +38,7 @@
             <ol>
                 {% for each in list %}
                 <li>
-                    <a href="{{ url_for('text', path=each["path"]) }}" target="_blank" type="text"
+                    <a href="{{ url_for('text', path=each["path"]) | safe }}" target="_blank" type="text"
                       <span>
                         {{each["name"]}}
                       </span>
