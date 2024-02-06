@@ -53,7 +53,7 @@
         {% for each in list %}
         <script type="text/javascript">
             var name = "{{each['name']}}";
-            var src = "{{ url_for('vid', path=each['path']) | safe }}";
+            var src = "{{ url_for('vid', path=each['path']) | safe }}".replace("/vid/", "/media_vid/");
             playlist.push(
                 {
                     "name": name,

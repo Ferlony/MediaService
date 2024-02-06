@@ -71,7 +71,7 @@
                 {% for each in list %}
                 <script type="text/javascript">
                  var name = "{{each['name']}}";
-                 var src =  "{{ url_for('mus', path=each['path']) | safe }}";
+                 var src =  "{{ url_for('mus', path=each['path']) | safe }}".replace("/mus/", "/media_mus/");
                  var album = "{{each['dir_name']}}";
                     playlist.push(
                         {
