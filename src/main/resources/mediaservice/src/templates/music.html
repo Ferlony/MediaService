@@ -65,7 +65,9 @@
                 
                 <span id="aVolIco" class="button-volume size-button"></span>
                 <input id="aVolume" type="range" min="0" max="1" value="1" step="0.1" disabled>
-        
+
+                <div id="aLoop" class="button-loop size-button" style="margin-left: 10px;" onclick="loopSong()"></div>
+
                 <!-- (E) PLAYLIST -->
                 <div id="aList"></div>
                 {% for each in list %}

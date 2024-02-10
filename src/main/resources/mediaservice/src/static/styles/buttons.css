@@ -24,3 +24,11 @@
 .button-shuffle{
     background: url(../assets/buttons/button_shuffle.png);
 }
+
+.button-loop {
+    background: url(../assets/buttons/button_loop.png);
+}
+
+.button-loop-dark {
+    background: url(../assets/buttons/button_loop_dark.png)
+}
