@@ -85,7 +85,8 @@ async def not_found_exception_handler(request: Request, exc: HTTPException):
 async def root(request: Request):
     auth_logger.log_attempt_new_connection_host(request.client.host)
     return templates.TemplateResponse(
-        "index.html", {"request": request}
+        "index.html", {"request": request,
+                       "viewtube": f"http://{ConfigData.config_host}:8066"}
     )
 
 
@@ -110,7 +111,7 @@ async def register(request: Request):
     auth_logger.log_attempt_new_connection_host(request.client.host)
     return templates.TemplateResponse(
         "register.html", {"request": request}
-    )    
+    )
 
 
 @app.post("/register")
@@ -122,8 +123,11 @@ async def post_register(request: Request, item: UserSchema):
 async def login(request: Request):
     auth_logger.log_attempt_new_connection_host(request.client.host)
     return templates.TemplateResponse(
-        "login.html", {"request": request}
-    )    
+        "login.html", {"request": request,
+                       "host": ConfigData.config_host,
+                       "port": ConfigData.config_port
+                       }
+    )
 
 
 @app.post("/login")
