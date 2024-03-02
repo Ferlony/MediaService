@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Blackjack</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"> -->
+        <link rel="stylesheet" href="index.css"> <!-- Custom responsive CSS for this game -->
+        <link href="{{ url_for('static', path='styles/main.css') }}" rel="stylesheet">
+    </head>
+
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+
+        <div class="container">
+
+
+            <div id="header">
+                <a href="/">
+                    <div class="div-box" style="background-color: darkslategray;">
+                        <h3>Home</h3>
+                    </div>
+                </a>
+                <a href="/pictures">
+                    <div class="div-box" style="background-color: darkslategray;">
+                        <h3>Games</h3>
+                    </div>
+                </a>
+            </div>
+
+            <div id="message-el">
+                Want to play a round? <!-- This is where messages appear about the game status -->
+            </div>
+
+            <div class="dealer">
+                <div class="dealer-stats">
+                    <span id="dealer-title">Dealer</span> | <span id="dealer-cards-el">Cards: </span> | <span id="dealer-sum-el">Value: </span>
+                </div>
+                <div class="dealer-cards">
+                    <img src="" id="dcard0">
+                    <img src="" id="dcard1">
+                    <img src="" id="dcard2">
+                    <img src="" id="dcard3">
+                    <img src="" id="dcard4">
+                    <img src="" id="dcard5">
+                    <img src="" id="dcard6">
+                    <img src="" id="dcard7">
+                    <img src="" id="dcard8">
+                    <img src="" id="dcard9">
+                    <img src="" id="dcard10">
+                </div>
+            </div>
+
+
+            <div class="player">
+                <div class="player-stats">
+                    <p><span id="player-title">Player</span> | <span id="pbank">Money: </span> | <span id="cbet">Bet: </span></p>
+                    <p><span id="player-cards-el">Cards: </span> | <span id="player-sum-el">Value: </span></p>
+                </div>
+                <div class="player-cards">
+                    <img src="" id="pcard0">
+                    <img src="" id="pcard1">
+                    <img src="" id="pcard2">
+                    <img src="" id="pcard3">
+                    <img src="" id="pcard4">
+                    <img src="" id="pcard5">
+                    <img src="" id="pcard6">
+                    <img src="" id="pcard7">
+                    <img src="" id="pcard8">
+                    <img src="" id="pcard9">
+                    <img src="" id="pcard10">
+                </div>
+            </div>
+
+
+            <div class="buttonarea">
+                <div class="buttons">
+                    <button id="betbtn1" onclick="betButton1()"></button> <!-- Value of each bet button controlled in JS file -->
+                    <button id="betbtn2" onclick="betButton2()"></button>
+                    <button id="betbtn3" onclick="betButton3()"></button>
+                    <button id="betbtn4" onclick="betButton4()"></button>
+                </div>
+                <div class="buttons2">
+                    <button id="hitbtn" onclick="hitCard()">HIT</button> 
+                    <button id="standbtn" onclick="standCard()">STAND</button>
+                    <button id="doublebtn" onclick="doubleDown()">DOUBLE</button>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stats-leftCol">
+                    <p>Rounds Played: <span id="roundsplayed"></span></p>
+                    <p>Total Bet: <span id="totalbetamount"></span></p>
+                    <p>Cards Drawn: <span id="totalcardsdrawn"></span></p>
+                    <p>Deck Shuffled: <span id="timesdeckshuffled"></span></p>
+                    <p>Amount Won: <span id="totalamountwon"></span></p>
+                    <p>Amount Lost: <span id="totalamountlost"></span></p>
+                </div>
+                <div class="stats-rightCol">
+                    <p>Rounds Won: <span id="roundswon"></span></p>
+                    <p>Rounds Lost: <span id="roundslost"></span></p>
+                    <p>Rounds Tied: <span id="roundstied"></span></p>
+                    <p>Player 21: <span id="playerblackjacks"></span></p>
+                    <p>Dealer 21: <span id="dealerblackjacks"></span></p>
+                    <p>Dealer Busts: <span id="dealerbusts"></span></p>
+                </div>
+
+            </div>
+
+        <script src="index.js"></script>
+
+
+            <div class="help">
+                <h2>Terminology</h2>
+<p>Common collective and individual terms for playing cards that are relevant, but not exclusive to, the 52-card pack are:
+</p>
+<ul><li><b>Face card</b> or <b>court card</b>&#160;&#8211;&#32;a jack, queen or king.</li>
+    <li><b>Honour card</b> – a card that attracts a special bonus or payment for being held or captured in play.<br> In bridge, honours are the aces, the court cards and tens (A, K, Q, J, 10);<br> in whist and related games, the aces and courts (A, K, Q, J).</li>
+<li><b>Wild card</b>&#160;&#8211;&#32; card that may be designated by the owner to represent any other card.</li>
+<li><b>Numerals</b> or <b>pip cards</b> are the cards numbered from 2 to 10.</li>
+<li>"1" cards are usually known as <b>aces</b>.</li>
+<li>"2" cards are also known as <b>deuces</b>.</li>
+<li>"3" cards are also known as <b>treys</b>.</li></ul>
+            </div>
+
+        </div>
+    </body>
+</html>

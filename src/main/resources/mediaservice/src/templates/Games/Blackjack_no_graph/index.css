@@ -1,0 +1,142 @@
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', Arial, sans-serif;
+    background-size: cover;
+    font-weight: bold;
+    color: whitesmoke;
+
+    font-size: 16px;
+    background-color:#353839;
+}
+
+button {
+    color: black;
+    background: goldenrod;
+    padding: 3px;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 2px;
+    margin: 2px;
+}
+
+.help {
+    text-align: left;
+    padding-right: 5vw;
+    padding-left: 5vw;
+}
+
+.container {
+    width: 100%;
+    height: 90vh;
+    text-align: center;
+}
+
+.player {
+    margin: .5%;
+    border-radius: 5px;
+    padding: 50px;
+    border: none;
+    background-color:#333;
+}
+
+.player-stats {
+
+    justify-content: center;
+    text-align: center;
+}
+
+#dealer-title {
+    font-size: 26px;
+}
+
+#player-title {
+    font-size: 26px;
+}
+
+.player-cards {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 2px;
+    column-gap: 2px;
+    justify-content: center;
+    background-color: #666;
+}
+
+.player-cards img {
+    max-width: 7vmax;
+}
+
+.buttonarea {
+    margin: .25%;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.buttons2 {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stats {
+    display: flex;
+    column-gap: 10%;
+    justify-content: center;
+    text-align:left;
+    flex-wrap: wrap;
+    background-color: black;
+    opacity: 80%;
+    margin: .5%;
+}
+
+.dealer {
+    margin: .5%;
+    background-color:#333;
+}
+
+.dealer-stats {
+
+}
+
+.dealer-cards {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 2px;
+    column-gap: 2px;
+    justify-content: center;
+    background-color: #666;
+}
+
+.dealer-cards img { 
+    max-width: 7vmax;
+}
+
+#message-el {
+    font-size: 22px;
+    font-style: italic;
+    align-items: center;
+    background: darkslategray;
+    color: #FFFFFF;
+    margin: .5%;
+}
+
+#pcards0 {
+    max-width: 7vmax;
+    height: 10vmin;
+}
+
+#hitbtn {
+    background:darkgray;
+}
+
+#standbtn {
+    background:darkgray;
+}
+
+#doublebtn {
+    background: darkgray;
+}

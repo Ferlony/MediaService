@@ -3,6 +3,7 @@ import multiprocessing.pool
 from os import stat
 import json
 from typing import Annotated, Optional, Union
+from typing_extensions import deprecated
 
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -85,8 +86,7 @@ async def not_found_exception_handler(request: Request, exc: HTTPException):
 async def root(request: Request):
     auth_logger.log_attempt_new_connection_host(request.client.host)
     return templates.TemplateResponse(
-        "index.html", {"request": request,
-                       "viewtube": f"http://{ConfigData.config_host}:8066"}
+        "index.html", {"request": request}
     )
 
 
@@ -365,6 +365,12 @@ async def torrents(request: Request):
     return RedirectResponse("http://" + ConfigData.config_host_torrents + ":" + ConfigData.config_port_torrents + "/transmission/web/")
 
 
+@app.get("/viewtube", dependencies=[Depends(JWTBearer())])
+async def viewtube(request: Request):
+    auth_logger.log_attempt_new_connection_host(request.client.host)
+    return RedirectResponse("http://" + ConfigData.config_host + ":8066")
+
+
 # Parsers
 @app.get("/parsers", dependencies=[Depends(JWTBearer())])
 async def parsers(request: Request):
@@ -379,3 +385,20 @@ async def parsers(request: Request):
 async def parsers_post(request: Request, item: ParserModel):
     auth_logger.log_attempt_new_connection_host(request.client.host)
     return file_worker.define_parser(dict(item))
+
+
+@app.get("/games", dependencies=[Depends(JWTBearer())])
+async def games(request: Request):
+    auth_logger.log_attempt_new_connection_host(request.client.host)
+    return templates.TemplateResponse (
+        "menus.html", {"request": request,
+                       "title": "games",
+                       "list": file_worker.get_dirs_in_path_with_image(ConfigData.front_path + "src/templates/Games/")}
+    )
+
+@app.get("/games/{directory}", dependencies=[Depends(JWTBearer())])
+async def games_directory(request: Request, directory):
+    auth_logger.log_attempt_new_connection_host(request.client.host)
+    return templates.TemplateResponse(
+        directory + "index.html"
+    )
