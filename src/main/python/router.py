@@ -213,7 +213,7 @@ async def pictures_directory(request: Request, directory):
 
 
 @app.get("/pictures/downloadzip/{dir_path:path}", dependencies=[Depends(JWTBearer())])
-async def download_zip(request: Request, dir_path: str):
+async def download_zip_pic(request: Request, dir_path: str):
     abs_path = ConfigData.files_path + dir_path
     dir_name = file_worker.get_dir_name(abs_path)
     path_location = ConfigData.tmp_path_pic
@@ -251,7 +251,7 @@ async def video_directory(request: Request, directory):
 
 
 @app.get("/media_vid/{file_path:path}", dependencies=[Depends(JWTBearer())])
-async def media(request: Request, file_path: str, range_header: Optional[str] = Header('bytes=0-', alias="Range")):
+async def media_v(request: Request, file_path: str, range_header: Optional[str] = Header('bytes=0-', alias="Range")):
     # if '..' in file_path:
     #     raise Exception(file_path + ' is not allowed')
 
@@ -268,7 +268,7 @@ async def media(request: Request, file_path: str, range_header: Optional[str] = 
 
 
 @app.get("/videos/downloadzip/{dir_path:path}", dependencies=[Depends(JWTBearer())])
-async def download_zip(request: Request, dir_path: str):
+async def download_zip_vid(request: Request, dir_path: str):
     abs_path = ConfigData.files_path + dir_path
     dir_name = file_worker.get_dir_name(abs_path)
     path_location = ConfigData.tmp_path_vid
@@ -305,7 +305,7 @@ async def music_directory(request: Request, directory):
 
 
 @app.get("/media_mus/{file_path:path}", dependencies=[Depends(JWTBearer())])
-async def media(request: Request, file_path: str, range_header: Optional[str] = Header('bytes=0-', alias="Range")):
+async def media_m(request: Request, file_path: str, range_header: Optional[str] = Header('bytes=0-', alias="Range")):
     # if '..' in file_path:
     #     raise Exception(file_path + ' is not allowed')
 
@@ -322,7 +322,7 @@ async def media(request: Request, file_path: str, range_header: Optional[str] = 
 
 
 @app.get("/music/downloadzip/{dir_path:path}", dependencies=[Depends(JWTBearer())])
-async def download_zip(request: Request, dir_path: str):
+async def download_zip_mus(request: Request, dir_path: str):
     abs_path = ConfigData.files_path + dir_path
     dir_name = file_worker.get_dir_name(abs_path)
     path_location = ConfigData.tmp_path_mus
@@ -356,7 +356,7 @@ async def textfiles_directory(request: Request, directory):
 
 
 @app.get("/textfiles/downloadzip/{dir_path:path}", dependencies=[Depends(JWTBearer())])
-async def download_zip(request: Request, dir_path: str):
+async def download_zip_text(request: Request, dir_path: str):
     abs_path = ConfigData.files_path + dir_path
     dir_name = file_worker.get_dir_name(abs_path)
     path_location = ConfigData.tmp_path_text
@@ -371,10 +371,10 @@ async def torrents(request: Request):
     return RedirectResponse("http://" + ConfigData.config_host_torrents + ":" + ConfigData.config_port_torrents + "/transmission/web/")
 
 
-@app.get("/viewtube", dependencies=[Depends(JWTBearer())])
-async def viewtube(request: Request):
+@app.get("/invidious", dependencies=[Depends(JWTBearer())])
+async def invidious(request: Request):
     auth_logger.log_attempt_new_connection_host(request.client.host)
-    return RedirectResponse("http://" + ConfigData.config_host + ":8066")
+    return RedirectResponse("http://" + ConfigData.config_host + ":3000")
 
 
 # Parsers
@@ -413,4 +413,4 @@ async def games_directory(request: Request, directory):
          "title": "games"
          }
     )
-    #return FileResponse(ConfigData.front_path + "src/templates/Games/" + directory + "/index.html")
+
