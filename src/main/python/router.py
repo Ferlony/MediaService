@@ -25,7 +25,7 @@ from src.main.python.sync_data import SyncData
 from src.main.python.db.worker_db import (
     get_user_last_auth,
     update_user_last_auth,
-    get_user, 
+    get_user,
     add_user
 )
 
@@ -66,6 +66,12 @@ app.mount(
     "/node_modules",
     StaticFiles(directory=ConfigData.front_path + "src/" + "templates/" + "js/" + "node_modules"),
     name="node_modules"
+)
+
+app.mount(
+    "/game",
+    StaticFiles(directory=ConfigData.front_path + "src/" + "templates/" + "games"),
+    name="game"
 )
 
 templates = Jinja2Templates(directory=ConfigData.front_path + "src/" + "templates")
@@ -393,12 +399,18 @@ async def games(request: Request):
     return templates.TemplateResponse (
         "menus.html", {"request": request,
                        "title": "games",
-                       "list": file_worker.get_dirs_in_path_with_image(ConfigData.front_path + "src/templates/Games/")}
+                       "img_prev": "text",
+                       "list": file_worker.get_dirs_in_path_with_image(ConfigData.front_path + "src/templates/games/")}
     )
 
 @app.get("/games/{directory}", dependencies=[Depends(JWTBearer())])
 async def games_directory(request: Request, directory):
     auth_logger.log_attempt_new_connection_host(request.client.host)
     return templates.TemplateResponse(
-        directory + "index.html"
+        f"games/{directory}/index.html",
+        {"request": request,
+         "directory": directory,
+         "title": "games"
+         }
     )
+    #return FileResponse(ConfigData.front_path + "src/templates/Games/" + directory + "/index.html")

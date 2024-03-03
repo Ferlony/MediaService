@@ -1,28 +1,19 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
 <html>
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Blackjack</title>
+        <title>{{directory}}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"> -->
-        <link rel="stylesheet" href="index.css"> <!-- Custom responsive CSS for this game -->
+        <link href="{{ url_for('game', path=directory + '/index.css') }}" rel="stylesheet">
         <link href="{{ url_for('static', path='styles/main.css') }}" rel="stylesheet">
+
     </head>
 
     <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
 
 
         <div class="container">
-
 
             <div id="header">
                 <a href="/">
@@ -30,7 +21,7 @@
                         <h3>Home</h3>
                     </div>
                 </a>
-                <a href="/pictures">
+                <a href="/games">
                     <div class="div-box" style="background-color: darkslategray;">
                         <h3>Games</h3>
                     </div>
@@ -38,7 +29,7 @@
             </div>
 
             <div id="message-el">
-                Want to play a round? <!-- This is where messages appear about the game status -->
+                Want to play a round? 
             </div>
 
             <div class="dealer">
@@ -84,7 +75,7 @@
 
             <div class="buttonarea">
                 <div class="buttons">
-                    <button id="betbtn1" onclick="betButton1()"></button> <!-- Value of each bet button controlled in JS file -->
+                    <button id="betbtn1" onclick="betButton1()"></button> 
                     <button id="betbtn2" onclick="betButton2()"></button>
                     <button id="betbtn3" onclick="betButton3()"></button>
                     <button id="betbtn4" onclick="betButton4()"></button>
@@ -116,7 +107,6 @@
 
             </div>
 
-        <script src="index.js"></script>
 
 
             <div class="help">
@@ -133,5 +123,13 @@
             </div>
 
         </div>
+
+
+        {% block javascript %}
+        <script type="text/javascript">
+         {% include ("games/" + directory + "/index.js") %}
+        </script>
+        {% endblock %}
+
     </body>
 </html>
